@@ -375,6 +375,192 @@
     }
   },
   "ejemplos": {
-    "_comment": "Ejemplos de las acciones principales, escritos a mano: los muestra help y el test los corre contra el sandbox. Sin confirm: eso lo decide la persona."
+    "_comment": "Ejemplos de las acciones principales, escritos a mano: los muestra help y test/e2e/ejemplos.test.mjs los corre contra el sandbox. Sin confirm: eso lo decide la persona. Los ids son de ejemplo; el test los cambia por ids del sandbox.",
+    "numbers.list": {
+      "perPage": 20
+    },
+    "numbers.create": {
+      "connection": "qr",
+      "alias": "Sucursal Centro",
+      "country": "mx"
+    },
+    "numbers.get_qr": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.get_status": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.disconnect": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.delete_message_queue": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "messageUids": [
+        "3EB0C431D5E7F2A9B6C1"
+      ]
+    },
+    "connect_links.create": {
+      "type": "qr",
+      "country": "mx",
+      "external_reference": "cliente-8841",
+      "return_url": "https://tu-sistema.com/vuelta"
+    },
+    "messages.send": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "phone": "5491122334455",
+      "text": "Hola Lucía, tu pedido 8841 ya salió.",
+      "client_reference": "pedido-8841"
+    },
+    "messages.send_to_contact": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "contact_id": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "phone": "5491122334455",
+      "text": "Sí, tenemos talle M. ¿Te lo reservo?",
+      "client_reference": "consulta-5521"
+    },
+    "messages.send_template": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template": "tpl_AlgBF7nTNqV0atiwNuKFmT8",
+      "phone": "5491122334455",
+      "template_variables": {
+        "body": {
+          "1": "Lucía"
+        }
+      },
+      "client_reference": "bienvenida-8841"
+    },
+    "messages.forward": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "message": "msg_As2pkZIkjmvC3nnoiFlYfDo",
+      "targets": [
+        {
+          "contact_id": "ctc_AXpXvekJxkQAxurPveX5pXf",
+          "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+        }
+      ],
+      "client_reference": "reenvio-8841"
+    },
+    "messages.typing": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "conversations.list": {
+      "unreadMessages": true
+    },
+    "conversations.list_messages": {
+      "contactId": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "perPage": 20
+    },
+    "contacts.list": {
+      "name": "Ana"
+    },
+    "contacts.create": {
+      "phone": "5491122334455",
+      "name": "Ana Pérez",
+      "email": "ana@ejemplo.com"
+    },
+    "contacts.update_or_create": {
+      "phone": "5491122334455",
+      "name": "Ana Pérez"
+    },
+    "contacts.update": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "name": "Ana Pérez"
+    },
+    "contacts.delete": {
+      "contactIds": [
+        "ctc_AAOzYSKDiqHT4hM8LdPB8Ut"
+      ]
+    },
+    "contacts.update_lead_score_settings": {
+      "hot_threshold": 75,
+      "warm_threshold": 45,
+      "min_signals": 2,
+      "hysteresis": 5,
+      "decay_enabled": true,
+      "decay_steps": [
+        {
+          "days": 7,
+          "points": -5
+        },
+        {
+          "days": 30,
+          "points": -15
+        }
+      ],
+      "rules": [
+        {
+          "id": "pregunta-precio",
+          "signal": "intent_keyword",
+          "mode": "event",
+          "points": 10,
+          "daily_cap": 20,
+          "unique_scope": "none",
+          "enabled": true,
+          "disqualifies": false,
+          "on_release": "keep",
+          "config": {
+            "keywords": [
+              "precio",
+              "cotización",
+              "cuánto cuesta"
+            ]
+          }
+        },
+        {
+          "id": "responde",
+          "signal": "message_reply",
+          "mode": "event",
+          "points": 3,
+          "daily_cap": null,
+          "unique_scope": "none",
+          "enabled": true,
+          "disqualifies": false,
+          "on_release": "keep"
+        }
+      ]
+    },
+    "tags.create": {
+      "name": "Cliente VIP",
+      "description": "Compró más de una vez"
+    },
+    "templates.create": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "name": "pedido_listo",
+      "language_code": "es",
+      "category": "UTILITY",
+      "type": "text",
+      "body": "Hola {{1}}, tu pedido ya está listo para retirar.",
+      "params": {
+        "body": {
+          "1": "{name}"
+        },
+        "samples": {
+          "body": {
+            "1": "Lucía"
+          }
+        }
+      }
+    },
+    "templates.list": {
+      "status": "APPROVED"
+    },
+    "groups.import": {
+      "group": "120363041234567890@g.us",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "webhooks.create": {
+      "url": "https://tu-sistema.com/webhooks/funnelchat",
+      "events": [
+        "message.received",
+        "message.status_changed"
+      ],
+      "description": "CRM de ventas"
+    },
+    "forms.create": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template_key": "lead"
+    }
   }
 }

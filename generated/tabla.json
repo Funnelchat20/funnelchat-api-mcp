@@ -7,7 +7,7 @@
   "operaciones": 253,
   "tools": 18,
   "nombres_a_mano": 30,
-  "ejemplos_a_mano": 0
+  "ejemplos_a_mano": 26
  },
  "tools": [
   {
@@ -57,8 +57,10 @@
        }
       }
      },
-     "example": {},
-     "example_from": "armado"
+     "example": {
+      "perPage": 20
+     },
+     "example_from": "diseno"
     },
     "create": {
      "summary": "Crear un número para conectar por QR",
@@ -137,11 +139,10 @@
      },
      "example": {
       "connection": "qr",
-      "alias": "Sucursal Medellín",
-      "external_reference": "cliente-8901",
-      "country": "co"
+      "alias": "Sucursal Centro",
+      "country": "mx"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver un número",
@@ -432,7 +433,7 @@
      "example": {
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
-     "example_from": "armado",
+     "example_from": "diseno",
      "destructive_reason": "Desconectar un número: no se puede deshacer."
     },
     "get_status": {
@@ -463,7 +464,7 @@
      "example": {
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
-     "example_from": "armado"
+     "example_from": "diseno"
     },
     "list_connection_history": {
      "summary": "Ver el historial de conexión de un número",
@@ -601,7 +602,7 @@
      "example": {
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
-     "example_from": "armado"
+     "example_from": "diseno"
     },
     "get_username": {
      "summary": "Ver el nombre de usuario de un número",
@@ -808,12 +809,12 @@
       }
      },
      "example": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
       "messageUids": [
-       null
-      ],
-      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+       "3EB0C431D5E7F2A9B6C1"
+      ]
      },
-     "example_from": "armado",
+     "example_from": "diseno",
      "destructive_reason": "Saca esos mensajes de la cola: ya no salen."
     },
     "count_message_queue": {
@@ -1150,10 +1151,9 @@
       "type": "qr",
       "country": "mx",
       "external_reference": "cliente-8841",
-      "return_url": "https://tu-sistema.com/vuelta",
-      "expires_in_minutes": 1440
+      "return_url": "https://tu-sistema.com/vuelta"
      },
-     "example_from": "spec",
+     "example_from": "diseno",
      "unavailable": {
       "type": {
        "valores": [
@@ -1411,12 +1411,12 @@
       }
      },
      "example": {
-      "device_id": "dev_AAw80QSHUzB7Htsz5Hrdf7e",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
       "phone": "5491122334455",
-      "text": "Hola Lucía, tu pedido 8841 ya salió. Te avisamos cuando llegue.",
+      "text": "Hola Lucía, tu pedido 8841 ya salió.",
       "client_reference": "pedido-8841"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "send_template": {
      "summary": "Mandar una plantilla",
@@ -1518,18 +1518,17 @@
       }
      },
      "example": {
-      "device": "dev_A0000000000000000000000",
-      "template": "tpl_A0000000000000000000000",
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template": "tpl_AlgBF7nTNqV0atiwNuKFmT8",
       "phone": "5491122334455",
       "template_variables": {
        "body": {
-        "1": "Lucía",
-        "2": "15 de diciembre a las 10:00"
+        "1": "Lucía"
        }
       },
-      "client_reference": "pedido-8841"
+      "client_reference": "bienvenida-8841"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver un mensaje",
@@ -1915,13 +1914,13 @@
      },
      "example": {
       "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
-      "device_id": "dev_AAw80QSHUzB7Htsz5Hrdf7e",
-      "contact_id": "ctc_AN8mtvpPBFQwJJ0lJNkpDzq",
+      "contact_id": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
       "phone": "5491122334455",
       "text": "Sí, tenemos talle M. ¿Te lo reservo?",
       "client_reference": "consulta-5521"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "forward": {
      "summary": "Reenviar un mensaje",
@@ -2007,17 +2006,13 @@
       "message": "msg_As2pkZIkjmvC3nnoiFlYfDo",
       "targets": [
        {
-        "contact_id": "ctc_ArpMVGyzohyDOs0HV3R6Y6D",
-        "device_id": "dev_AAw80QSHUzB7Htsz5Hrdf7e"
-       },
-       {
         "contact_id": "ctc_AXpXvekJxkQAxurPveX5pXf",
-        "device_id": "dev_AAw80QSHUzB7Htsz5Hrdf7e"
+        "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
        }
       ],
-      "client_reference": "promo-noviembre"
+      "client_reference": "reenvio-8841"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "mark_read": {
      "summary": "Marcar un mensaje como leído",
@@ -2193,9 +2188,10 @@
       }
      },
      "example": {
-      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut"
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "send_form": {
      "summary": "Mandar un formulario",
@@ -2643,8 +2639,10 @@
        "desc": "desc (por defecto) o asc, por el último mensaje"
       }
      },
-     "example": {},
-     "example_from": "armado"
+     "example": {
+      "unreadMessages": true
+     },
+     "example_from": "diseno"
     },
     "count_unread": {
      "summary": "Contar las conversaciones sin leer",
@@ -2988,9 +2986,10 @@
       }
      },
      "example": {
-      "contactId": "ctc_A0000000000000000000000"
+      "contactId": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "perPage": 20
      },
-     "example_from": "armado"
+     "example_from": "diseno"
     },
     "list_quick_replies": {
      "summary": "Ver tus respuestas rápidas",
@@ -4074,8 +4073,10 @@
        "desc": "Número de página"
       }
      },
-     "example": {},
-     "example_from": "armado"
+     "example": {
+      "name": "Ana"
+     },
+     "example_from": "diseno"
     },
     "create": {
      "summary": "Crear un contacto",
@@ -4190,7 +4191,7 @@
       "name": "Ana Pérez",
       "email": "ana@ejemplo.com"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "update_or_create": {
      "summary": "Crear o actualizar un contacto",
@@ -4272,10 +4273,9 @@
      },
      "example": {
       "phone": "5491122334455",
-      "name": "Ana Pérez",
-      "email": "ana@ejemplo.com"
+      "name": "Ana Pérez"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver un contacto",
@@ -4460,10 +4460,9 @@
      },
      "example": {
       "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
-      "name": "Ana Pérez",
-      "email": "ana@ejemplo.com"
+      "name": "Ana Pérez"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get_meta_window": {
      "summary": "Ver la ventana de 24 horas de un contacto",
@@ -4923,11 +4922,10 @@
      },
      "example": {
       "contactIds": [
-       "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
-       "ctc_AUBSiYEKyNA2scQaGcDfbZM"
+       "ctc_AAOzYSKDiqHT4hM8LdPB8Ut"
       ]
      },
-     "example_from": "spec",
+     "example_from": "diseno",
      "destructive_reason": "Borra los contactos con su historial. Con all: true borra todos los que cumplen los filtros y, sin filtros, todos los contactos de la cuenta."
     },
     "list_notes": {
@@ -5456,22 +5454,6 @@
       ],
       "rules": [
        {
-        "id": "cliente-vip",
-        "signal": "tag_added",
-        "mode": "event",
-        "points": 20,
-        "daily_cap": null,
-        "unique_scope": "contact",
-        "enabled": true,
-        "disqualifies": false,
-        "on_release": "keep",
-        "config": {
-         "tag_ids": [
-          "tag_A4os3QUuKdYPhnIaS3Mc5QF"
-         ]
-        }
-       },
-       {
         "id": "pregunta-precio",
         "signal": "intent_keyword",
         "mode": "event",
@@ -5490,14 +5472,19 @@
         }
        },
        {
+        "id": "responde",
         "signal": "message_reply",
+        "mode": "event",
         "points": 3,
+        "daily_cap": null,
         "unique_scope": "none",
-        "enabled": true
+        "enabled": true,
+        "disqualifies": false,
+        "on_release": "keep"
        }
       ]
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "adjust_lead_score": {
      "summary": "Ajustar el puntaje de un contacto",
@@ -5917,9 +5904,10 @@
       }
      },
      "example": {
-      "name": "Cliente VIP"
+      "name": "Cliente VIP",
+      "description": "Compró más de una vez"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver una etiqueta",
@@ -7360,15 +7348,23 @@
      },
      "example": {
       "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
-      "name": "aviso_horario_diciembre",
+      "name": "pedido_listo",
       "language_code": "es",
       "category": "UTILITY",
       "type": "text",
-      "header": "Horario de fin de año",
-      "body": "Te contamos que del 24 al 26 de diciembre atendemos de 9 a 13 h.",
-      "footer": "Equipo de atención"
+      "body": "Hola {{1}}, tu pedido ya está listo para retirar.",
+      "params": {
+       "body": {
+        "1": "{name}"
+       },
+       "samples": {
+        "body": {
+         "1": "Lucía"
+        }
+       }
+      }
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver una plantilla",
@@ -8003,8 +7999,10 @@
        "desc": "El número de página, desde 1. Para seguir, usa links.next"
       }
      },
-     "example": {},
-     "example_from": "armado"
+     "example": {
+      "status": "APPROVED"
+     },
+     "example_from": "diseno"
     },
     "sync_from_meta": {
      "summary": "Traer tus plantillas de Meta",
@@ -8477,10 +8475,10 @@
       }
      },
      "example": {
-      "group": "120363041234567890",
+      "group": "120363041234567890@g.us",
       "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver un grupo",
@@ -14969,10 +14967,10 @@
       }
      },
      "example": {
-      "template_key": "blank",
-      "device_id": "dev_A1BB9VsGfA2imtD7kRUNvxE"
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template_key": "lead"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get_family_metrics": {
      "summary": "Ver las métricas de un formulario",
@@ -18122,14 +18120,14 @@
       }
      },
      "example": {
-      "url": "https://hooks.tuempresa.com/funnelchat",
-      "description": "CRM de ventas",
+      "url": "https://tu-sistema.com/webhooks/funnelchat",
       "events": [
        "message.received",
        "message.status_changed"
-      ]
+      ],
+      "description": "CRM de ventas"
      },
-     "example_from": "spec"
+     "example_from": "diseno"
     },
     "get": {
      "summary": "Ver un webhook",
