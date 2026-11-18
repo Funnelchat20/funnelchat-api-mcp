@@ -1,6 +1,7 @@
 // Lo que no se deshace, el modo de solo lectura, las annotations, status y las respuestas largas.
 
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { normalizarBase, baseDelEntorno } from '../src/base.mjs';
 import { definiciones, recortar, tabla, VERSION } from '../src/servidor.mjs';
@@ -82,7 +83,28 @@ test('--read-only: solo lecturas en la lista, y una escritura no llega a la API'
   assert.equal(b.datos.error, 'read_only');
   const l = await llamar('broadcasts', { action: 'search_contacts', params: {} });
   assert.notEqual(l.datos.error, 'read_only', 'un POST que solo lee sigue');
+  // El QR es un GET, pero la spec lo marca con x-fc-access write: da el control del número.
+  const qr = await llamar('numbers', { action: 'get_qr', params: { device: 'dev_Ac7Ku7iIZDXJTjdCu0UB1mX' } });
+  assert.equal(qr.datos.error, 'read_only');
   assert.ok(api.pedidos.every((p) => p.method === 'GET' || p.path === '/api/v1/broadcasts/contacts'));
+  assert.equal(api.pedidos.some((p) => p.path.endsWith('/qr')), false);
+});
+
+test('cada GET que la spec marca con x-fc-access write queda fuera de --read-only', () => {
+  const spec = JSON.parse(readFileSync(new URL('../spec/funnelchat.json', import.meta.url), 'utf8'));
+  const escritura = new Set(
+    Object.entries(spec.paths).flatMap(([ruta, it]) => (it.get?.['x-fc-access'] === 'write' ? [ruta] : [])),
+  );
+  assert.ok(escritura.has('/api/v1/devices/{device}/qr'));
+  for (const { tool, nombre, a } of acciones) if (a.method === 'GET' && escritura.has(a.path)) assert.equal(a.read_only, false, `${tool.name}.${nombre}`);
+});
+
+test('status en --read-only no manda a pedir el QR', async () => {
+  const api = apiFalsa((p) => ({ status: 200, body: p.path === '/api/v1/devices' ? { data: [{ id: 'dev_Ac7Ku7iIZDXJTjdCu0UB1mX', connected: 0 }] } : { data: [] } }));
+  const { llamar } = await conectar({ api, readOnly: true });
+  const r = await llamar('status');
+  assert.doesNotMatch(r.datos.next_step, /get_qr/);
+  assert.match(r.datos.next_step, /panel/);
 });
 
 test('status: un 404 de ruta culpa a la URL base, no a la clave', async () => {

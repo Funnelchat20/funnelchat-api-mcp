@@ -581,7 +581,7 @@
      "grupo": "Números",
      "permission": "accounts:operate",
      "purpose": "Úsalo para mostrar en tu sistema el código QR de un número por QR y saber cuándo quedó conectado: devuelve la imagen, si ya está conectado y en cuántos segundos volver a pedirlo",
-     "read_only": true,
+     "read_only": false,
      "destructive": false,
      "body": null,
      "required": [

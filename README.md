@@ -92,7 +92,7 @@ Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`):
 
 | Tool | Qué hace | Acciones | Lecturas | No se deshacen |
 | --- | --- | ---: | ---: | ---: |
-| `numbers` | Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API. | 22 | 13 | 5 |
+| `numbers` | Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API. | 22 | 12 | 5 |
 | `connect_links` | Links para conectar un número por QR, tuyo o de un cliente, o para reconectarlo. | 4 | 2 | 1 |
 | `messages` | Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios. | 11 | 1 | 0 |
 | `conversations` | Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas. | 13 | 8 | 1 |

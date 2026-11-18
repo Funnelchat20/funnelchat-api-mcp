@@ -294,7 +294,10 @@ async function estado(ctx) {
     out.next_step = ctx.readOnly
       ? 'La cuenta no tiene números: conéctalos desde el panel o con este MCP sin --read-only.'
       : 'Conecta un número: connect_links action=create con type qr (un link para ti o para tu cliente) o numbers action=create y su QR.';
-  else if (!conectados.length) out.next_step = `Ningún número conectado: numbers action=get_qr params.device=${numeros[0].id} y escanéalo.`;
+  else if (!conectados.length)
+    out.next_step = ctx.readOnly
+      ? 'Ningún número conectado: conéctalo desde el panel o con este MCP sin --read-only.'
+      : `Ningún número conectado: numbers action=get_qr params.device=${numeros[0].id} y escanéalo.`;
   else if (ctx.readOnly) out.next_step = 'Solo lectura: mira mensajes, contactos y conversaciones; para mandar, usa el MCP sin --read-only.';
   else if (wh.ok && !subs.length)
     out.next_step = 'Crea un webhook para saber qué pasa con tus mensajes: webhooks action=create con events message.received y message.status_changed.';

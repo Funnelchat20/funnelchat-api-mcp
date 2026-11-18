@@ -546,7 +546,8 @@ export function generar(specObj, diseno, { anterior = null, permitirCambios = fa
         throw new Error(`${clave} («${op.summary}») parece un borrado y nadie lo decidió: agrégalo a destructivas o a no_destructivas de diseno.json`);
       }
 
-      let lectura = metodo === 'GET';
+      // Un GET que la spec marca con x-fc-access write no es una lectura: el QR de un número da su control.
+      let lectura = metodo === 'GET' && op['x-fc-access'] !== 'write';
       if (lecturasPost[clave]) {
         usados.lecturas.add(clave);
         lectura = true;
