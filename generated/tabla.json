@@ -7996,7 +7996,7 @@
          "integer"
         ]
        },
-       "desc": "El número de página, desde 1. Para seguir, usa links.next"
+       "desc": "El número de página, desde 1"
       }
      },
      "example": {
@@ -15246,7 +15246,7 @@
          "null"
         ]
        },
-       "desc": "La página, desde 1. Por defecto 1"
+       "desc": "La página, desde 1"
       },
       "perPage": {
        "in": "query",
@@ -16187,7 +16187,7 @@
          "null"
         ]
        },
-       "desc": "El número de página, desde 1. Para seguir, usa links.next"
+       "desc": "El número de página, desde 1"
       },
       "perPage": {
        "in": "query",
@@ -18916,7 +18916,7 @@
          "integer"
         ]
        },
-       "desc": "Página, desde 1. Los productos van por nombre"
+       "desc": "Página, desde 1"
       }
      },
      "example": {

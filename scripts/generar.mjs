@@ -258,9 +258,14 @@ export function corta(txt, max = 110) {
   const id = t.match(/^Id opaco[^(]*\(([a-z]+_)…\)/) || t.match(/^Id opaco: un texto que empieza con ([a-z]+_)/);
   if (id) return `Id ${id[1]}…`;
   if (/^The .* (ID|uid)$/i.test(t)) return '';
-  // Fin de la primera oración: un punto seguido de espacio y mayúscula, o el final.
-  const m = t.match(/^(.+?[^.\s]{2}\.)(?=\s+[A-ZÁÉÍÓÚÑ¿¡(]|$)/);
-  if (m) t = m[1];
+  // Fin de la primera oración: un punto seguido de espacio y mayúscula, o el final, que no cierre una
+  // abreviatura («EE. UU.», «p. ej.»).
+  for (const m of t.matchAll(/\.(?=\s+[A-ZÁÉÍÓÚÑ¿¡(]|$)/g)) {
+    const palabra = t.slice(0, m.index).split(/\s/).at(-1);
+    if (/^(EE|UU|[A-Za-z]|ej|etc|aprox|máx|mín|núm|Sr|Sra)$/.test(palabra)) continue;
+    t = t.slice(0, m.index);
+    break;
+  }
   t = t.replace(/\.$/, '');
   if (t.length <= max) return t;
   const cortado = t.slice(0, max - 1);
