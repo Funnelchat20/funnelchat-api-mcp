@@ -3104,9 +3104,18 @@
        "in": "body",
        "type": "string",
        "schema": {
-        "t": [
-         "string",
-         "null"
+        "o": [
+         {
+          "t": [
+           "string"
+          ]
+         },
+         {
+          "t": [
+           "string",
+           "null"
+          ]
+         }
         ]
        },
        "desc": "Texto (o pie del archivo), hasta 2500 caracteres; obligatorio sin file"
@@ -3115,8 +3124,18 @@
        "in": "body",
        "type": "string",
        "schema": {
-        "t": [
-         "string"
+        "o": [
+         {
+          "t": [
+           "string",
+           "null"
+          ]
+         },
+         {
+          "t": [
+           "string"
+          ]
+         }
         ]
        },
        "desc": "Archivo ya subido a tu cuenta; obligatorio sin message"
@@ -3301,9 +3320,18 @@
        "in": "body",
        "type": "string",
        "schema": {
-        "t": [
-         "string",
-         "null"
+        "o": [
+         {
+          "t": [
+           "string"
+          ]
+         },
+         {
+          "t": [
+           "string",
+           "null"
+          ]
+         }
         ]
        },
        "desc": "Texto (o pie del archivo), hasta 2500 caracteres; obligatorio sin file"
@@ -3312,8 +3340,18 @@
        "in": "body",
        "type": "string",
        "schema": {
-        "t": [
-         "string"
+        "o": [
+         {
+          "t": [
+           "string",
+           "null"
+          ]
+         },
+         {
+          "t": [
+           "string"
+          ]
+         }
         ]
        },
        "desc": "Archivo ya subido a tu cuenta; obligatorio sin message"
@@ -6178,10 +6216,6 @@
          }
         ]
        },
-       "enum": [
-        "all",
-        "unassigned"
-       ],
        "desc": "Por la persona asignada"
       },
       "followUp": {
@@ -15488,122 +15522,223 @@
               "array"
              ],
              "i": {
-              "t": [
-               "object"
-              ],
-              "p": {
-               "type": {
-                "t": [
-                 "string"
-                ],
-                "e": [
-                 "link"
-                ]
-               },
-               "name": {
-                "t": [
-                 "string"
-                ]
-               },
-               "id": {
-                "t": [
-                 "string",
-                 "null"
-                ]
-               },
-               "label": {
-                "t": [
-                 "string",
-                 "null"
-                ]
-               },
-               "required": {
-                "t": [
-                 "boolean"
-                ]
-               },
-               "options": {
-                "t": [
-                 "array",
-                 "null"
-                ],
-                "i": {
-                 "t": [
-                  "object"
-                 ],
-                 "p": {
-                  "id": {
-                   "t": [
-                    "string",
-                    "null"
-                   ]
-                  },
-                  "title": {
-                   "t": [
-                    "string",
-                    "null"
-                   ]
-                  }
-                 }
-                }
-               },
-               "tagMap": {
-                "t": [
-                 "object",
-                 "null"
-                ],
-                "libre": true
-               },
-               "map": {
+              "o": [
+               {
                 "t": [
                  "object"
                 ],
                 "p": {
-                 "target": {
-                  "t": [
-                   "string",
-                   "null"
-                  ],
-                  "e": [
-                   "name",
-                   "email",
-                   "company",
-                   "custom",
-                   null
-                  ]
-                 },
-                 "key": {
-                  "t": [
-                   "string",
-                   "null"
-                  ]
-                 },
-                 "policy": {
+                 "type": {
                   "t": [
                    "string"
                   ],
                   "e": [
-                   "replace",
-                   "if_empty"
+                   "text",
+                   "number",
+                   "email",
+                   "phone",
+                   "textarea",
+                   "date",
+                   "dropdown",
+                   "radio",
+                   "checkbox",
+                   "optin"
+                  ]
+                 },
+                 "name": {
+                  "t": [
+                   "string"
+                  ]
+                 },
+                 "id": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "label": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "required": {
+                  "t": [
+                   "boolean"
+                  ]
+                 },
+                 "options": {
+                  "t": [
+                   "array",
+                   "null"
+                  ],
+                  "i": {
+                   "t": [
+                    "object"
+                   ],
+                   "p": {
+                    "id": {
+                     "t": [
+                      "string",
+                      "null"
+                     ]
+                    },
+                    "title": {
+                     "t": [
+                      "string",
+                      "null"
+                     ]
+                    }
+                   }
+                  }
+                 },
+                 "tagMap": {
+                  "t": [
+                   "object",
+                   "null"
+                  ],
+                  "libre": true
+                 },
+                 "map": {
+                  "t": [
+                   "object"
+                  ],
+                  "p": {
+                   "target": {
+                    "t": [
+                     "string",
+                     "null"
+                    ],
+                    "e": [
+                     "name",
+                     "email",
+                     "company",
+                     "custom",
+                     null
+                    ]
+                   },
+                   "key": {
+                    "t": [
+                     "string",
+                     "null"
+                    ]
+                   },
+                   "policy": {
+                    "t": [
+                     "string"
+                    ],
+                    "e": [
+                     "replace",
+                     "if_empty"
+                    ]
+                   }
+                  }
+                 }
+                },
+                "r": [
+                 "type",
+                 "name"
+                ]
+               },
+               {
+                "t": [
+                 "object"
+                ],
+                "p": {
+                 "type": {
+                  "t": [
+                   "string"
+                  ],
+                  "e": [
+                   "heading",
+                   "subheading",
+                   "body",
+                   "caption"
+                  ]
+                 },
+                 "id": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "label": {
+                  "t": [
+                   "string",
+                   "null"
                   ]
                  }
-                }
-               },
-               "src": {
-                "t": [
-                 "string",
-                 "null"
+                },
+                "r": [
+                 "type"
                 ]
                },
-               "url": {
+               {
                 "t": [
-                 "string",
-                 "null"
+                 "object"
+                ],
+                "p": {
+                 "type": {
+                  "t": [
+                   "string"
+                  ],
+                  "e": [
+                   "image"
+                  ]
+                 },
+                 "id": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "src": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 }
+                },
+                "r": [
+                 "type"
+                ]
+               },
+               {
+                "t": [
+                 "object"
+                ],
+                "p": {
+                 "type": {
+                  "t": [
+                   "string"
+                  ],
+                  "e": [
+                   "link"
+                  ]
+                 },
+                 "id": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "label": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 },
+                 "url": {
+                  "t": [
+                   "string",
+                   "null"
+                  ]
+                 }
+                },
+                "r": [
+                 "type"
                 ]
                }
-              },
-              "r": [
-               "type"
               ]
              }
             }
@@ -16141,17 +16276,30 @@
        "in": "body",
        "type": "string",
        "schema": {
-        "t": [
-         "string"
-        ],
-        "e": [
-         "tags"
+        "o": [
+         {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "stages"
+          ]
+         },
+         {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "tags"
+          ]
+         }
         ]
        },
        "enum": [
+        "stages",
         "tags"
        ],
-       "desc": "tags: tablero por etiquetas"
+       "desc": "stages: tablero por etapas | tags: tablero por etiquetas"
       },
       "stages": {
        "in": "body",
@@ -17239,10 +17387,6 @@
          }
         ]
        },
-       "enum": [
-        "all",
-        "unassigned"
-       ],
        "desc": "Agente (GET /agents), unassigned o all"
       },
       "valueMin": {

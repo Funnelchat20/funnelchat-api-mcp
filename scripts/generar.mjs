@@ -136,6 +136,27 @@ const ref = (s) => {
   return x || {};
 };
 
+// Junta las propiedades de varias partes. Una propiedad que dos variantes describen distinto (el `mode`
+// `stages` de una y `tags` de otra) queda como anyOf de las dos, con sus descripciones juntas.
+function juntarPropiedades(partes) {
+  const out = {};
+  for (const props of partes) {
+    for (const [k, v] of Object.entries(props || {})) {
+      const nuevo = ref(v);
+      const previo = out[k];
+      if (!previo || JSON.stringify(previo) === JSON.stringify(nuevo)) {
+        out[k] = nuevo;
+        continue;
+      }
+      const lista = previo.anyOf && previo._junta ? previo.anyOf : [previo];
+      if (!lista.some((x) => JSON.stringify(x) === JSON.stringify(nuevo))) lista.push(nuevo);
+      const descs = [...new Set(lista.map((x) => x.description).filter(Boolean))];
+      out[k] = { anyOf: lista, _junta: true, description: descs.join(' | ') || undefined };
+    }
+  }
+  return out;
+}
+
 // Junta allOf/anyOf/oneOf de objetos en un solo objeto (obligatorios: los de allOf y los comunes a todas las variantes).
 export function aplanar(s) {
   s = ref(s);
@@ -145,7 +166,7 @@ export function aplanar(s) {
       ...s,
       allOf: undefined,
       type: 'object',
-      properties: Object.assign({}, ...partes.map((p) => p.properties || {}), s.properties || {}),
+      properties: juntarPropiedades([...partes.map((p) => p.properties), s.properties]),
       required: [...new Set(partes.flatMap((p) => p.required || []).concat(s.required || []))],
     };
   }
@@ -157,7 +178,7 @@ export function aplanar(s) {
       return {
         type: 'object',
         description: s.description,
-        properties: Object.assign({}, ...objs.map((o) => o.properties)),
+        properties: juntarPropiedades(objs.map((o) => o.properties)),
         required: [...req[0]].filter((r) => req.every((x) => x.has(r))),
       };
     }
@@ -189,14 +210,15 @@ function forma(s, prof = 0) {
   return t.join(' | ') || 'any';
 }
 
+// Los valores posibles; de unas variantes, los de todas (null no cuenta).
 function enumDe(s) {
   s = ref(s);
   if (s.enum) return s.enum.filter((v) => v !== null);
-  for (const v of s.anyOf || s.oneOf || []) {
-    const e = enumDe(v);
-    if (e) return e;
-  }
-  return null;
+  if (s.const !== undefined && s.const !== null) return [s.const];
+  const variantes = (s.anyOf || s.oneOf || []).filter((v) => !tipos(v).every((t) => t === 'null'));
+  if (!variantes.length) return null;
+  const todos = variantes.map(enumDe);
+  return todos.every(Boolean) ? [...new Set(todos.flat())] : null;
 }
 
 // Esquema reducido para validar: t (tipos), e (enum), i (items), p (propiedades), r (obligatorias),
@@ -204,11 +226,7 @@ function enumDe(s) {
 export function esquema(s, prof = 0) {
   s = ref(s);
   const variantes = s.anyOf || s.oneOf;
-  if (variantes && !s.properties) {
-    const o = aplanar(s);
-    if (o !== s) return esquema(o, prof);
-    return { o: variantes.map((v) => esquema(v, prof)) };
-  }
+  if (variantes && !s.properties) return { o: variantes.map((v) => esquema(v, prof)) };
   if (s.allOf) return esquema(aplanar(s), prof);
   const out = {};
   const t = tipos(s);

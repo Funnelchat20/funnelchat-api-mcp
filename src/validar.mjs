@@ -25,12 +25,15 @@ function convertirTexto(v, t) {
 function revisar(valor, sch, ruta, errores, enTexto) {
   if (errores.length >= MAX_ERRORES || !sch) return valor;
   if (sch.o) {
+    // Vale si encaja en alguna variante; si no, los errores de la que estuvo más cerca.
+    let mejor = null;
     for (const variante of sch.o) {
       const prueba = [];
       const v = revisar(valor, variante, ruta, prueba, enTexto);
       if (!prueba.length) return v;
+      if (!mejor || prueba.length < mejor.length) mejor = prueba;
     }
-    errores.push(`${ruta}: no tiene ninguna de las formas que acepta`);
+    errores.push(...mejor.slice(0, MAX_ERRORES - errores.length));
     return valor;
   }
   const t = sch.t || [];
