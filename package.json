@@ -34,6 +34,7 @@
   },
   "exports": {
     ".": "./src/servidor.mjs",
+    "./http": "./src/http.mjs",
     "./package.json": "./package.json"
   },
   "files": [
