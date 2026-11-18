@@ -1,0 +1,27 @@
+{
+  "description": "De dónde salió spec/funnelchat.json. Lo escribe `npm run generate -- --spec <archivo>`; no se edita a mano.",
+  "file": "spec/funnelchat.json",
+  "sha256": "60f32ccb1541e169b2d397fb096bab35c28d4f4d4f2284570636f03031ba9b6e",
+  "bytes": 1439168,
+  "source": {
+    "url": null,
+    "portal_version": "v0.7.0-32-g2befa00",
+    "repository": "https://github.com/Funnelchat20/developers-portal.git",
+    "path": "public/specs/funnelchat.json",
+    "branch": "docs/integracion-17nov",
+    "commit": "2befa008fd4b2eecbefa1ffd75e46cac0bc10cbc",
+    "commit_date": "2026-11-18T03:17:45-05:00",
+    "file_tracked_in_git": false,
+    "tracked_files_clean": true,
+    "file_modified_at": "2026-11-18T08:16:31.697Z",
+    "note": "El archivo es una salida del build del portal (no está en git): `commit` y `portal_version` dicen de qué código salió."
+  },
+  "imported_at": "2026-11-18T14:28:45.294Z",
+  "spec": {
+    "openapi": "3.1.0",
+    "title": "Funnelchat API",
+    "version": "v0",
+    "paths": 209,
+    "operations": 253
+  }
+}

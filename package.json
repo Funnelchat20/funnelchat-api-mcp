@@ -43,6 +43,7 @@
   ],
   "scripts": {
     "generate": "node scripts/generar.mjs",
+    "generate:check": "node scripts/generar.mjs --check",
     "start": "node src/cli.mjs"
   },
   "dependencies": {

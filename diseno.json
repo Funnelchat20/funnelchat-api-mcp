@@ -1,115 +1,226 @@
 {
-  "_comment": "Escrito a mano: lo único que no sale de la spec. Qué grupos de config/alcance.json van a cada tool, la descripción de una línea de cada tool, qué sustantivos de la ruta se quitan del nombre de la acción y los pocos nombres de acción que el algoritmo no saca bien. scripts/generar.mjs arma con esto y la spec la tabla tool/acción → operación (generated/tabla.json) y falla si un grupo queda sin tool, si una llamada queda fuera o si dos acciones de un tool chocan.",
+  "_comment": "Escrito a mano: lo único que no sale de la spec. Qué grupos del portal (tags[0] de cada operación) van a cada tool, el título y la descripción de una línea de cada tool, qué sustantivos de la ruta se quitan del nombre de la acción, los nombres de acción que el algoritmo no saca bien, qué acciones no se deshacen, qué POST solo leen, los parches a la spec y los ejemplos de las acciones principales. scripts/generar.mjs arma con esto y la spec generated/tabla.json, y falla si algo de aquí no corresponde a ninguna llamada.",
   "tools": [
     {
       "name": "numbers",
+      "title": "Números",
       "description": "Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API.",
-      "grupos": ["Números", "Cola de mensajes de un número", "Conversions API"],
-      "quitar": ["devices"],
-      "excluir": ["connect-links"]
+      "grupos": [
+        "Números",
+        "Cola de mensajes de un número",
+        "Conversions API"
+      ],
+      "quitar": [
+        "devices"
+      ],
+      "excluir": [
+        "connect-links"
+      ]
     },
     {
       "name": "connect_links",
-      "description": "Links de alta para que un cliente conecte su número.",
+      "title": "Links para conectar",
+      "description": "Links para conectar un número por QR, tuyo o de un cliente, o para reconectarlo.",
       "grupos": [],
-      "desde": { "Números": "connect-links" },
-      "quitar": ["connect-links"]
+      "desde": {
+        "Números": "connect-links"
+      },
+      "quitar": [
+        "connect-links"
+      ]
     },
     {
       "name": "messages",
+      "title": "Mensajes",
       "description": "Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios.",
-      "grupos": ["Mensajes", "Atender una conversación"],
-      "quitar": ["contacts", "messages", "message", "devices", "templates"],
-      "excluir": ["templates", "forms"]
+      "grupos": [
+        "Mensajes",
+        "Atender una conversación"
+      ],
+      "quitar": [
+        "contacts",
+        "messages",
+        "message",
+        "devices",
+        "templates"
+      ],
+      "excluir": [
+        "templates",
+        "forms"
+      ]
     },
     {
       "name": "conversations",
+      "title": "Conversaciones",
       "description": "Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas.",
-      "grupos": ["Conversaciones", "Respuestas rápidas"],
-      "quitar": ["conversations", "contacts"]
+      "grupos": [
+        "Conversaciones",
+        "Respuestas rápidas"
+      ],
+      "quitar": [
+        "conversations",
+        "contacts"
+      ]
     },
     {
       "name": "contacts",
+      "title": "Contactos",
       "description": "Contactos: ver, crear, editar y borrar, su ventana de 24 h, sus notas y su puntaje.",
-      "grupos": ["Contactos", "Notas", "Puntaje"],
-      "quitar": ["contacts"]
+      "grupos": [
+        "Contactos",
+        "Notas",
+        "Puntaje"
+      ],
+      "quitar": [
+        "contacts"
+      ]
     },
     {
       "name": "tags",
+      "title": "Etiquetas",
       "description": "Etiquetas: crearlas, editarlas y ponerlas o quitarlas a contactos.",
-      "grupos": ["Etiquetas"],
-      "quitar": ["tags"]
+      "grupos": [
+        "Etiquetas"
+      ],
+      "quitar": [
+        "tags"
+      ]
     },
     {
       "name": "custom_fields",
+      "title": "Campos personalizados",
       "description": "Campos personalizados y sus valores en cada contacto.",
-      "grupos": ["Campos personalizados"],
-      "quitar": ["custom-fields"]
+      "grupos": [
+        "Campos personalizados"
+      ],
+      "quitar": [
+        "custom-fields"
+      ]
     },
     {
       "name": "templates",
+      "title": "Plantillas",
       "description": "Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar.",
-      "grupos": ["Plantillas"],
-      "desde": { "Mensajes": "templates" },
-      "quitar": ["templates", "devices"]
+      "grupos": [
+        "Plantillas"
+      ],
+      "desde": {
+        "Mensajes": "templates"
+      },
+      "quitar": [
+        "templates",
+        "devices"
+      ]
     },
     {
       "name": "groups",
+      "title": "Grupos",
       "description": "Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales.",
-      "grupos": ["Grupos"],
-      "quitar": ["groups", "devices"]
+      "grupos": [
+        "Grupos"
+      ],
+      "quitar": [
+        "groups",
+        "devices"
+      ]
     },
     {
       "name": "group_actions",
+      "title": "Acciones de grupo",
       "description": "Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes.",
-      "grupos": ["Acciones de grupo"],
-      "quitar": ["groups"]
+      "grupos": [
+        "Acciones de grupo"
+      ],
+      "quitar": [
+        "groups"
+      ]
     },
     {
       "name": "campaigns",
+      "title": "Campañas",
       "description": "Campañas de grupos, envíos programados y estadísticas, solo lectura.",
-      "grupos": ["Campañas", "Envíos programados", "Estadísticas"],
-      "quitar": ["campaigns"]
+      "grupos": [
+        "Campañas",
+        "Envíos programados",
+        "Estadísticas"
+      ],
+      "quitar": [
+        "campaigns"
+      ]
     },
     {
       "name": "broadcasts",
+      "title": "Difusiones",
       "description": "Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas.",
-      "grupos": ["Difusiones"],
-      "quitar": ["broadcasts"]
+      "grupos": [
+        "Difusiones"
+      ],
+      "quitar": [
+        "broadcasts"
+      ]
     },
     {
       "name": "automations",
+      "title": "Automatizaciones",
       "description": "Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas.",
-      "grupos": ["Automatizaciones", "Carpetas de flujos"],
-      "quitar": ["flows"]
+      "grupos": [
+        "Automatizaciones",
+        "Carpetas de flujos"
+      ],
+      "quitar": [
+        "flows"
+      ]
     },
     {
       "name": "forms",
+      "title": "Formularios",
       "description": "Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas.",
-      "grupos": ["Formularios"],
-      "desde": { "Atender una conversación": "forms" },
-      "quitar": ["forms"]
+      "grupos": [
+        "Formularios"
+      ],
+      "desde": {
+        "Atender una conversación": "forms"
+      },
+      "quitar": [
+        "forms"
+      ]
     },
     {
       "name": "boards",
+      "title": "Tableros",
       "description": "Tableros: etapas y mover contactos entre ellas.",
-      "grupos": ["Tableros"],
-      "quitar": ["kanban-settings"]
+      "grupos": [
+        "Tableros"
+      ],
+      "quitar": [
+        "kanban-settings"
+      ]
     },
     {
       "name": "tickets",
+      "title": "Tickets",
       "description": "Tickets: ver, crear, editar, asignar, cerrar y reabrir.",
-      "grupos": ["Tickets"],
-      "quitar": ["tickets"]
+      "grupos": [
+        "Tickets"
+      ],
+      "quitar": [
+        "tickets"
+      ]
     },
     {
       "name": "webhooks",
+      "title": "Webhooks",
       "description": "Webhooks: crear, ver, editar, probar y borrar, sus entregas y los tipos de evento.",
-      "grupos": ["Webhooks"],
-      "quitar": ["webhooks"]
+      "grupos": [
+        "Webhooks"
+      ],
+      "quitar": [
+        "webhooks"
+      ]
     },
     {
       "name": "account",
+      "title": "Cuenta",
       "description": "Tu cuenta: datos, equipo, contactos activos, costos de Meta, ventas, dominios y alertas.",
       "grupos": [
         "Tu cuenta y tu equipo",
@@ -118,13 +229,11 @@
         "Dominios propios",
         "Alertas"
       ],
-      "quitar": ["me"]
+      "quitar": [
+        "me"
+      ]
     }
   ],
-  "sin_confirmar": {
-    "_comment": "Borrados que se deshacen solos: no piden confirm.",
-    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "una reacción se vuelve a poner con react"
-  },
   "nombres": {
     "_comment": "«MÉTODO ruta» → nombre de la acción, solo donde el algoritmo no acierta.",
     "POST /api/v1/devices/{device}/username": "reserve_username",
@@ -155,6 +264,117 @@
     "POST /api/v1/forms/{id}/numbers": "add_numbers",
     "GET /api/v1/contacts/{contact}/kanban-stages": "list_for_contact",
     "GET /api/v1/payments/products/{platform}": "list_payment_products",
-    "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates"
+    "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates",
+    "POST /api/v1/devices/{device}/clean": "disconnect"
+  },
+  "destructivas": {
+    "_comment": "Lo que no se deshace y la spec todavía no marca con x-fc-destructive (o marca false y aquí se decide pedir confirmación igual). Cada una pide confirm, y el texto es lo que el modelo le cuenta a la persona antes de preguntarle. Cuando la spec las marque, el generador avisa cuáles sobran.",
+    "POST /api/v1/contacts/delete": "Borra los contactos con su historial. Con all: true borra todos los que cumplen los filtros y, sin filtros, todos los contactos de la cuenta.",
+    "DELETE /api/v1/contacts/{contact}/notes/{note}": "Borra la nota.",
+    "POST /api/v1/tags/delete": "Borra las etiquetas y se las quita a todos los contactos que las tienen.",
+    "POST /api/v1/custom-fields/delete": "Borra los campos y su valor en todos los contactos.",
+    "DELETE /api/v1/devices/{device}/templates/{template}": "Borra la plantilla del número y de Meta.",
+    "DELETE /api/v1/devices/{device}/message-queue": "Saca esos mensajes de la cola: ya no salen.",
+    "DELETE /api/v1/broadcasts/{broadcast}": "Borra la difusión.",
+    "POST /api/v1/broadcasts/{broadcast}/cancel": "Cancela la difusión: lo que todavía no salió ya no sale.",
+    "DELETE /api/v1/broadcasts/folders/{broadcastFolder}": "Borra la carpeta de difusiones.",
+    "PUT /api/v1/contact-flows/{contactFlowId}/cancel": "Corta esa ejecución del flujo para el contacto: no sigue desde donde quedó.",
+    "DELETE /api/v1/folders/{folder}": "Borra la carpeta de flujos.",
+    "DELETE /api/v1/kanban-settings/{kanbanSetting}": "Borra el tablero con sus etapas.",
+    "DELETE /api/v1/kanban-settings/{kanbanSetting}/stages/{stage}": "Borra la etapa del tablero.",
+    "DELETE /api/v1/quick-replies/{quickReply}": "Borra la respuesta rápida.",
+    "DELETE /api/v1/forms/{id}": "Borra el formulario.",
+    "POST /api/v1/groups/{group}/participants/remove": "Saca a esas personas del grupo en WhatsApp. WhatsApp les avisa, y para volver hay que sumarlas otra vez.",
+    "POST /api/v1/groups/{group}/invite-link/renew": "El link de invitación de ahora deja de servir para siempre.",
+    "POST /api/v1/groups/{group}/join-requests/reject": "Rechaza las solicitudes: esas personas tienen que pedir entrar de nuevo.",
+    "DELETE /api/v1/webhooks/{id}": "Borra el webhook: dejan de llegar sus eventos y su secreto ya no sirve.",
+    "DELETE /api/v1/connect-links/{link}": "Anula el link: quien lo tenga ya no puede conectar el número con él."
+  },
+  "no_destructivas": {
+    "_comment": "Lo que parece un borrado pero se deshace con otra acción: no pide confirm.",
+    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "La reacción se vuelve a poner con react.",
+    "POST /api/v1/contacts/remove-tags": "Las etiquetas se vuelven a poner con add_tags.",
+    "POST /api/v1/contacts/detach-custom-field": "El valor se vuelve a poner con attach_custom_field.",
+    "POST /api/v1/kanban-settings/{kanbanSetting}/remove-contact": "El contacto vuelve al tablero con move_contact.",
+    "POST /api/v1/kanban-settings/{kanbanSetting}/bulk-remove": "Los contactos vuelven al tablero con bulk_move.",
+    "POST /api/v1/groups/{group}/admins/remove": "Se vuelven a hacer administradores con add_admins.",
+    "DELETE /api/v1/forms/{id}/numbers/{deviceId}": "El número se vuelve a sumar con add_numbers."
+  },
+  "lecturas_por_post": {
+    "_comment": "POST que solo leen: van en el modo --read-only.",
+    "POST /api/v1/broadcasts/contacts": "Solo busca contactos.",
+    "POST /api/v1/broadcasts/contacts-count": "Solo cuenta contactos.",
+    "POST /api/v1/devices/{device}/health/refresh": "Le pide a Meta la salud del número; no cambia nada en la cuenta."
+  },
+  "parches": {
+    "_comment": "Correcciones a la spec publicada mientras no las traiga (el generador avisa cuando una sobra), y lo que se deja de ofrecer por decisión.",
+    "POST /api/v1/templates": {
+      "motivo": "Producción exige device_id y params es {body, samples}; la spec publicada hasta v0.7.0 no lo dice.",
+      "obligatorios": [
+        "device_id"
+      ],
+      "params": {
+        "device_id": {
+          "in": "body",
+          "type": "string",
+          "schema": {
+            "t": [
+              "string"
+            ]
+          },
+          "desc": "Id dev_… del número oficial donde se crea"
+        },
+        "params": {
+          "in": "body",
+          "type": "{body: object, samples: {body: object}}",
+          "schema": {
+            "t": [
+              "object",
+              "null"
+            ],
+            "p": {
+              "body": {
+                "t": [
+                  "object"
+                ],
+                "libre": true
+              },
+              "samples": {
+                "t": [
+                  "object"
+                ],
+                "p": {
+                  "body": {
+                    "t": [
+                      "object"
+                    ],
+                    "libre": true
+                  }
+                }
+              }
+            }
+          },
+          "desc": "Con qué se llena cada variable y su ejemplo para Meta, por número: {body: {\"1\": \"{name}\"}, samples: {body: {\"1\": \"Lucía\"}}}"
+        }
+      }
+    },
+    "POST /api/v1/connect-links": {
+      "motivo": "El alta de números oficiales por link (type meta, también el número de EE. UU.) está apagada por ahora: la API responde 503 meta_connect_disabled. Conecta el número por QR; un número oficial se conecta desde el panel.",
+      "quitar_valores": {
+        "type": [
+          "meta"
+        ]
+      },
+      "quitar_params": [
+        "allowed_connection_types",
+        "provision_us_number"
+      ],
+      "desc": {
+        "type": "qr: el número se conecta escaneando un código QR"
+      }
+    }
+  },
+  "ejemplos": {
+    "_comment": "Ejemplos de las acciones principales, escritos a mano: los muestra help y el test los corre contra el sandbox. Sin confirm: eso lo decide la persona."
   }
 }
