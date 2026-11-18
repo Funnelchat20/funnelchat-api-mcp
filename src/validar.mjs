@@ -4,6 +4,10 @@
 
 const MAX_ERRORES = 10;
 
+// Lo que llega del modelo se busca solo entre las claves propias: «constructor» o «toString» no son
+// parámetros ni acciones aunque todo objeto los herede.
+export const propia = (obj, k) => (obj && Object.hasOwn(obj, k) ? obj[k] : undefined);
+
 const tipoDe = (v) => {
   if (v === null) return 'null';
   if (Array.isArray(v)) return 'array';
@@ -109,8 +113,9 @@ export function validarParams(accion, params) {
   const errores = [];
 
   for (const k of Object.keys(params)) {
-    if (quitados[k] && !quitados[k].valores) errores.push(`${k}: no está disponible por ahora. ${quitados[k].motivo}`);
-    else if (!accion.params[k]) desconocidos.push(k);
+    const q = propia(quitados, k);
+    if (q && !q.valores) errores.push(`${k}: no está disponible por ahora. ${q.motivo}`);
+    else if (!propia(accion.params, k)) desconocidos.push(k);
   }
   if (desconocidos.length) {
     const sugerencias = {};
@@ -136,9 +141,9 @@ export function validarParams(accion, params) {
   const valores = {};
   for (const [k, v] of Object.entries(params)) {
     if (v === undefined || errores.length >= MAX_ERRORES) continue;
-    const def = accion.params[k];
+    const def = propia(accion.params, k);
     if (!def) continue;
-    const q = quitados[k];
+    const q = propia(quitados, k);
     if (q?.valores && q.valores.includes(v)) {
       errores.push(`${k}: ${JSON.stringify(v)} no está disponible por ahora. ${q.motivo}`);
       continue;

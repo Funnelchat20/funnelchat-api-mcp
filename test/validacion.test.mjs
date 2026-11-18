@@ -140,3 +140,18 @@ test('un id «.» o «..» no cambia la ruta: forms.delete_number no llega a bor
   await llamar('tags', { action: 'get', params: { tag: '../contacts/delete?x=' } });
   assert.deepEqual(api.pedidos.map((p) => p.path), ['/api/v1/tags/..%2Fcontacts%2Fdelete%3Fx%3D']);
 });
+
+test('«constructor», «toString» o «__proto__» no son parámetros ni acciones: error claro, sin llamar', async () => {
+  const { llamar, api } = await conectar();
+  for (const params of [{ constructor: 'x' }, JSON.parse('{"__proto__": {"all": true}}'), { toString: 'x' }]) {
+    const r = await llamar('contacts', { action: 'list', params });
+    assert.equal(r.datos.error, 'unknown_params', JSON.stringify(params));
+  }
+  for (const action of ['toString', 'constructor', '__proto__']) {
+    const r = await llamar('contacts', { action });
+    assert.equal(r.datos.error, 'unknown_action', action);
+    const h = await llamar('contacts', { action: 'help', params: { action } });
+    assert.equal(h.datos.error, 'unknown_action', `help ${action}`);
+  }
+  assert.equal(api.pedidos.length, 0);
+});

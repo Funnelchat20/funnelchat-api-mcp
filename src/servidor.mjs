@@ -10,7 +10,7 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { BASE_POR_DEFECTO } from './base.mjs';
 import { buscar } from './docs.mjs';
-import { parecido, validarParams } from './validar.mjs';
+import { parecido, propia, validarParams } from './validar.mjs';
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const tabla = JSON.parse(readFileSync(join(raiz, 'generated/tabla.json'), 'utf8'));
@@ -97,7 +97,7 @@ export function ayuda(tool, cual, { readOnly = false } = {}) {
       next: 'help con params.action da los parámetros y un ejemplo.',
     };
   }
-  const a = acciones[cual];
+  const a = propia(acciones, cual);
   if (!a) return null;
   const linea = (n) => {
     const p = a.params[n];
@@ -364,10 +364,10 @@ export function crearServidor({ apiKey, baseUrl = BASE_POR_DEFECTO, readOnly = f
       const p = parecido(String(cual), Object.keys(acciones));
       return error({ error: 'unknown_action', message: `${name} no tiene la acción ${cual}.`, ...(p ? { did_you_mean: p } : {}), actions: Object.keys(acciones) });
     }
-    const a = acciones[accion];
+    const a = propia(acciones, accion);
     if (!a) {
       const p = parecido(accion, Object.keys(acciones));
-      const soloLectura = readOnly && tool.actions[accion];
+      const soloLectura = readOnly && propia(tool.actions, accion);
       return error({
         error: soloLectura ? 'read_only' : 'unknown_action',
         message: soloLectura ? `${name}.${accion} cambia datos y este servidor es de solo lectura.` : `${name} no tiene la acción ${accion}.`,
