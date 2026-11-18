@@ -503,7 +503,7 @@ export function generar(specObj, diseno, { anterior = null, permitirCambios = fa
         }
         for (const [k, d] of Object.entries(parche.desc || {})) if (params[k] && !quitados[k]) params[k].desc = d;
         if ((parche.params || parche.obligatorios) && !aplicado) {
-          avisos.push(`parche obsoleto: la spec ya trae lo que corrige diseno.json parches «${clave}»; bórralo`);
+          avisos.push(`parche obsoleto: la spec ya trae lo que corrige diseno.json parches «${clave}»: se puede borrar`);
         }
       }
 
@@ -633,11 +633,13 @@ function bloqueReadme(tabla) {
   const g = tabla.generado;
   return [
     INICIO,
+    '',
     `Generado desde la spec del portal ${g.spec_version ?? ''} (sha256 \`${g.spec_sha256.slice(0, 12)}…\`): ${g.operaciones} llamadas en ${tabla.tools.length} tools por recurso, más \`status\` y \`search_docs\`.`,
     '',
     '| Tool | Qué hace | Acciones | Lecturas | No se deshacen |',
     '| --- | --- | ---: | ---: | ---: |',
     ...filas,
+    '',
     FIN,
   ].join('\n');
 }
@@ -685,7 +687,9 @@ async function main() {
   if (args.check) {
     const malos = [];
     if (!anterior || readFileSync(TABLA, 'utf8') !== textoTabla) malos.push('generated/tabla.json');
-    if (readme && nuevoReadme !== null && nuevoReadme !== readme) malos.push('README.md (bloque de tools)');
+    // Un formateador (prettier) puede alinear la tabla: se compara sin los espacios ni los guiones de más.
+    const parejo = (t) => t.replace(/ {2,}/g, ' ').replace(/-{3,}/g, '---');
+    if (readme && nuevoReadme !== null && parejo(nuevoReadme) !== parejo(readme)) malos.push('README.md (bloque de tools)');
     if (malos.length) {
       console.error(`No está al día: ${malos.join(', ')}. Corre npm run generate y súbelo.`);
       process.exit(1);
