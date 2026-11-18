@@ -48,7 +48,9 @@
     "generate:check": "node scripts/generar.mjs --check",
     "docs": "node scripts/docs.mjs",
     "docs:check": "node scripts/docs.mjs --check",
-    "start": "node src/cli.mjs"
+    "start": "node src/cli.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:e2e": "node --test --test-concurrency=1 test/e2e/*.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2"
