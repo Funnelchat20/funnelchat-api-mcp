@@ -37,7 +37,7 @@ const archivos = info.files.map((f) => f.path);
 console.log(`npm pack: ${info.filename}, ${archivos.length} archivos, ${(info.size / 1024).toFixed(0)} KB (${(info.unpackedSize / 1024).toFixed(0)} KB sin comprimir)`);
 const sobran = archivos.filter((f) => /^(test|scripts|spec\/funnelchat\.json|diseno\.json|\.github)/.test(f));
 if (sobran.length) fallar(`el paquete lleva lo que no hace falta: ${sobran.join(', ')}`);
-for (const f of ['package.json', 'README.md', 'LICENSE', 'src/cli.mjs', 'generated/tabla.json', 'docs/indice.json']) {
+for (const f of ['package.json', 'README.md', 'LICENSE', 'CHANGELOG.md', 'src/cli.mjs', 'generated/tabla.json', 'docs/indice.json']) {
   if (!archivos.includes(f)) fallar(`al paquete le falta ${f}`);
 }
 

@@ -119,7 +119,7 @@ Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`):
 
 - **Los parámetros se revisan contra la spec**: nombres, obligatorios, tipos y valores permitidos. Si sobra o falta algo, la llamada no sale y el error dice qué corregir, con el `help` de la acción. Un filtro mal escrito nunca devuelve la lista entera.
 - **Lo que no se deshace pide `confirm: true`**: borrar contactos, etiquetas o campos, cancelar una difusión, desconectar o borrar un número, sacar personas de un grupo… Sin `confirm`, el MCP no llama a la API y le pide al asistente que te pregunte primero. `help` marca esas acciones con «no se deshace».
-- **`--read-only`** deja solo las lecturas: no crea, no cambia ni borra nada.
+- **`--read-only`** deja solo las lecturas: no crea, no cambia ni borra nada, y tampoco da el QR de un número, porque con él se toma el control del número.
 
 ### Errores
 
@@ -173,7 +173,7 @@ Una versión nueva de la spec es una versión nueva del paquete. Las acciones no
 npm ci
 npm test                                         # pruebas unitarias, sin red
 npx @funnelchat-hq/sandbox --port 4010           # en otra terminal
-SANDBOX_URL=http://127.0.0.1:4010 npm run test:e2e   # contra el sandbox: stdio, HTTP y el ejemplo de cada acción
+SANDBOX_URL=http://127.0.0.1:4010 npm run test:e2e   # contra el sandbox: stdio, HTTP, el ejemplo de cada acción y la prueba adversaria
 npm run test:pack                                # npm pack, instalarlo en un proyecto vacío y correrlo con npx
 npm run measure                                  # cuántos tokens cargan los tools
 ```
