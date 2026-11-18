@@ -1,20 +1,54 @@
 {
-  "name": "funnelchat-api-mcp",
+  "name": "@funnelchat-hq/mcp",
   "version": "0.1.0",
-  "private": true,
-  "description": "Prototipo: MCP de la API pública de Funnelchat, generado desde la spec del portal",
+  "description": "Servidor MCP de la API pública de Funnelchat: números de WhatsApp, mensajes, contactos, plantillas, grupos y webhooks, con tu clave de API",
+  "license": "MIT",
+  "author": {
+    "name": "Funnelchat",
+    "email": "soporte@funnelchat.com"
+  },
+  "homepage": "https://developers-portal.funnelchat.app/docs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Funnelchat20/funnelchat-api-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Funnelchat20/funnelchat-api-mcp/issues",
+    "email": "soporte@funnelchat.com"
+  },
+  "keywords": [
+    "funnelchat",
+    "whatsapp",
+    "whatsapp-api",
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "cursor"
+  ],
   "type": "module",
-  "engines": { "node": ">=20.11" },
-  "bin": { "funnelchat-api-mcp": "src/cli.mjs" },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "bin": {
+    "funnelchat-mcp": "src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/servidor.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src/",
+    "generated/tabla.json",
+    "docs/"
+  ],
   "scripts": {
-    "generar": "node scripts/generar.mjs",
-    "defs": "node scripts/exportar-defs.mjs",
-    "start": "node src/cli.mjs",
-    "http": "node src/cli.mjs --http",
-    "prueba": "node scripts/prueba.mjs"
+    "generate": "node scripts/generar.mjs",
+    "start": "node src/cli.mjs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.32.2",
-    "zod": "3.25.76"
+    "@modelcontextprotocol/sdk": "1.32.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
