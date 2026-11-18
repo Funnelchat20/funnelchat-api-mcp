@@ -1,0 +1,257 @@
+# Cada llamada — API de Funnelchat
+
+> https://developers-portal.funnelchat.app/ia/llamadas.md. Una línea por llamada publicada, con el enlace a su texto (permiso, parámetros, cuerpo, respuestas y errores). Busca la que necesitas y lee solo esa.
+
+- [Conectar un número](/ia/referencia/numeros/conectar-un-numero.md): `POST /api/v1/connect-links`
+- [Ver tus números](/ia/referencia/numeros/ver-tus-numeros.md): `GET /api/v1/devices`
+- [Ver un número](/ia/referencia/numeros/ver-un-numero.md): `GET /api/v1/devices/{device}`
+- [Ver el estado de un número](/ia/referencia/numeros/ver-el-estado-de-un-numero.md): `GET /api/v1/devices/{device}/status`
+- [Desconectar un número](/ia/referencia/numeros/desconectar-un-numero.md): `POST /api/v1/devices/{device}/clean`
+- [Ver la salud de un número oficial](/ia/referencia/numeros/ver-la-salud-de-un-numero-oficial.md): `GET /api/v1/devices/{device}/health`
+- [Ver tus links de alta](/ia/referencia/numeros/ver-tus-links-de-alta.md): `GET /api/v1/connect-links`
+- [Ver un link de alta](/ia/referencia/numeros/ver-un-link-de-alta.md): `GET /api/v1/connect-links/{link}`
+- [Anular un link de alta](/ia/referencia/numeros/anular-un-link-de-alta.md): `DELETE /api/v1/connect-links/{link}`
+- [Crear un número para conectar por QR](/ia/referencia/numeros/crear-un-numero-para-conectar-por-qr.md): `POST /api/v1/devices`
+- [Ver el QR de un número](/ia/referencia/numeros/ver-el-qr-de-un-numero.md): `GET /api/v1/devices/{device}/qr`
+- [Editar un número](/ia/referencia/numeros/editar-un-numero.md): `PUT /api/v1/devices/{device}`
+- [Borrar un número](/ia/referencia/numeros/borrar-un-numero.md): `DELETE /api/v1/devices/{device}`
+- [Reiniciar la sesión de un número](/ia/referencia/numeros/reiniciar-la-sesion-de-un-numero.md): `PUT /api/v1/devices/{device}/reset`
+- [Actualizar la salud de un número oficial](/ia/referencia/numeros/actualizar-la-salud-de-un-numero-oficial.md): `POST /api/v1/devices/{device}/health/refresh`
+- [Ver el nombre de usuario de un número](/ia/referencia/numeros/ver-el-nombre-de-usuario-de-un-numero.md): `GET /api/v1/devices/{device}/username`
+- [Reservar un nombre de usuario](/ia/referencia/numeros/reservar-un-nombre-de-usuario.md): `POST /api/v1/devices/{device}/username`
+- [Ver nombres de usuario sugeridos](/ia/referencia/numeros/ver-nombres-de-usuario-sugeridos.md): `GET /api/v1/devices/{device}/username/suggestions`
+- [Ver el historial de conexión de un número](/ia/referencia/numeros/ver-el-historial-de-conexion-de-un-numero.md): `GET /api/v1/devices/{device}/connection-history`
+- [Mandar un mensaje](/ia/referencia/mensajes/mandar-un-mensaje.md): `POST /api/v1/message/send-message`
+- [Mandar una plantilla](/ia/referencia/mensajes/mandar-una-plantilla.md): `POST /api/v1/devices/{device}/templates/{template}/send-template`
+- [Ver tus plantillas](/ia/referencia/mensajes/ver-tus-plantillas.md): `GET /api/v1/templates`
+- [Traer tus plantillas de Meta](/ia/referencia/mensajes/traer-tus-plantillas-de-meta.md): `POST /api/v1/devices/{device}/templates`
+- [Ver un mensaje](/ia/referencia/mensajes/ver-un-mensaje.md): `GET /api/v1/contacts/{contact}/messages/{message}`
+- [Ver tus grupos](/ia/referencia/grupos/ver-tus-grupos.md): `GET /api/v1/devices/{device}/groups`
+- [Mandar un mensaje a un grupo](/ia/referencia/grupos/mandar-un-mensaje-a-un-grupo.md): `POST /api/v1/groups/{group}/messages`
+- [Seguir un grupo](/ia/referencia/grupos/seguir-un-grupo.md): `POST /api/v1/groups/{group}/import`
+- [Ver los grupos de tu cuenta](/ia/referencia/grupos/ver-los-grupos-de-tu-cuenta.md): `GET /api/v1/groups`
+- [Ver un grupo](/ia/referencia/grupos/ver-un-grupo.md): `GET /api/v1/groups/{group}`
+- [Ver los datos de un grupo en WhatsApp](/ia/referencia/grupos/ver-los-datos-de-un-grupo-en-whatsapp.md): `GET /api/v1/groups/{groupUid}/metadata`
+- [Ver los envíos programados de un grupo](/ia/referencia/grupos/ver-los-envios-programados-de-un-grupo.md): `GET /api/v1/groups/{group}/scheduled-messages`
+- [Ver los participantes de un grupo](/ia/referencia/grupos/ver-los-participantes-de-un-grupo.md): `GET /api/v1/groups/participants`
+- [Ver quién entró y salió de un grupo](/ia/referencia/grupos/ver-quien-entro-y-salio-de-un-grupo.md): `GET /api/v1/groups/{group}/participant-events`
+- [Ver los canales de un número](/ia/referencia/grupos/ver-los-canales-de-un-numero.md): `GET /api/v1/devices/{device}/channels`
+- [Ver los grupos de anuncios de un número](/ia/referencia/grupos/ver-los-grupos-de-anuncios-de-un-numero.md): `GET /api/v1/devices/{device}/ad-groups`
+- [Ver tus contactos](/ia/referencia/contactos/ver-tus-contactos.md): `GET /api/v1/contacts`
+- [Ver un contacto](/ia/referencia/contactos/ver-un-contacto.md): `GET /api/v1/contacts/{contact}`
+- [Crear un contacto](/ia/referencia/contactos/crear-un-contacto.md): `POST /api/v1/contacts`
+- [Crear o actualizar un contacto](/ia/referencia/contactos/crear-o-actualizar-un-contacto.md): `POST /api/v1/contacts/update-or-create`
+- [Editar un contacto](/ia/referencia/contactos/editar-un-contacto.md): `PUT /api/v1/contacts/{contact}`
+- [Ver los contactos de un número](/ia/referencia/contactos/ver-los-contactos-de-un-numero.md): `GET /api/v1/devices/{device}/contacts`
+- [Ver la ventana de 24 horas de un contacto](/ia/referencia/contactos/ver-la-ventana-de-24-horas-de-un-contacto.md): `GET /api/v1/contacts/{contact}/meta-window`
+- [Borrar contactos](/ia/referencia/contactos/borrar-contactos.md): `POST /api/v1/contacts/delete`
+- [Ver los mensajes con un contacto](/ia/referencia/conversaciones/ver-los-mensajes-con-un-contacto.md): `GET /api/v1/contacts/{contactId}/messages`
+- [Ver tus conversaciones](/ia/referencia/conversaciones/ver-tus-conversaciones.md): `GET /api/v1/conversations`
+- [Contar tus conversaciones](/ia/referencia/conversaciones/contar-tus-conversaciones.md): `GET /api/v1/conversations/count/all`
+- [Contar las conversaciones abiertas](/ia/referencia/conversaciones/contar-las-conversaciones-abiertas.md): `GET /api/v1/conversations/count/open`
+- [Contar las conversaciones cerradas](/ia/referencia/conversaciones/contar-las-conversaciones-cerradas.md): `GET /api/v1/conversations/count/closed`
+- [Contar las conversaciones sin leer](/ia/referencia/conversaciones/contar-las-conversaciones-sin-leer.md): `GET /api/v1/conversations/count/unread`
+- [Marcar todas como leídas](/ia/referencia/conversaciones/marcar-todas-como-leidas.md): `POST /api/v1/conversations/mark-all-read`
+- [Marcar todas como no leídas](/ia/referencia/conversaciones/marcar-todas-como-no-leidas.md): `POST /api/v1/conversations/mark-all-unread`
+- [Mandar un mensaje a un contacto](/ia/referencia/atender-una-conversacion/mandar-un-mensaje-a-un-contacto.md): `POST /api/v1/contacts/{contact}/message`
+- [Marcar un mensaje como leído](/ia/referencia/atender-una-conversacion/marcar-un-mensaje-como-leido.md): `POST /api/v1/contacts/{contact}/messages/{message}/read`
+- [Mostrar «escribiendo…»](/ia/referencia/atender-una-conversacion/mostrar-escribiendo.md): `POST /api/v1/contacts/{contact}/typing`
+- [Reaccionar a un mensaje](/ia/referencia/atender-una-conversacion/reaccionar-a-un-mensaje.md): `PUT /api/v1/contacts/{contact}/messages/{message}/reaction`
+- [Quitar una reacción](/ia/referencia/atender-una-conversacion/quitar-una-reaccion.md): `DELETE /api/v1/contacts/{contact}/messages/{message}/reaction`
+- [Ver tus formularios](/ia/referencia/atender-una-conversacion/ver-tus-formularios.md): `GET /api/v1/forms`
+- [Mandar un formulario](/ia/referencia/atender-una-conversacion/mandar-un-formulario.md): `POST /api/v1/contacts/{contact}/message/form`
+- [Reenviar un mensaje](/ia/referencia/atender-una-conversacion/reenviar-un-mensaje.md): `POST /api/v1/contacts/{contact}/messages/{message}/forward`
+- [Mandar una tarjeta de contacto](/ia/referencia/atender-una-conversacion/mandar-una-tarjeta-de-contacto.md): `POST /api/v1/contacts/{contact}/message/contact-card`
+- [Ver tus etiquetas](/ia/referencia/etiquetas/ver-tus-etiquetas.md): `GET /api/v1/tags`
+- [Crear una etiqueta](/ia/referencia/etiquetas/crear-una-etiqueta.md): `POST /api/v1/tags`
+- [Ver una etiqueta](/ia/referencia/etiquetas/ver-una-etiqueta.md): `GET /api/v1/tags/{tag}`
+- [Editar una etiqueta](/ia/referencia/etiquetas/editar-una-etiqueta.md): `PUT /api/v1/tags/{tag}`
+- [Ver los contactos de una etiqueta](/ia/referencia/etiquetas/ver-los-contactos-de-una-etiqueta.md): `GET /api/v1/tags/{tag}/contacts`
+- [Ver las etiquetas de un contacto](/ia/referencia/etiquetas/ver-las-etiquetas-de-un-contacto.md): `GET /api/v1/contacts/{contact}/tags`
+- [Agregar etiquetas a contactos](/ia/referencia/etiquetas/agregar-etiquetas-a-contactos.md): `POST /api/v1/contacts/add-tags`
+- [Quitar etiquetas a contactos](/ia/referencia/etiquetas/quitar-etiquetas-a-contactos.md): `POST /api/v1/contacts/remove-tags`
+- [Borrar etiquetas](/ia/referencia/etiquetas/borrar-etiquetas.md): `POST /api/v1/tags/delete`
+- [Ver tus campos](/ia/referencia/campos-personalizados/ver-tus-campos.md): `GET /api/v1/custom-fields`
+- [Crear un campo](/ia/referencia/campos-personalizados/crear-un-campo.md): `POST /api/v1/custom-fields`
+- [Ver un campo](/ia/referencia/campos-personalizados/ver-un-campo.md): `GET /api/v1/custom-fields/{customField}`
+- [Editar un campo](/ia/referencia/campos-personalizados/editar-un-campo.md): `PUT /api/v1/custom-fields/{customField}`
+- [Ver los campos de un contacto](/ia/referencia/campos-personalizados/ver-los-campos-de-un-contacto.md): `GET /api/v1/contacts/{contact}/custom-fields`
+- [Poner un valor en un contacto](/ia/referencia/campos-personalizados/poner-un-valor-en-un-contacto.md): `POST /api/v1/contacts/attach-custom-field`
+- [Quitar un valor de un contacto](/ia/referencia/campos-personalizados/quitar-un-valor-de-un-contacto.md): `POST /api/v1/contacts/detach-custom-field`
+- [Borrar campos personalizados](/ia/referencia/campos-personalizados/borrar-campos-personalizados.md): `POST /api/v1/custom-fields/delete`
+- [Ver las ejecuciones de un contacto](/ia/referencia/automatizaciones/ver-las-ejecuciones-de-un-contacto.md): `GET /api/v1/contact-flows/{contactId}`
+- [Ver los flujos de un contacto](/ia/referencia/automatizaciones/ver-los-flujos-de-un-contacto.md): `GET /api/v1/contacts/{contact}/flows`
+- [Ver tus flujos](/ia/referencia/automatizaciones/ver-tus-flujos.md): `GET /api/v1/flows`
+- [Ver un flujo](/ia/referencia/automatizaciones/ver-un-flujo.md): `GET /api/v1/flows/{flow}`
+- [Ver los pasos de un flujo](/ia/referencia/automatizaciones/ver-los-pasos-de-un-flujo.md): `GET /api/v1/flows/{flow}/nodes`
+- [Ver los contactos de un flujo](/ia/referencia/automatizaciones/ver-los-contactos-de-un-flujo.md): `GET /api/v1/flows/{flow}/flow-contacts`
+- [Contar los contactos en curso de un flujo](/ia/referencia/automatizaciones/contar-los-contactos-en-curso-de-un-flujo.md): `GET /api/v1/flows/{flow}/active-contacts`
+- [Contar los contactos pausados de un flujo](/ia/referencia/automatizaciones/contar-los-contactos-pausados-de-un-flujo.md): `GET /api/v1/flows/{flow}/paused-contacts`
+- [Ver los contactos pausados de un flujo](/ia/referencia/automatizaciones/ver-los-contactos-pausados-de-un-flujo.md): `GET /api/v1/flows/{flow}/paused-contacts-list`
+- [Cancelar una ejecución](/ia/referencia/automatizaciones/cancelar-una-ejecucion.md): `PUT /api/v1/contact-flows/{contactFlowId}/cancel`
+- [Pausar las automatizaciones de un contacto](/ia/referencia/automatizaciones/pausar-las-automatizaciones-de-un-contacto.md): `POST /api/v1/contacts/{contact}/pause`
+- [Ver la cola de mensajes de un número](/ia/referencia/cola-de-mensajes-de-un-numero/ver-la-cola-de-mensajes-de-un-numero.md): `GET /api/v1/devices/{device}/message-queue`
+- [Contar los mensajes en la cola](/ia/referencia/cola-de-mensajes-de-un-numero/contar-los-mensajes-en-la-cola.md): `GET /api/v1/devices/{device}/message-queue/count`
+- [Sacar mensajes de la cola](/ia/referencia/cola-de-mensajes-de-un-numero/sacar-mensajes-de-la-cola.md): `DELETE /api/v1/devices/{device}/message-queue`
+- [Vaciar la cola de mensajes](/ia/referencia/cola-de-mensajes-de-un-numero/vaciar-la-cola-de-mensajes.md): `DELETE /api/v1/devices/{device}/message-queue/all`
+- [Crear un grupo](/ia/referencia/acciones-de-grupo/crear-un-grupo.md): `POST /api/v1/groups`
+- [Sumar participantes a un grupo](/ia/referencia/acciones-de-grupo/sumar-participantes-a-un-grupo.md): `POST /api/v1/groups/{group}/participants`
+- [Sacar participantes de un grupo](/ia/referencia/acciones-de-grupo/sacar-participantes-de-un-grupo.md): `POST /api/v1/groups/{group}/participants/remove`
+- [Hacer administradores](/ia/referencia/acciones-de-grupo/hacer-administradores.md): `POST /api/v1/groups/{group}/admins`
+- [Quitar administradores](/ia/referencia/acciones-de-grupo/quitar-administradores.md): `POST /api/v1/groups/{group}/admins/remove`
+- [Cambiar el nombre de un grupo](/ia/referencia/acciones-de-grupo/cambiar-el-nombre-de-un-grupo.md): `PUT /api/v1/groups/{group}/name`
+- [Cambiar la descripción de un grupo](/ia/referencia/acciones-de-grupo/cambiar-la-descripcion-de-un-grupo.md): `PUT /api/v1/groups/{group}/description`
+- [Cambiar la foto de un grupo](/ia/referencia/acciones-de-grupo/cambiar-la-foto-de-un-grupo.md): `PUT /api/v1/groups/{group}/photo`
+- [Elegir quién escribe en un grupo](/ia/referencia/acciones-de-grupo/elegir-quien-escribe-en-un-grupo.md): `PUT /api/v1/groups/{group}/settings`
+- [Ver el link de invitación de un grupo](/ia/referencia/acciones-de-grupo/ver-el-link-de-invitacion-de-un-grupo.md): `GET /api/v1/groups/{group}/invite-link/live`
+- [Renovar el link de invitación de un grupo](/ia/referencia/acciones-de-grupo/renovar-el-link-de-invitacion-de-un-grupo.md): `POST /api/v1/groups/{group}/invite-link/renew`
+- [Ver las solicitudes para unirse](/ia/referencia/acciones-de-grupo/ver-las-solicitudes-para-unirse.md): `GET /api/v1/groups/{group}/join-requests`
+- [Aprobar solicitudes para unirse](/ia/referencia/acciones-de-grupo/aprobar-solicitudes-para-unirse.md): `POST /api/v1/groups/{group}/join-requests/approve`
+- [Rechazar solicitudes para unirse](/ia/referencia/acciones-de-grupo/rechazar-solicitudes-para-unirse.md): `POST /api/v1/groups/{group}/join-requests/reject`
+- [Ver cómo salió una acción de grupo](/ia/referencia/acciones-de-grupo/ver-como-salio-una-accion-de-grupo.md): `GET /api/v1/groups/actions/{action}`
+- [Ver las acciones sobre un grupo](/ia/referencia/acciones-de-grupo/ver-las-acciones-sobre-un-grupo.md): `GET /api/v1/groups/{group}/actions`
+- [Ver tus campañas](/ia/referencia/campanas/ver-tus-campanas.md): `GET /api/v1/campaigns`
+- [Ver una campaña](/ia/referencia/campanas/ver-una-campana.md): `GET /api/v1/campaigns/{campaign}`
+- [Ver las condiciones de una campaña](/ia/referencia/campanas/ver-las-condiciones-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/conditionals`
+- [Ver los grupos de una campaña](/ia/referencia/campanas/ver-los-grupos-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/groups`
+- [Ver los grupos que puedes sumar a una campaña](/ia/referencia/campanas/ver-los-grupos-que-puedes-sumar-a-una-campana.md): `GET /api/v1/campaigns/{campaign}/available-groups`
+- [Ver quién entró y salió de una campaña](/ia/referencia/campanas/ver-quien-entro-y-salio-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/participant-events`
+- [Ver los pipelines de una campaña](/ia/referencia/campanas/ver-los-pipelines-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/pipelines`
+- [Ver un pipeline](/ia/referencia/campanas/ver-un-pipeline.md): `GET /api/v1/campaigns/{campaign}/pipelines/{pipeline}`
+- [Ver qué se puede configurar en un plan de operación](/ia/referencia/campanas/ver-que-se-puede-configurar-en-un-plan-de-operacion.md): `GET /api/v1/campaigns/{campaign}/operation-plans/config`
+- [Ver los planes de operación de una campaña](/ia/referencia/campanas/ver-los-planes-de-operacion-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/operation-plans`
+- [Ver un plan de operación](/ia/referencia/campanas/ver-un-plan-de-operacion.md): `GET /api/v1/campaigns/{campaign}/operation-plans/{plan}`
+- [Ver las acciones de una campaña](/ia/referencia/campanas/ver-las-acciones-de-una-campana.md): `GET /api/v1/campaigns/{campaign}/actions`
+- [Ver los grupos de una acción](/ia/referencia/campanas/ver-los-grupos-de-una-accion.md): `GET /api/v1/campaigns/{campaign}/actions/{action}/groups`
+- [Ver tus envíos programados](/ia/referencia/envios-programados/ver-tus-envios-programados.md): `GET /api/v1/scheduled-messages`
+- [Ver un envío programado](/ia/referencia/envios-programados/ver-un-envio-programado.md): `GET /api/v1/scheduled-messages/{scheduledMessage}`
+- [Ver los grupos de un envío](/ia/referencia/envios-programados/ver-los-grupos-de-un-envio.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/groups`
+- [Ver cómo salió un envío en cada grupo](/ia/referencia/envios-programados/ver-como-salio-un-envio-en-cada-grupo.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/group-messages`
+- [Ver cuántos leyeron o escucharon un envío](/ia/referencia/envios-programados/ver-cuantos-leyeron-o-escucharon-un-envio.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates`
+- [Ver cada vez que salió un envío recurrente](/ia/referencia/envios-programados/ver-cada-vez-que-salio-un-envio-recurrente.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/runs`
+- [Ver las respuestas a un envío](/ia/referencia/envios-programados/ver-las-respuestas-a-un-envio.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/responses`
+- [Ver las etiquetas que pone un envío a quien responde](/ia/referencia/envios-programados/ver-las-etiquetas-que-pone-un-envio-a-quien-responde.md): `GET /api/v1/scheduled-messages/{scheduledMessage}/response-tags`
+- [Ver las carpetas de envíos](/ia/referencia/envios-programados/ver-las-carpetas-de-envios.md): `GET /api/v1/scheduled-messages/folders`
+- [Ver los participantes por período](/ia/referencia/estadisticas/ver-los-participantes-por-periodo.md): `GET /api/v1/stats/participants`
+- [Ver los participantes activos](/ia/referencia/estadisticas/ver-los-participantes-activos.md): `GET /api/v1/stats/active-participants`
+- [Ver tus grupos por estado](/ia/referencia/estadisticas/ver-tus-grupos-por-estado.md): `GET /api/v1/stats/groups`
+- [Ver los clics en tus links](/ia/referencia/estadisticas/ver-los-clics-en-tus-links.md): `GET /api/v1/stats/clicks`
+- [Ver el registro de clics](/ia/referencia/estadisticas/ver-el-registro-de-clics.md): `GET /api/v1/stats/records`
+- [Ver las métricas por país](/ia/referencia/estadisticas/ver-las-metricas-por-pais.md): `GET /api/v1/stats/country-metrics`
+- [Crear una plantilla](/ia/referencia/plantillas/crear-una-plantilla.md): `POST /api/v1/templates`
+- [Ver una plantilla](/ia/referencia/plantillas/ver-una-plantilla.md): `GET /api/v1/templates/{template}`
+- [Editar una plantilla](/ia/referencia/plantillas/editar-una-plantilla.md): `PUT /api/v1/templates/{template}`
+- [Ver las métricas de una plantilla](/ia/referencia/plantillas/ver-las-metricas-de-una-plantilla.md): `GET /api/v1/templates/{template}/metrics`
+- [Borrar una plantilla de un número](/ia/referencia/plantillas/borrar-una-plantilla-de-un-numero.md): `DELETE /api/v1/devices/{device}/templates/{template}`
+- [Ver los modelos de formulario](/ia/referencia/formularios/ver-los-modelos-de-formulario.md): `GET /api/v1/forms/templates`
+- [Crear un formulario](/ia/referencia/formularios/crear-un-formulario.md): `POST /api/v1/forms`
+- [Ver un formulario](/ia/referencia/formularios/ver-un-formulario.md): `GET /api/v1/forms/{id}`
+- [Editar un formulario](/ia/referencia/formularios/editar-un-formulario.md): `PUT /api/v1/forms/{id}`
+- [Borrar un formulario](/ia/referencia/formularios/borrar-un-formulario.md): `DELETE /api/v1/forms/{id}`
+- [Crear una versión de un formulario](/ia/referencia/formularios/crear-una-version-de-un-formulario.md): `POST /api/v1/forms/{id}/versions`
+- [Publicar un formulario](/ia/referencia/formularios/publicar-un-formulario.md): `POST /api/v1/forms/{id}/publish`
+- [Sincronizar un formulario](/ia/referencia/formularios/sincronizar-un-formulario.md): `POST /api/v1/forms/{id}/sync`
+- [Ver los números de un formulario](/ia/referencia/formularios/ver-los-numeros-de-un-formulario.md): `GET /api/v1/forms/{id}/numbers`
+- [Sumar números a un formulario](/ia/referencia/formularios/sumar-numeros-a-un-formulario.md): `POST /api/v1/forms/{id}/numbers`
+- [Reintentar los números de un formulario](/ia/referencia/formularios/reintentar-los-numeros-de-un-formulario.md): `POST /api/v1/forms/{id}/numbers/retry`
+- [Sacar un número de un formulario](/ia/referencia/formularios/sacar-un-numero-de-un-formulario.md): `DELETE /api/v1/forms/{id}/numbers/{deviceId}`
+- [Ver las versiones de un formulario](/ia/referencia/formularios/ver-las-versiones-de-un-formulario.md): `GET /api/v1/forms/families/{familyId}/versions`
+- [Ver la definición de un formulario](/ia/referencia/formularios/ver-la-definicion-de-un-formulario.md): `GET /api/v1/forms/families/{familyId}/definition`
+- [Ver las respuestas de un formulario](/ia/referencia/formularios/ver-las-respuestas-de-un-formulario.md): `GET /api/v1/forms/families/{familyId}/responses`
+- [Ver una respuesta de un formulario](/ia/referencia/formularios/ver-una-respuesta-de-un-formulario.md): `GET /api/v1/forms/families/{familyId}/responses/{runId}`
+- [Ver las métricas de un formulario](/ia/referencia/formularios/ver-las-metricas-de-un-formulario.md): `GET /api/v1/forms/families/{familyId}/metrics`
+- [Ver tus difusiones](/ia/referencia/difusiones/ver-tus-difusiones.md): `GET /api/v1/broadcasts`
+- [Ver una difusión](/ia/referencia/difusiones/ver-una-difusion.md): `GET /api/v1/broadcasts/{broadcast}`
+- [Buscar contactos para una difusión](/ia/referencia/difusiones/buscar-contactos-para-una-difusion.md): `POST /api/v1/broadcasts/contacts`
+- [Contar los contactos para una difusión](/ia/referencia/difusiones/contar-los-contactos-para-una-difusion.md): `POST /api/v1/broadcasts/contacts-count`
+- [Ver los tramos de costo](/ia/referencia/difusiones/ver-los-tramos-de-costo.md): `GET /api/v1/broadcasts/cost-tiers`
+- [Ver las estadísticas de una difusión](/ia/referencia/difusiones/ver-las-estadisticas-de-una-difusion.md): `GET /api/v1/broadcasts/{broadcast}/statistics`
+- [Ver el costo de una difusión](/ia/referencia/difusiones/ver-el-costo-de-una-difusion.md): `GET /api/v1/broadcasts/{broadcast}/cost`
+- [Ver los contactos de una difusión](/ia/referencia/difusiones/ver-los-contactos-de-una-difusion.md): `GET /api/v1/broadcasts/{broadcast}/contacts`
+- [Ver los mensajes de una difusión](/ia/referencia/difusiones/ver-los-mensajes-de-una-difusion.md): `GET /api/v1/broadcasts/{broadcast}/messages`
+- [Cancelar una difusión](/ia/referencia/difusiones/cancelar-una-difusion.md): `POST /api/v1/broadcasts/{broadcast}/cancel`
+- [Borrar una difusión](/ia/referencia/difusiones/borrar-una-difusion.md): `DELETE /api/v1/broadcasts/{broadcast}`
+- [Mover difusiones a una carpeta](/ia/referencia/difusiones/mover-difusiones-a-una-carpeta.md): `POST /api/v1/broadcasts/move-to-folder`
+- [Ver las carpetas de difusiones](/ia/referencia/difusiones/ver-las-carpetas-de-difusiones.md): `GET /api/v1/broadcasts/folders`
+- [Crear una carpeta de difusiones](/ia/referencia/difusiones/crear-una-carpeta-de-difusiones.md): `POST /api/v1/broadcasts/folders`
+- [Editar una carpeta de difusiones](/ia/referencia/difusiones/editar-una-carpeta-de-difusiones.md): `PUT /api/v1/broadcasts/folders/{broadcastFolder}`
+- [Borrar una carpeta de difusiones](/ia/referencia/difusiones/borrar-una-carpeta-de-difusiones.md): `DELETE /api/v1/broadcasts/folders/{broadcastFolder}`
+- [Ver tus tableros](/ia/referencia/tableros/ver-tus-tableros.md): `GET /api/v1/kanban-settings`
+- [Crear un tablero](/ia/referencia/tableros/crear-un-tablero.md): `POST /api/v1/kanban-settings`
+- [Ver un tablero](/ia/referencia/tableros/ver-un-tablero.md): `GET /api/v1/kanban-settings/{kanbanSetting}`
+- [Editar un tablero](/ia/referencia/tableros/editar-un-tablero.md): `PUT /api/v1/kanban-settings/{kanbanSetting}`
+- [Borrar un tablero](/ia/referencia/tableros/borrar-un-tablero.md): `DELETE /api/v1/kanban-settings/{kanbanSetting}`
+- [Ver si unos contactos están en un tablero](/ia/referencia/tableros/ver-si-unos-contactos-estan-en-un-tablero.md): `GET /api/v1/kanban-settings/{kanbanSetting}/members`
+- [Crear una etapa](/ia/referencia/tableros/crear-una-etapa.md): `POST /api/v1/kanban-settings/{kanbanSetting}/stages`
+- [Editar una etapa](/ia/referencia/tableros/editar-una-etapa.md): `PUT /api/v1/kanban-settings/{kanbanSetting}/stages/{stage}`
+- [Borrar una etapa](/ia/referencia/tableros/borrar-una-etapa.md): `DELETE /api/v1/kanban-settings/{kanbanSetting}/stages/{stage}`
+- [Ordenar las etapas](/ia/referencia/tableros/ordenar-las-etapas.md): `POST /api/v1/kanban-settings/{kanbanSetting}/stages/reorder`
+- [Ver los contactos de una etapa](/ia/referencia/tableros/ver-los-contactos-de-una-etapa.md): `GET /api/v1/kanban-settings/{kanbanSetting}/stages/{stage}/contacts`
+- [Ver las etapas de un contacto](/ia/referencia/tableros/ver-las-etapas-de-un-contacto.md): `GET /api/v1/contacts/{contact}/kanban-stages`
+- [Mover un contacto de etapa](/ia/referencia/tableros/mover-un-contacto-de-etapa.md): `POST /api/v1/kanban-settings/{kanbanSetting}/move-contact`
+- [Mover varios contactos de etapa](/ia/referencia/tableros/mover-varios-contactos-de-etapa.md): `POST /api/v1/kanban-settings/{kanbanSetting}/bulk-move`
+- [Sacar un contacto de un tablero](/ia/referencia/tableros/sacar-un-contacto-de-un-tablero.md): `POST /api/v1/kanban-settings/{kanbanSetting}/remove-contact`
+- [Sacar varios contactos de un tablero](/ia/referencia/tableros/sacar-varios-contactos-de-un-tablero.md): `POST /api/v1/kanban-settings/{kanbanSetting}/bulk-remove`
+- [Ver tus tickets](/ia/referencia/tickets/ver-tus-tickets.md): `GET /api/v1/tickets`
+- [Crear un ticket](/ia/referencia/tickets/crear-un-ticket.md): `POST /api/v1/tickets`
+- [Ver un ticket](/ia/referencia/tickets/ver-un-ticket.md): `GET /api/v1/tickets/{id}`
+- [Editar un ticket](/ia/referencia/tickets/editar-un-ticket.md): `PUT /api/v1/tickets/{id}`
+- [Asignar tickets](/ia/referencia/tickets/asignar-tickets.md): `POST /api/v1/tickets/assign`
+- [Cerrar un ticket](/ia/referencia/tickets/cerrar-un-ticket.md): `POST /api/v1/tickets/{id}/close`
+- [Reabrir un ticket](/ia/referencia/tickets/reabrir-un-ticket.md): `POST /api/v1/tickets/{id}/reopen`
+- [Ver las notas de un contacto](/ia/referencia/notas/ver-las-notas-de-un-contacto.md): `GET /api/v1/contacts/{contact}/notes`
+- [Agregar una nota a un contacto](/ia/referencia/notas/agregar-una-nota-a-un-contacto.md): `POST /api/v1/contacts/{contact}/notes`
+- [Borrar una nota](/ia/referencia/notas/borrar-una-nota.md): `DELETE /api/v1/contacts/{contact}/notes/{note}`
+- [Ver tus respuestas rápidas](/ia/referencia/respuestas-rapidas/ver-tus-respuestas-rapidas.md): `GET /api/v1/quick-replies`
+- [Crear una respuesta rápida](/ia/referencia/respuestas-rapidas/crear-una-respuesta-rapida.md): `POST /api/v1/quick-replies`
+- [Ver una respuesta rápida](/ia/referencia/respuestas-rapidas/ver-una-respuesta-rapida.md): `GET /api/v1/quick-replies/{quickReply}`
+- [Editar una respuesta rápida](/ia/referencia/respuestas-rapidas/editar-una-respuesta-rapida.md): `PUT /api/v1/quick-replies/{quickReply}`
+- [Borrar una respuesta rápida](/ia/referencia/respuestas-rapidas/borrar-una-respuesta-rapida.md): `DELETE /api/v1/quick-replies/{quickReply}`
+- [Ver tus carpetas](/ia/referencia/carpetas-de-flujos/ver-tus-carpetas.md): `GET /api/v1/folders`
+- [Crear una carpeta](/ia/referencia/carpetas-de-flujos/crear-una-carpeta.md): `POST /api/v1/folders`
+- [Ver una carpeta](/ia/referencia/carpetas-de-flujos/ver-una-carpeta.md): `GET /api/v1/folders/{folder}`
+- [Editar una carpeta](/ia/referencia/carpetas-de-flujos/editar-una-carpeta.md): `PUT /api/v1/folders/{folder}`
+- [Borrar una carpeta](/ia/referencia/carpetas-de-flujos/borrar-una-carpeta.md): `DELETE /api/v1/folders/{folder}`
+- [Ver cómo se calcula el puntaje](/ia/referencia/puntaje/ver-como-se-calcula-el-puntaje.md): `GET /api/v1/lead-score/settings`
+- [Configurar el puntaje](/ia/referencia/puntaje/configurar-el-puntaje.md): `PUT /api/v1/lead-score/settings`
+- [Ver cómo se reparte el puntaje](/ia/referencia/puntaje/ver-como-se-reparte-el-puntaje.md): `GET /api/v1/lead-score/distribution`
+- [Ver el puntaje de un contacto](/ia/referencia/puntaje/ver-el-puntaje-de-un-contacto.md): `GET /api/v1/contacts/{contact}/lead-score`
+- [Ajustar el puntaje de un contacto](/ia/referencia/puntaje/ajustar-el-puntaje-de-un-contacto.md): `POST /api/v1/contacts/{contact}/lead-score/adjustments`
+- [Ver tus ventas](/ia/referencia/ventas/ver-tus-ventas.md): `GET /api/v1/sales`
+- [Ver las métricas de ventas](/ia/referencia/ventas/ver-las-metricas-de-ventas.md): `GET /api/v1/sales/metrics`
+- [Ver el embudo de ventas](/ia/referencia/ventas/ver-el-embudo-de-ventas.md): `GET /api/v1/sales/funnel`
+- [Ver las ventas por plataforma](/ia/referencia/ventas/ver-las-ventas-por-plataforma.md): `GET /api/v1/sales/by-platform`
+- [Ver los productos de una plataforma de pagos](/ia/referencia/ventas/ver-los-productos-de-una-plataforma-de-pagos.md): `GET /api/v1/payments/products/{platform}`
+- [Ver tus dominios propios](/ia/referencia/dominios-propios/ver-tus-dominios-propios.md): `GET /api/v1/custom-domains`
+- [Registrar un dominio propio](/ia/referencia/dominios-propios/registrar-un-dominio-propio.md): `POST /api/v1/custom-domains`
+- [Verificar un dominio propio](/ia/referencia/dominios-propios/verificar-un-dominio-propio.md): `POST /api/v1/custom-domains/{customDomain}/verify`
+- [Cambiar cómo se valida el certificado](/ia/referencia/dominios-propios/cambiar-como-se-valida-el-certificado.md): `POST /api/v1/custom-domains/{customDomain}/switch-validation`
+- [Borrar un dominio propio](/ia/referencia/dominios-propios/borrar-un-dominio-propio.md): `DELETE /api/v1/custom-domains/{customDomain}`
+- [Ver tus datasets de Conversions API](/ia/referencia/conversions-api/ver-tus-datasets-de-conversions-api.md): `GET /api/v1/devices/capi/datasets`
+- [Configurar el dataset de un número](/ia/referencia/conversions-api/configurar-el-dataset-de-un-numero.md): `POST /api/v1/devices/{device}/capi/dataset`
+- [Probar la conexión con Conversions API](/ia/referencia/conversions-api/probar-la-conexion-con-conversions-api.md): `GET /api/v1/devices/{device}/capi/test`
+- [Ver tus costos de WhatsApp](/ia/referencia/costos-y-cuentas-de-meta/ver-tus-costos-de-whatsapp.md): `GET /api/v1/me/whatsapp-costs`
+- [Ver tus cuentas de WhatsApp Business](/ia/referencia/costos-y-cuentas-de-meta/ver-tus-cuentas-de-whatsapp-business.md): `GET /api/v1/me/whatsapp-business-accounts`
+- [Ver una cuenta de WhatsApp Business](/ia/referencia/costos-y-cuentas-de-meta/ver-una-cuenta-de-whatsapp-business.md): `GET /api/v1/me/whatsapp-business-accounts/{wabaId}`
+- [Ver tu cuenta](/ia/referencia/tu-cuenta-y-tu-equipo/ver-tu-cuenta.md): `GET /api/v1/me`
+- [Ver tu consumo de contactos activos](/ia/referencia/tu-cuenta-y-tu-equipo/ver-tu-consumo-de-contactos-activos.md): `GET /api/v1/mac/status`
+- [Ver tus contactos activos](/ia/referencia/tu-cuenta-y-tu-equipo/ver-tus-contactos-activos.md): `GET /api/v1/mac/contacts`
+- [Ver el historial de tus contactos activos](/ia/referencia/tu-cuenta-y-tu-equipo/ver-el-historial-de-tus-contactos-activos.md): `GET /api/v1/mac/contacts/history`
+- [Ver tu equipo](/ia/referencia/tu-cuenta-y-tu-equipo/ver-tu-equipo.md): `GET /api/v1/agents`
+- [Ver a una persona de tu equipo](/ia/referencia/tu-cuenta-y-tu-equipo/ver-a-una-persona-de-tu-equipo.md): `GET /api/v1/agents/{user}`
+- [Ver las alertas que hay](/ia/referencia/alertas/ver-las-alertas-que-hay.md): `GET /api/v1/alerts/catalog`
+- [Ver los destinos de tus alertas](/ia/referencia/alertas/ver-los-destinos-de-tus-alertas.md): `GET /api/v1/alerts/destinations`
+- [Prender o apagar una alerta en un destino](/ia/referencia/alertas/prender-o-apagar-una-alerta-en-un-destino.md): `PUT /api/v1/alerts/destinations/{id}/settings`
+- [Ver el horario de silencio](/ia/referencia/alertas/ver-el-horario-de-silencio.md): `GET /api/v1/alerts/quiet-hours`
+- [Configurar el horario de silencio](/ia/referencia/alertas/configurar-el-horario-de-silencio.md): `PUT /api/v1/alerts/quiet-hours`
+- [Ver el reporte diario](/ia/referencia/alertas/ver-el-reporte-diario.md): `GET /api/v1/alerts/daily-report`
+- [Configurar el reporte diario](/ia/referencia/alertas/configurar-el-reporte-diario.md): `PUT /api/v1/alerts/daily-report`
+- [Ver las campañas para tus alertas](/ia/referencia/alertas/ver-las-campanas-para-tus-alertas.md): `GET /api/v1/alerts/campaigns`
+- [Crear un webhook](/ia/webhooks/crear-un-webhook.md): `POST /api/v1/webhooks`
+- [Ver tus webhooks](/ia/webhooks/ver-tus-webhooks.md): `GET /api/v1/webhooks`
+- [Borrar un webhook](/ia/webhooks/borrar-un-webhook.md): `DELETE /api/v1/webhooks/{id}`
+- [Probar un webhook](/ia/webhooks/probar-un-webhook.md): `POST /api/v1/webhooks/{id}/test`
+- [Ver un webhook](/ia/webhooks/ver-un-webhook.md): `GET /api/v1/webhooks/{id}`
+- [Editar un webhook](/ia/webhooks/editar-un-webhook.md): `PUT /api/v1/webhooks/{id}`
+- [Ver las entregas de un webhook](/ia/webhooks/ver-las-entregas-de-un-webhook.md): `GET /api/v1/webhooks/{id}/deliveries`
+- [Ver los tipos de evento](/ia/webhooks/ver-los-tipos-de-evento.md): `GET /api/v1/webhooks/events`

@@ -1,0 +1,160 @@
+{
+  "_comment": "Escrito a mano: lo único que no sale de la spec. Qué grupos de config/alcance.json van a cada tool, la descripción de una línea de cada tool, qué sustantivos de la ruta se quitan del nombre de la acción y los pocos nombres de acción que el algoritmo no saca bien. scripts/generar.mjs arma con esto y la spec la tabla tool/acción → operación (generated/tabla.json) y falla si un grupo queda sin tool, si una llamada queda fuera o si dos acciones de un tool chocan.",
+  "tools": [
+    {
+      "name": "numbers",
+      "description": "Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API.",
+      "grupos": ["Números", "Cola de mensajes de un número", "Conversions API"],
+      "quitar": ["devices"],
+      "excluir": ["connect-links"]
+    },
+    {
+      "name": "connect_links",
+      "description": "Links de alta para que un cliente conecte su número.",
+      "grupos": [],
+      "desde": { "Números": "connect-links" },
+      "quitar": ["connect-links"]
+    },
+    {
+      "name": "messages",
+      "description": "Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios.",
+      "grupos": ["Mensajes", "Atender una conversación"],
+      "quitar": ["contacts", "messages", "message", "devices", "templates"],
+      "excluir": ["templates", "forms"]
+    },
+    {
+      "name": "conversations",
+      "description": "Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas.",
+      "grupos": ["Conversaciones", "Respuestas rápidas"],
+      "quitar": ["conversations", "contacts"]
+    },
+    {
+      "name": "contacts",
+      "description": "Contactos: ver, crear, editar y borrar, su ventana de 24 h, sus notas y su puntaje.",
+      "grupos": ["Contactos", "Notas", "Puntaje"],
+      "quitar": ["contacts"]
+    },
+    {
+      "name": "tags",
+      "description": "Etiquetas: crearlas, editarlas y ponerlas o quitarlas a contactos.",
+      "grupos": ["Etiquetas"],
+      "quitar": ["tags"]
+    },
+    {
+      "name": "custom_fields",
+      "description": "Campos personalizados y sus valores en cada contacto.",
+      "grupos": ["Campos personalizados"],
+      "quitar": ["custom-fields"]
+    },
+    {
+      "name": "templates",
+      "description": "Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar.",
+      "grupos": ["Plantillas"],
+      "desde": { "Mensajes": "templates" },
+      "quitar": ["templates", "devices"]
+    },
+    {
+      "name": "groups",
+      "description": "Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales.",
+      "grupos": ["Grupos"],
+      "quitar": ["groups", "devices"]
+    },
+    {
+      "name": "group_actions",
+      "description": "Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes.",
+      "grupos": ["Acciones de grupo"],
+      "quitar": ["groups"]
+    },
+    {
+      "name": "campaigns",
+      "description": "Campañas de grupos, envíos programados y estadísticas, solo lectura.",
+      "grupos": ["Campañas", "Envíos programados", "Estadísticas"],
+      "quitar": ["campaigns"]
+    },
+    {
+      "name": "broadcasts",
+      "description": "Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas.",
+      "grupos": ["Difusiones"],
+      "quitar": ["broadcasts"]
+    },
+    {
+      "name": "automations",
+      "description": "Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas.",
+      "grupos": ["Automatizaciones", "Carpetas de flujos"],
+      "quitar": ["flows"]
+    },
+    {
+      "name": "forms",
+      "description": "Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas.",
+      "grupos": ["Formularios"],
+      "desde": { "Atender una conversación": "forms" },
+      "quitar": ["forms"]
+    },
+    {
+      "name": "boards",
+      "description": "Tableros: etapas y mover contactos entre ellas.",
+      "grupos": ["Tableros"],
+      "quitar": ["kanban-settings"]
+    },
+    {
+      "name": "tickets",
+      "description": "Tickets: ver, crear, editar, asignar, cerrar y reabrir.",
+      "grupos": ["Tickets"],
+      "quitar": ["tickets"]
+    },
+    {
+      "name": "webhooks",
+      "description": "Webhooks: crear, ver, editar, probar y borrar, sus entregas y los tipos de evento.",
+      "grupos": ["Webhooks"],
+      "quitar": ["webhooks"]
+    },
+    {
+      "name": "account",
+      "description": "Tu cuenta: datos, equipo, contactos activos, costos de Meta, ventas, dominios y alertas.",
+      "grupos": [
+        "Tu cuenta y tu equipo",
+        "Costos y cuentas de Meta",
+        "Ventas",
+        "Dominios propios",
+        "Alertas"
+      ],
+      "quitar": ["me"]
+    }
+  ],
+  "sin_confirmar": {
+    "_comment": "Borrados que se deshacen solos: no piden confirm.",
+    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "una reacción se vuelve a poner con react"
+  },
+  "nombres": {
+    "_comment": "«MÉTODO ruta» → nombre de la acción, solo donde el algoritmo no acierta.",
+    "POST /api/v1/devices/{device}/username": "reserve_username",
+    "DELETE /api/v1/devices/{device}/message-queue/all": "clear_message_queue",
+    "POST /api/v1/devices/{device}/capi/dataset": "set_capi_dataset",
+    "POST /api/v1/message/send-message": "send",
+    "POST /api/v1/contacts/{contact}/message": "send_to_contact",
+    "POST /api/v1/contacts/{contact}/messages/{message}/read": "mark_read",
+    "PUT /api/v1/contacts/{contact}/messages/{message}/reaction": "react",
+    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "remove_reaction",
+    "POST /api/v1/contacts/{contact}/message/form": "send_form",
+    "POST /api/v1/contacts/{contact}/message/contact-card": "send_contact_card",
+    "GET /api/v1/devices/{device}/contacts": "list_by_number",
+    "POST /api/v1/contacts/{contact}/lead-score/adjustments": "adjust_lead_score",
+    "GET /api/v1/contacts/{contact}/tags": "list_for_contact",
+    "GET /api/v1/contacts/{contact}/custom-fields": "list_for_contact",
+    "POST /api/v1/devices/{device}/templates": "sync_from_meta",
+    "GET /api/v1/devices/{device}/groups": "list_live",
+    "POST /api/v1/groups/{group}/messages": "send_message",
+    "POST /api/v1/groups/{group}/participants": "add_participants",
+    "POST /api/v1/groups/{group}/admins": "add_admins",
+    "POST /api/v1/broadcasts/contacts": "search_contacts",
+    "GET /api/v1/contact-flows/{contactId}": "list_contact_runs",
+    "GET /api/v1/contacts/{contact}/flows": "list_for_contact",
+    "GET /api/v1/flows/{flow}/active-contacts": "count_active_contacts",
+    "GET /api/v1/flows/{flow}/paused-contacts": "count_paused_contacts",
+    "GET /api/v1/flows/{flow}/paused-contacts-list": "list_paused_contacts",
+    "POST /api/v1/forms/{id}/numbers": "add_numbers",
+    "GET /api/v1/contacts/{contact}/kanban-stages": "list_for_contact",
+    "GET /api/v1/payments/products/{platform}": "list_payment_products",
+    "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates"
+  }
+}
