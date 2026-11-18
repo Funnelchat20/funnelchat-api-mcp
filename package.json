@@ -50,7 +50,10 @@
     "docs:check": "node scripts/docs.mjs --check",
     "start": "node src/cli.mjs",
     "test": "node --test test/*.test.mjs",
-    "test:e2e": "node --test --test-concurrency=1 test/e2e/*.test.mjs"
+    "test:e2e": "node --test --test-concurrency=1 test/e2e/*.test.mjs",
+    "measure": "node scripts/medir.mjs",
+    "test:pack": "node scripts/probar-paquete.mjs",
+    "prepublishOnly": "npm run generate:check && npm run docs:check && npm test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2"
