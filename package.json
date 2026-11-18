@@ -40,11 +40,14 @@
   "files": [
     "src/",
     "generated/tabla.json",
-    "docs/"
+    "docs/indice.json",
+    "spec/procedencia.json"
   ],
   "scripts": {
     "generate": "node scripts/generar.mjs",
     "generate:check": "node scripts/generar.mjs --check",
+    "docs": "node scripts/docs.mjs",
+    "docs:check": "node scripts/docs.mjs --check",
     "start": "node src/cli.mjs"
   },
   "dependencies": {

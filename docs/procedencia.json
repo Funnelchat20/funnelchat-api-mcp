@@ -1,0 +1,15 @@
+{
+  "description": "De dónde salió docs/indice.json. Lo escribe `npm run docs -- --portal <carpeta>`; no se edita a mano.",
+  "file": "docs/indice.json",
+  "sha256": "613b9f503bf73b3e22eef25a16aba77ed2a5cb31c9b80e308c2c514e95f6a457",
+  "source": {
+    "portal_version": "v0.7.0-32-g2befa00",
+    "repository": "https://github.com/Funnelchat20/developers-portal.git",
+    "branch": "docs/integracion-17nov",
+    "commit": "2befa008fd4b2eecbefa1ffd75e46cac0bc10cbc",
+    "folder": "public",
+    "files": 348
+  },
+  "sections": 862,
+  "imported_at": "2026-11-18T14:31:44.591Z"
+}
