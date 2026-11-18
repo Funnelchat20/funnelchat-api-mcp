@@ -125,3 +125,18 @@ test('templates.create pide device_id y params {body, samples}', async () => {
   assert.equal(r.isError, false, r.txt);
   assert.equal(api.pedidos.length, 1);
 });
+
+test('un id «.» o «..» no cambia la ruta: forms.delete_number no llega a borrar el formulario', async () => {
+  const { llamar, api } = await conectar({ api: apiFalsa(() => ({ status: 204 })) });
+  for (const deviceId of ['..', '.', ' .. ']) {
+    const r = await llamar('forms', { action: 'delete_number', params: { id: 'frv_Ath9bJ3RpAYPhnX0EfcLtHJ', deviceId } });
+    assert.equal(r.datos.error, 'invalid_params', JSON.stringify(deviceId));
+    assert.match(r.datos.message, /no es un id/);
+  }
+  const t = await llamar('tags', { action: 'get', params: { tag: '..' } });
+  assert.equal(t.datos.error, 'invalid_params');
+  assert.equal(api.pedidos.length, 0, 'no se llamó a la API');
+  // Un id con «/» o «?» viaja codificado y no sale de su tramo.
+  await llamar('tags', { action: 'get', params: { tag: '../contacts/delete?x=' } });
+  assert.deepEqual(api.pedidos.map((p) => p.path), ['/api/v1/tags/..%2Fcontacts%2Fdelete%3Fx%3D']);
+});

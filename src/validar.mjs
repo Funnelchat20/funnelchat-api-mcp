@@ -144,6 +144,12 @@ export function validarParams(accion, params) {
       continue;
     }
     if (v === null && !accion.required.includes(k) && (def.in === 'query' || def.in === 'path')) continue; // un filtro en null es no filtrar
+    // Un tramo de ruta «.» o «..» cambia la ruta al armar la URL: DELETE …/forms/{id}/numbers/.. llega
+    // a DELETE …/forms/{id}, otra acción, que además pide confirm.
+    if (def.in === 'path' && v !== '' && /^\s*\.{0,2}\s*$/.test(String(v))) {
+      errores.push(`${k}: ${JSON.stringify(v)} no es un id`);
+      continue;
+    }
     valores[k] = revisar(v, def.schema, k, errores, def.in === 'query' || def.in === 'path');
   }
   if (errores.length) {
