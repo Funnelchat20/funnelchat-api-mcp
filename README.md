@@ -88,28 +88,28 @@ Cada tool agrupa las llamadas de un recurso y recibe `action`, `params` y, en lo
 
 <!-- TOOLS:INICIO (lo escribe npm run generate) -->
 
-Generado desde la spec del portal v0.7.0-32-g2befa00 (sha256 `60f32ccb1541…`): 253 llamadas en 18 tools por recurso, más `status` y `search_docs`.
+Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`): 253 llamadas en 18 tools por recurso, más `status` y `search_docs`.
 
-| Tool            | Qué hace                                                                                                 | Acciones | Lecturas | No se deshacen |
-| --------------- | -------------------------------------------------------------------------------------------------------- | -------: | -------: | -------------: |
-| `numbers`       | Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API.  |       22 |       13 |              5 |
-| `connect_links` | Links para conectar un número por QR, tuyo o de un cliente, o para reconectarlo.                         |        4 |        2 |              1 |
-| `messages`      | Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios. |       11 |        1 |              0 |
-| `conversations` | Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas.            |       13 |        8 |              1 |
-| `contacts`      | Contactos: ver, crear, editar y borrar, su ventana de 24 h, sus notas y su puntaje.                      |       16 |        8 |              2 |
-| `tags`          | Etiquetas: crearlas, editarlas y ponerlas o quitarlas a contactos.                                       |        9 |        4 |              1 |
-| `custom_fields` | Campos personalizados y sus valores en cada contacto.                                                    |        8 |        3 |              1 |
-| `templates`     | Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar.                            |        7 |        3 |              1 |
-| `groups`        | Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales.                          |       11 |        9 |              0 |
-| `group_actions` | Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes.                      |       16 |        4 |              3 |
-| `campaigns`     | Campañas de grupos, envíos programados y estadísticas, solo lectura.                                     |       28 |       28 |              0 |
-| `broadcasts`    | Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas.                             |       16 |       10 |              3 |
-| `automations`   | Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas.                  |       16 |       11 |              2 |
-| `forms`         | Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas.                          |       18 |        9 |              1 |
-| `boards`        | Tableros: etapas y mover contactos entre ellas.                                                          |       16 |        5 |              2 |
-| `tickets`       | Tickets: ver, crear, editar, asignar, cerrar y reabrir.                                                  |        7 |        2 |              0 |
-| `webhooks`      | Webhooks: crear, ver, editar, probar y borrar, sus entregas y los tipos de evento.                       |        8 |        4 |              1 |
-| `account`       | Tu cuenta: datos, equipo, contactos activos, costos de Meta, ventas, dominios y alertas.                 |       27 |       20 |              1 |
+| Tool | Qué hace | Acciones | Lecturas | No se deshacen |
+| --- | --- | ---: | ---: | ---: |
+| `numbers` | Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API. | 22 | 13 | 5 |
+| `connect_links` | Links para conectar un número por QR, tuyo o de un cliente, o para reconectarlo. | 4 | 2 | 1 |
+| `messages` | Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios. | 11 | 1 | 0 |
+| `conversations` | Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas. | 13 | 8 | 1 |
+| `contacts` | Contactos: ver, crear, editar y borrar, su ventana de 24 h, sus notas y su puntaje. | 16 | 8 | 2 |
+| `tags` | Etiquetas: crearlas, editarlas y ponerlas o quitarlas a contactos. | 9 | 4 | 1 |
+| `custom_fields` | Campos personalizados y sus valores en cada contacto. | 8 | 3 | 1 |
+| `templates` | Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar. | 7 | 3 | 1 |
+| `groups` | Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales. | 11 | 9 | 0 |
+| `group_actions` | Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes. | 16 | 4 | 3 |
+| `campaigns` | Campañas de grupos, envíos programados y estadísticas, solo lectura. | 28 | 28 | 0 |
+| `broadcasts` | Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas. | 16 | 10 | 3 |
+| `automations` | Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas. | 16 | 11 | 2 |
+| `forms` | Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas. | 18 | 9 | 1 |
+| `boards` | Tableros: etapas y mover contactos entre ellas. | 16 | 5 | 2 |
+| `tickets` | Tickets: ver, crear, editar, asignar, cerrar y reabrir. | 7 | 2 | 0 |
+| `webhooks` | Webhooks: crear, ver, editar, probar y borrar, sus entregas y los tipos de evento. | 8 | 4 | 1 |
+| `account` | Tu cuenta: datos, equipo, contactos activos, costos de Meta, ventas, dominios y alertas. | 27 | 20 | 1 |
 
 <!-- TOOLS:FIN -->
 
