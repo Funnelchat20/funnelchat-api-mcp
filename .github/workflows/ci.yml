@@ -1,0 +1,89 @@
+name: CI
+
+# Every pull request and every push to main. publish.yml also runs it, before publishing a tag.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # The sandbox the end-to-end tests run against: the version that goes out with this spec.
+  SANDBOX_VERSION: 0.7.0
+
+jobs:
+  check:
+    name: Check and test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+      # generated/tabla.json and the tools of the README come from spec/funnelchat.json and diseno.json.
+      - run: npm run generate:check
+      # docs/indice.json comes from the portal, untouched, from the same portal as the spec, and offers
+      # nothing that does not exist (a PHP or Python SDK, the /v1 base).
+      - run: npm run docs:check
+      - run: npm test
+      - run: npm audit --omit=dev --audit-level=high
+
+  e2e:
+    name: End to end against the sandbox
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Start the sandbox
+        run: |
+          npx -y "@funnelchat-hq/sandbox@${SANDBOX_VERSION}" --port 4010 --quiet > sandbox.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:4010/_sandbox/state > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat sandbox.log
+          exit 1
+
+      # stdio and HTTP with the MCP SDK client, and the example of every action.
+      - run: npm run test:e2e
+        env:
+          SANDBOX_URL: http://127.0.0.1:4010
+
+  pack:
+    name: The package as npm delivers it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      # npm pack, install the tarball in an empty project and run it with npx by stdio.
+      - run: npm run test:pack
