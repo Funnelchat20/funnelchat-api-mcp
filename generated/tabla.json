@@ -372,7 +372,7 @@
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
      "example_from": "armado",
-     "destructive_reason": "Borrar un número: no se puede deshacer."
+     "destructive_reason": "El número se borra de la cuenta y libera su lugar en el plan. Para volver a usar ese teléfono hay que crear un número nuevo y conectarlo otra vez."
     },
     "reset": {
      "summary": "Reiniciar la sesión de un número",
@@ -403,7 +403,7 @@
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
      "example_from": "armado",
-     "destructive_reason": "Reiniciar la sesión de un número: no se puede deshacer."
+     "destructive_reason": "Borra la información del número conectado en ese lugar (por QR u oficial), igual que «Borrar datos» en el panel, para conectar ahí un número distinto. El lugar en el plan sigue ocupado y se conserva el alias; para conectar el número nuevo hay que pedir un QR o hacer el alta oficial."
     },
     "disconnect": {
      "summary": "Desconectar un número",
@@ -434,7 +434,7 @@
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
      "example_from": "diseno",
-     "destructive_reason": "Desconectar un número: no se puede deshacer."
+     "destructive_reason": "Cierra la conexión del número, que deja de mandar y recibir hasta que lo vuelvas a conectar: uno por QR, escaneando un código QR nuevo; uno oficial, con el alta oficial. Conserva su lugar en el plan y su historial."
     },
     "get_status": {
      "summary": "Ver el estado de un número",
@@ -815,7 +815,7 @@
       ]
      },
      "example_from": "diseno",
-     "destructive_reason": "Saca esos mensajes de la cola: ya no salen."
+     "destructive_reason": "Los mensajes que indicas salen de la cola del número y ya no se mandan. Para mandarlos, envíalos de nuevo."
     },
     "count_message_queue": {
      "summary": "Contar los mensajes en la cola",
@@ -876,7 +876,7 @@
       "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
      "example_from": "armado",
-     "destructive_reason": "Vaciar la cola de mensajes: no se puede deshacer."
+     "destructive_reason": "Descarta todos los mensajes en la cola del número, sin dejar registro de lo descartado."
     },
     "set_capi_dataset": {
      "summary": "Configurar el dataset de un número",
@@ -1228,7 +1228,7 @@
       "link": "lnk_A2GK1NzySI7ig9NzsrC1gOu"
      },
      "example_from": "armado",
-     "destructive_reason": "Anula el link: quien lo tenga ya no puede conectar el número con él."
+     "destructive_reason": "El link deja de servir y, si la página ya creó un número sin conectar, ese número se borra. Para ofrecer el alta otra vez, crea un link nuevo."
     }
    }
   },
@@ -3494,7 +3494,7 @@
       "quickReply": "qrp_AOd36kHfwqRcunNLOTbwODh"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la respuesta rápida."
+     "destructive_reason": "La respuesta rápida se borra."
     }
    }
   },
@@ -4926,7 +4926,7 @@
       ]
      },
      "example_from": "diseno",
-     "destructive_reason": "Borra los contactos con su historial. Con all: true borra todos los que cumplen los filtros y, sin filtros, todos los contactos de la cuenta."
+     "destructive_reason": "Los contactos se borran para siempre. Con all: true y sin filtros se borran todos los de la cuenta."
     },
     "list_notes": {
      "summary": "Ver las notas de un contacto",
@@ -5072,7 +5072,7 @@
       "note": "not_AVvQvSdW9VWNGhveya5yq6m"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la nota."
+     "destructive_reason": "La nota se borra del contacto."
     },
     "get_lead_score": {
      "summary": "Ver el puntaje de un contacto",
@@ -6393,7 +6393,7 @@
       ]
      },
      "example_from": "spec",
-     "destructive_reason": "Borra las etiquetas y se las quita a todos los contactos que las tienen."
+     "destructive_reason": "Las etiquetas se borran y los contactos que las tenían las pierden."
     }
    }
   },
@@ -6812,7 +6812,7 @@
       ]
      },
      "example_from": "spec",
-     "destructive_reason": "Borra los campos y su valor en todos los contactos."
+     "destructive_reason": "Los campos se borran junto con el valor que tenía cada contacto en ellos."
     },
     "get": {
      "summary": "Ver un campo",
@@ -7674,7 +7674,7 @@
       "template": "tpl_AlgBF7nTNqV0atiwNuKFmT8"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la plantilla del número y de Meta."
+     "destructive_reason": "La plantilla se borra en Meta y en Funnelchat. Para volver a usarla, créala de nuevo y espera a que Meta la apruebe."
     },
     "get_metrics": {
      "summary": "Ver las métricas de una plantilla",
@@ -9368,7 +9368,7 @@
       ]
      },
      "example_from": "spec",
-     "destructive_reason": "Saca a esas personas del grupo en WhatsApp. WhatsApp les avisa, y para volver hay que sumarlas otra vez."
+     "destructive_reason": "WhatsApp saca a esas personas del grupo. Para que vuelvan, hay que agregarlas otra vez o mandarles el link de invitación."
     },
     "add_admins": {
      "summary": "Hacer administradores",
@@ -9750,7 +9750,7 @@
       "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
      },
      "example_from": "spec",
-     "destructive_reason": "El link de invitación de ahora deja de servir para siempre."
+     "destructive_reason": "Con un número oficial, el link de invitación anterior deja de servir y WhatsApp crea otro: cámbialo donde lo hayas compartido. Con un número por QR solo relee el link vigente."
     },
     "get_invite_link": {
      "summary": "Ver el link de invitación de un grupo",
@@ -13514,7 +13514,7 @@
       "broadcast": "bcs_A5b6U3qLB7DSV2TZUayo5Qr"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la difusión."
+     "destructive_reason": "La difusión se borra."
     },
     "get_statistics": {
      "summary": "Ver las estadísticas de una difusión",
@@ -13673,7 +13673,7 @@
       "broadcast": "bcs_A5b6U3qLB7DSV2TZUayo5Qr"
      },
      "example_from": "armado",
-     "destructive_reason": "Cancela la difusión: lo que todavía no salió ya no sale."
+     "destructive_reason": "La difusión se detiene y no se puede reanudar: lo que no salió ya no sale. Para mandarlo, crea otra difusión."
     },
     "list_messages": {
      "summary": "Ver los mensajes de una difusión",
@@ -13935,7 +13935,7 @@
       "broadcastFolder": "fdr_AcPR1j7N9cs1PrbzZmC0ZiK"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la carpeta de difusiones."
+     "destructive_reason": "La carpeta se borra. Sus difusiones no se borran: quedan sin carpeta."
     }
    }
   },
@@ -14165,7 +14165,7 @@
       "contactFlowId": "run_AQWAIJwpEhvi2JdVKBl47GY"
      },
      "example_from": "armado",
-     "destructive_reason": "Corta esa ejecución del flujo para el contacto: no sigue desde donde quedó."
+     "destructive_reason": "La ejecución del flujo para ese contacto termina y no se puede retomar. Para que vuelva a pasar por el flujo, inícialo otra vez."
     },
     "list": {
      "summary": "Ver tus flujos",
@@ -14912,7 +14912,7 @@
       "folder": "fdr_AduDXc22S3vA6cCoutuvEHY"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la carpeta de flujos."
+     "destructive_reason": "La carpeta se borra. Sus flujos no se borran: quedan sin carpeta."
     }
    }
   },
@@ -15907,7 +15907,7 @@
       "id": "frv_Ath9bJ3RpAYPhnX0EfcLtHJ"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra el formulario."
+     "destructive_reason": "Borra el borrador del formulario: la API no tiene cómo recuperarlo y hay que armarlo de nuevo."
     },
     "get_numbers": {
      "summary": "Ver los números de un formulario",
@@ -16746,7 +16746,7 @@
       "kanbanSetting": "knb_AD77AjVHX9JMsZN827QxGh9"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra el tablero con sus etapas."
+     "destructive_reason": "El tablero se borra con sus etapas y el lugar de cada contacto en él. Los contactos no se borran."
     },
     "get_members": {
      "summary": "Ver si unos contactos están en un tablero",
@@ -17268,7 +17268,7 @@
       "stage": "stg_AcNbpmjqDBZxtXTACjQVhH4"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra la etapa del tablero."
+     "destructive_reason": "La etapa se borra. Si tenía contactos, pasan a la etapa que indicas en reassign_to_stage_id."
     },
     "list_stage_contacts": {
      "summary": "Ver los contactos de una etapa",
@@ -18382,7 +18382,7 @@
       "id": "3f6c1a52-8e0b-4c7d-9a14-5b2e7d90c6af"
      },
      "example_from": "armado",
-     "destructive_reason": "Borra el webhook: dejan de llegar sus eventos y su secreto ya no sirve."
+     "destructive_reason": "El webhook se borra con su historial de entregas, y lo que estaba en camino ya no sale. Para dejar de recibir por un tiempo, páusalo en lugar de borrarlo."
     },
     "list_deliveries": {
      "summary": "Ver las entregas de un webhook",
@@ -19307,7 +19307,7 @@
       "customDomain": "dom_Av1pnwIr4tBmDHX5FCLBVpq"
      },
      "example_from": "armado",
-     "destructive_reason": "Borrar un dominio propio: no se puede deshacer."
+     "destructive_reason": "El dominio propio se borra y deja de usarse de inmediato."
     },
     "list_alerts_campaigns": {
      "summary": "Ver las campañas para tus alertas",

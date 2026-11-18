@@ -13,9 +13,10 @@
 // commit_date, file_tracked_in_git) y, si quieres, `--expect-sha256 <hex>` para rechazar otro archivo.
 //
 // La spec es la que publica el portal de desarrolladores: cada operación lleva su grupo del portal en
-// `tags[0]` y su nombre en `summary`. Lo único escrito a mano es diseno.json: qué grupos van a cada tool,
-// los nombres de acción que el algoritmo no saca bien, qué acciones no se deshacen, los ejemplos de las
-// acciones principales y los parches a la spec mientras la spec no los traiga.
+// `tags[0]`, su nombre en `summary` y, con x-fc-destructive, si se deshace y qué se pierde. Lo único
+// escrito a mano es diseno.json: qué grupos van a cada tool, los nombres de acción que el algoritmo no
+// saca bien, lo que no se deshace y la spec no marca, los ejemplos de las acciones principales y los
+// parches a la spec mientras la spec no los traiga.
 //
 // Falla si un grupo queda sin tool, si una llamada queda fuera, si dos acciones de un tool chocan, si un
 // nombre o un ejemplo de diseno.json no corresponde a ninguna llamada, si un borrado no está decidido
@@ -272,6 +273,20 @@ export function corta(txt, max = 110) {
   return `${cortado.slice(0, Math.max(cortado.lastIndexOf(' '), max * 0.6)).replace(/[\s,;:(]+$/, '')}…`;
 }
 
+// Lo que la spec dice que se pierde: el aviso «⚠️ **No se puede deshacer:** …» al principio de la
+// descripción de cada operación con x-fc-destructive, hasta el párrafo siguiente.
+export function motivoDeLaSpec(op) {
+  const m = String(op.description || '').match(/No se puede deshacer:\*\*\s*([\s\S]*?)(?:\n\s*\n|$)/);
+  if (!m) return null;
+  const t = m[1]
+    .replace(/^>\s?/gm, '')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\*\*|`/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return t ? `${t[0].toUpperCase()}${t.slice(1)}` : null;
+}
+
 // ---------- ejemplos que se arman solos ----------
 
 const POR_NOMBRE = {
@@ -507,21 +522,26 @@ export function generar(specObj, diseno, { anterior = null, permitirCambios = fa
         }
       }
 
-      // ¿Se deshace? La spec lo dice con x-fc-destructive; mientras no lo marque en todo, decide diseno.json.
+      // ¿Se deshace? Lo dice la spec con x-fc-destructive, y qué se pierde con su aviso «No se puede
+      // deshacer». diseno.json solo decide lo que la spec no marca, o pide confirmación aunque marque false.
       const marca = op['x-fc-destructive'];
       let destructiva = marca === true;
-      let motivo = null;
+      let motivo = destructiva ? motivoDeLaSpec(op) : null;
       if (destructivas[clave]) {
         usados.destructivas.add(clave);
+        if (marca === true) avisos.push(`destructivas: la spec ya marca «${clave}» con x-fc-destructive; se puede borrar de diseno.json`);
         motivo = destructivas[clave];
-        if (marca === true) avisos.push(`destructivas: la spec ya marca «${clave}» con x-fc-destructive; se puede borrar de diseno.json (el motivo sigue sirviendo)`);
         destructiva = true;
       }
       if (noDestructivas[clave]) {
         usados.noDestructivas.add(clave);
         if (marca === true) throw new Error(`diseno.json no_destructivas: la spec marca «${clave}» como destructiva`);
+        if (marca === false) avisos.push(`no_destructivas: la spec ya marca «${clave}» con x-fc-destructive false; se puede borrar de diseno.json`);
       }
-      if (destructiva && !motivo) motivo = `${op.summary}: no se puede deshacer.`;
+      if (destructiva && !motivo) {
+        avisos.push(`${clave}: la spec la marca con x-fc-destructive pero no dice qué se pierde («No se puede deshacer: …»)`);
+        motivo = `${op.summary}.`;
+      }
       if (!destructiva && marca === undefined && !noDestructivas[clave] && (metodo === 'DELETE' || PARECE_BORRADO.test(ruta))) {
         throw new Error(`${clave} («${op.summary}») parece un borrado y nadie lo decidió: agrégalo a destructivas o a no_destructivas de diseno.json`);
       }

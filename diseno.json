@@ -268,37 +268,12 @@
     "POST /api/v1/devices/{device}/clean": "disconnect"
   },
   "destructivas": {
-    "_comment": "Lo que no se deshace y la spec todavía no marca con x-fc-destructive (o marca false y aquí se decide pedir confirmación igual). Cada una pide confirm, y el texto es lo que el modelo le cuenta a la persona antes de preguntarle. Cuando la spec las marque, el generador avisa cuáles sobran.",
-    "POST /api/v1/contacts/delete": "Borra los contactos con su historial. Con all: true borra todos los que cumplen los filtros y, sin filtros, todos los contactos de la cuenta.",
-    "DELETE /api/v1/contacts/{contact}/notes/{note}": "Borra la nota.",
-    "POST /api/v1/tags/delete": "Borra las etiquetas y se las quita a todos los contactos que las tienen.",
-    "POST /api/v1/custom-fields/delete": "Borra los campos y su valor en todos los contactos.",
-    "DELETE /api/v1/devices/{device}/templates/{template}": "Borra la plantilla del número y de Meta.",
-    "DELETE /api/v1/devices/{device}/message-queue": "Saca esos mensajes de la cola: ya no salen.",
-    "DELETE /api/v1/broadcasts/{broadcast}": "Borra la difusión.",
-    "POST /api/v1/broadcasts/{broadcast}/cancel": "Cancela la difusión: lo que todavía no salió ya no sale.",
-    "DELETE /api/v1/broadcasts/folders/{broadcastFolder}": "Borra la carpeta de difusiones.",
-    "PUT /api/v1/contact-flows/{contactFlowId}/cancel": "Corta esa ejecución del flujo para el contacto: no sigue desde donde quedó.",
-    "DELETE /api/v1/folders/{folder}": "Borra la carpeta de flujos.",
-    "DELETE /api/v1/kanban-settings/{kanbanSetting}": "Borra el tablero con sus etapas.",
-    "DELETE /api/v1/kanban-settings/{kanbanSetting}/stages/{stage}": "Borra la etapa del tablero.",
-    "DELETE /api/v1/quick-replies/{quickReply}": "Borra la respuesta rápida.",
-    "DELETE /api/v1/forms/{id}": "Borra el formulario.",
-    "POST /api/v1/groups/{group}/participants/remove": "Saca a esas personas del grupo en WhatsApp. WhatsApp les avisa, y para volver hay que sumarlas otra vez.",
-    "POST /api/v1/groups/{group}/invite-link/renew": "El link de invitación de ahora deja de servir para siempre.",
-    "POST /api/v1/groups/{group}/join-requests/reject": "Rechaza las solicitudes: esas personas tienen que pedir entrar de nuevo.",
-    "DELETE /api/v1/webhooks/{id}": "Borra el webhook: dejan de llegar sus eventos y su secreto ya no sirve.",
-    "DELETE /api/v1/connect-links/{link}": "Anula el link: quien lo tenga ya no puede conectar el número con él."
+    "_comment": "La spec dice qué no se deshace con x-fc-destructive y qué se pierde con su aviso «No se puede deshacer». Aquí va solo lo que la spec no marca, o marca false y el MCP pide confirmación igual; el texto es lo que el modelo le cuenta a la persona antes de preguntarle. Cuando la spec marque una, el generador avisa que sobra.",
+    "DELETE /api/v1/forms/{id}": "Borra el borrador del formulario: la API no tiene cómo recuperarlo y hay que armarlo de nuevo.",
+    "POST /api/v1/groups/{group}/join-requests/reject": "Rechaza las solicitudes: esas personas tienen que pedir entrar de nuevo."
   },
   "no_destructivas": {
-    "_comment": "Lo que parece un borrado pero se deshace con otra acción: no pide confirm.",
-    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "La reacción se vuelve a poner con react.",
-    "POST /api/v1/contacts/remove-tags": "Las etiquetas se vuelven a poner con add_tags.",
-    "POST /api/v1/contacts/detach-custom-field": "El valor se vuelve a poner con attach_custom_field.",
-    "POST /api/v1/kanban-settings/{kanbanSetting}/remove-contact": "El contacto vuelve al tablero con move_contact.",
-    "POST /api/v1/kanban-settings/{kanbanSetting}/bulk-remove": "Los contactos vuelven al tablero con bulk_move.",
-    "POST /api/v1/groups/{group}/admins/remove": "Se vuelven a hacer administradores con add_admins.",
-    "DELETE /api/v1/forms/{id}/numbers/{deviceId}": "El número se vuelve a sumar con add_numbers."
+    "_comment": "Lo que parece un borrado, la spec no marca con x-fc-destructive y se deshace con otra acción: no pide confirm. Si la spec lo marca false, el generador avisa que sobra."
   },
   "lecturas_por_post": {
     "_comment": "POST que solo leen: van en el modo --read-only.",
@@ -308,56 +283,6 @@
   },
   "parches": {
     "_comment": "Correcciones a la spec publicada mientras no las traiga (el generador avisa cuando una sobra), y lo que se deja de ofrecer por decisión.",
-    "POST /api/v1/templates": {
-      "motivo": "Producción exige device_id y params es {body, samples}; la spec publicada hasta v0.7.0 no lo dice.",
-      "obligatorios": [
-        "device_id"
-      ],
-      "params": {
-        "device_id": {
-          "in": "body",
-          "type": "string",
-          "schema": {
-            "t": [
-              "string"
-            ]
-          },
-          "desc": "Id dev_… del número oficial donde se crea"
-        },
-        "params": {
-          "in": "body",
-          "type": "{body: object, samples: {body: object}}",
-          "schema": {
-            "t": [
-              "object",
-              "null"
-            ],
-            "p": {
-              "body": {
-                "t": [
-                  "object"
-                ],
-                "libre": true
-              },
-              "samples": {
-                "t": [
-                  "object"
-                ],
-                "p": {
-                  "body": {
-                    "t": [
-                      "object"
-                    ],
-                    "libre": true
-                  }
-                }
-              }
-            }
-          },
-          "desc": "Con qué se llena cada variable y su ejemplo para Meta, por número: {body: {\"1\": \"{name}\"}, samples: {body: {\"1\": \"Lucía\"}}}"
-        }
-      }
-    },
     "POST /api/v1/connect-links": {
       "motivo": "El alta de números oficiales por link (type meta, también el número de EE. UU.) está apagada por ahora: la API responde 503 meta_connect_disabled. Conecta el número por QR; un número oficial se conecta desde el panel.",
       "quitar_valores": {

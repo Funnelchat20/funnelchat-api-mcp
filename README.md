@@ -163,7 +163,7 @@ npx -y @funnelchat-hq/mcp --http --port 3333
 
 ## La spec y las versiones
 
-Los tools salen de la spec que publica el portal (`spec/funnelchat.json`). De dónde salió, con su versión del portal y su `sha256`, está en `spec/procedencia.json`, que va dentro del paquete; `status` también la dice. Lo único escrito a mano es `diseno.json`: qué grupos del portal van a cada tool, algunos nombres de acción, qué no se deshace y los ejemplos de las acciones principales.
+Los tools salen de la spec que publica el portal (`spec/funnelchat.json`). De dónde salió, con su versión del portal y su `sha256`, está en `spec/procedencia.json`, que va dentro del paquete; `status` también la dice. Qué no se deshace, y qué se pierde, lo dice la spec con `x-fc-destructive`. Lo único escrito a mano es `diseno.json`: qué grupos del portal van a cada tool, algunos nombres de acción, lo poco que pide confirmación aunque la spec no lo marque y los ejemplos de las acciones principales.
 
 Una versión nueva de la spec es una versión nueva del paquete. Las acciones no cambian de nombre entre versiones: si una tuviera que cambiar, sale en una versión mayor.
 

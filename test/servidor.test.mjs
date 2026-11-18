@@ -13,7 +13,7 @@ test('lo que no se deshace no sale sin confirm, y el error pide preguntarle a la
   const r = await llamar('contacts', { action: 'delete', params: { contactIds: ['ctc_AAOzYSKDiqHT4hM8LdPB8Ut'] } });
   assert.equal(r.datos.error, 'confirmation_required');
   assert.match(r.datos.message, /pregúntale si quiere seguir/);
-  assert.match(r.datos.message, /todos los contactos de la cuenta/);
+  assert.match(r.datos.message, /se borran todos los de la cuenta/);
   assert.doesNotMatch(r.datos.message, /[Rr]epite la llamada/);
   assert.equal(api.pedidos.length, 0);
   // confirm dentro de params no vale: es un parámetro que delete no tiene.
@@ -40,7 +40,7 @@ test('cada acción que no se deshace tiene su motivo, y ningún ejemplo trae con
 test('help de una acción que no se deshace lo dice, sin confirm en el ejemplo', async () => {
   const { llamar } = await conectar();
   const r = await llamar('webhooks', { action: 'help', params: { action: 'delete' } });
-  assert.match(r.datos.confirm, /No se puede deshacer\. Borra el webhook/);
+  assert.match(r.datos.confirm, /No se puede deshacer\. El webhook se borra con su historial/);
   assert.deepEqual(Object.keys(r.datos.example), ['action', 'params']);
   const lista = await llamar('webhooks', { action: 'help' });
   assert.match(lista.datos.actions.delete, /\[no se deshace\]/);
