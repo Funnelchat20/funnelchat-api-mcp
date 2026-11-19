@@ -1,15 +1,13 @@
-// search_docs: busca en una copia local de llms.txt y de los textos /ia/ del portal.
-// Parte cada archivo en secciones por título, quita las repetidas y puntúa por términos.
+// search_docs: busca en docs/indice.json, las secciones de los textos para IA del portal
+// (llms.txt, llms-full.txt y /ia/), que arma scripts/docs.mjs. Puntúa por términos, con más peso
+// en el título y en las secciones cortas.
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const raiz = join(dirname(fileURLToPath(import.meta.url)), '..', 'docs');
-const PORTAL = 'https://developers-portal.funnelchat.app';
-const VACIAS = new Set(
-  'que con para por los las del una uno como cuando donde esta este eso sus tus the and api funnelchat'.split(' '),
-);
+const ARCHIVO = join(dirname(fileURLToPath(import.meta.url)), '..', 'docs', 'indice.json');
+const VACIAS = new Set('que con para por los las del una uno como cuando donde esta este eso sus tus the and api funnelchat'.split(' '));
 
 const normal = (t) =>
   t
@@ -17,43 +15,11 @@ const normal = (t) =>
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '');
 
-function archivos(dir) {
-  return readdirSync(dir).flatMap((n) => {
-    const p = join(dir, n);
-    return statSync(p).isDirectory() ? archivos(p) : p.endsWith('.md') || p.endsWith('.txt') ? [p] : [];
-  });
-}
-
 let indice;
 function cargar() {
   if (indice) return indice;
-  indice = [];
-  const vistas = new Set();
-  // llms-full.txt repite lo de /ia/: va al final para que gane la sección del tema.
-  const lista = archivos(raiz).sort((a, b) => (a.endsWith('llms-full.txt') ? 1 : 0) - (b.endsWith('llms-full.txt') ? 1 : 0));
-  for (const f of lista) {
-    const rel = relative(raiz, f).replace(/\\/g, '/');
-    const url = `${PORTAL}/${rel}`;
-    const lineas = readFileSync(f, 'utf8').split('\n');
-    const titulo = (lineas.find((l) => l.startsWith('# ')) || rel).replace(/^# /, '').replace(/ — API de Funnelchat.*$/, '');
-    let sec = { titulo: '', cuerpo: [] };
-    const cerrar = () => {
-      const cuerpo = sec.cuerpo.join('\n').trim();
-      if (cuerpo.length < 40) return;
-      const clave = normal(cuerpo.slice(0, 300));
-      if (vistas.has(clave)) return;
-      vistas.add(clave);
-      indice.push({ url, doc: titulo, seccion: sec.titulo, cuerpo, n: normal(`${sec.titulo}\n${cuerpo}`), t: normal(`${titulo} ${sec.titulo}`) });
-    };
-    for (const l of lineas) {
-      const m = l.match(/^#{2,4} (.+)/);
-      if (m) {
-        cerrar();
-        sec = { titulo: m[1].trim(), cuerpo: [] };
-      } else sec.cuerpo.push(l);
-    }
-    cerrar();
-  }
+  const { portal, secciones } = JSON.parse(readFileSync(ARCHIVO, 'utf8'));
+  indice = secciones.map((s) => ({ ...s, url: `${portal}${s.u}`, n: normal(`${s.s}\n${s.c}`), t: normal(`${s.d} ${s.s}`) }));
   return indice;
 }
 
@@ -84,17 +50,12 @@ export function buscar(consulta, limite = 5) {
     }
     if (!presentes) continue;
     puntos *= presentes / terminos.length;
-    // Las secciones cortas y al grano pesan un poco más que los volcados largos.
-    puntos /= Math.log10(s.cuerpo.length + 100);
+    puntos /= Math.log10(s.c.length + 100);
     res.push([puntos, s]);
   }
   res.sort((a, b) => b[0] - a[0]);
   return {
     query: consulta,
-    results: res.slice(0, limite).map(([, s]) => ({
-      title: s.seccion ? `${s.doc} › ${s.seccion}` : s.doc,
-      url: s.url,
-      snippet: fragmento(s.cuerpo, terminos),
-    })),
+    results: res.slice(0, limite).map(([, s]) => ({ title: s.s ? `${s.d} › ${s.s}` : s.d, url: s.url, snippet: fragmento(s.c, terminos) })),
   };
 }

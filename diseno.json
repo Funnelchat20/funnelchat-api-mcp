@@ -1,115 +1,226 @@
 {
-  "_comment": "Escrito a mano: lo único que no sale de la spec. Qué grupos de config/alcance.json van a cada tool, la descripción de una línea de cada tool, qué sustantivos de la ruta se quitan del nombre de la acción y los pocos nombres de acción que el algoritmo no saca bien. scripts/generar.mjs arma con esto y la spec la tabla tool/acción → operación (generated/tabla.json) y falla si un grupo queda sin tool, si una llamada queda fuera o si dos acciones de un tool chocan.",
+  "_comment": "Escrito a mano: lo único que no sale de la spec. Qué grupos del portal (tags[0] de cada operación) van a cada tool, el título y la descripción de una línea de cada tool, qué sustantivos de la ruta se quitan del nombre de la acción, los nombres de acción que el algoritmo no saca bien, qué acciones no se deshacen, qué POST solo leen, los parches a la spec y los ejemplos de las acciones principales. scripts/generar.mjs arma con esto y la spec generated/tabla.json, y falla si algo de aquí no corresponde a ninguna llamada.",
   "tools": [
     {
       "name": "numbers",
+      "title": "Números",
       "description": "Números de WhatsApp: ver, crear por QR, editar, desconectar, salud, cola de mensajes y Conversions API.",
-      "grupos": ["Números", "Cola de mensajes de un número", "Conversions API"],
-      "quitar": ["devices"],
-      "excluir": ["connect-links"]
+      "grupos": [
+        "Números",
+        "Cola de mensajes de un número",
+        "Conversions API"
+      ],
+      "quitar": [
+        "devices"
+      ],
+      "excluir": [
+        "connect-links"
+      ]
     },
     {
       "name": "connect_links",
-      "description": "Links de alta para que un cliente conecte su número.",
+      "title": "Links para conectar",
+      "description": "Links para conectar un número por QR, tuyo o de un cliente, o para reconectarlo.",
       "grupos": [],
-      "desde": { "Números": "connect-links" },
-      "quitar": ["connect-links"]
+      "desde": {
+        "Números": "connect-links"
+      },
+      "quitar": [
+        "connect-links"
+      ]
     },
     {
       "name": "messages",
+      "title": "Mensajes",
       "description": "Mandar mensajes y plantillas, ver un mensaje, marcarlo leído, reaccionar, reenviar y mandar formularios.",
-      "grupos": ["Mensajes", "Atender una conversación"],
-      "quitar": ["contacts", "messages", "message", "devices", "templates"],
-      "excluir": ["templates", "forms"]
+      "grupos": [
+        "Mensajes",
+        "Atender una conversación"
+      ],
+      "quitar": [
+        "contacts",
+        "messages",
+        "message",
+        "devices",
+        "templates"
+      ],
+      "excluir": [
+        "templates",
+        "forms"
+      ]
     },
     {
       "name": "conversations",
+      "title": "Conversaciones",
       "description": "Conversaciones: mensajes con un contacto, listar, contar, marcar leídas y respuestas rápidas.",
-      "grupos": ["Conversaciones", "Respuestas rápidas"],
-      "quitar": ["conversations", "contacts"]
+      "grupos": [
+        "Conversaciones",
+        "Respuestas rápidas"
+      ],
+      "quitar": [
+        "conversations",
+        "contacts"
+      ]
     },
     {
       "name": "contacts",
+      "title": "Contactos",
       "description": "Contactos: ver, crear, editar y borrar, su ventana de 24 h, sus notas y su puntaje.",
-      "grupos": ["Contactos", "Notas", "Puntaje"],
-      "quitar": ["contacts"]
+      "grupos": [
+        "Contactos",
+        "Notas",
+        "Puntaje"
+      ],
+      "quitar": [
+        "contacts"
+      ]
     },
     {
       "name": "tags",
+      "title": "Etiquetas",
       "description": "Etiquetas: crearlas, editarlas y ponerlas o quitarlas a contactos.",
-      "grupos": ["Etiquetas"],
-      "quitar": ["tags"]
+      "grupos": [
+        "Etiquetas"
+      ],
+      "quitar": [
+        "tags"
+      ]
     },
     {
       "name": "custom_fields",
+      "title": "Campos personalizados",
       "description": "Campos personalizados y sus valores en cada contacto.",
-      "grupos": ["Campos personalizados"],
-      "quitar": ["custom-fields"]
+      "grupos": [
+        "Campos personalizados"
+      ],
+      "quitar": [
+        "custom-fields"
+      ]
     },
     {
       "name": "templates",
+      "title": "Plantillas",
       "description": "Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar.",
-      "grupos": ["Plantillas"],
-      "desde": { "Mensajes": "templates" },
-      "quitar": ["templates", "devices"]
+      "grupos": [
+        "Plantillas"
+      ],
+      "desde": {
+        "Mensajes": "templates"
+      },
+      "quitar": [
+        "templates",
+        "devices"
+      ]
     },
     {
       "name": "groups",
+      "title": "Grupos",
       "description": "Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales.",
-      "grupos": ["Grupos"],
-      "quitar": ["groups", "devices"]
+      "grupos": [
+        "Grupos"
+      ],
+      "quitar": [
+        "groups",
+        "devices"
+      ]
     },
     {
       "name": "group_actions",
+      "title": "Acciones de grupo",
       "description": "Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes.",
-      "grupos": ["Acciones de grupo"],
-      "quitar": ["groups"]
+      "grupos": [
+        "Acciones de grupo"
+      ],
+      "quitar": [
+        "groups"
+      ]
     },
     {
       "name": "campaigns",
+      "title": "Campañas",
       "description": "Campañas de grupos, envíos programados y estadísticas, solo lectura.",
-      "grupos": ["Campañas", "Envíos programados", "Estadísticas"],
-      "quitar": ["campaigns"]
+      "grupos": [
+        "Campañas",
+        "Envíos programados",
+        "Estadísticas"
+      ],
+      "quitar": [
+        "campaigns"
+      ]
     },
     {
       "name": "broadcasts",
+      "title": "Difusiones",
       "description": "Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas.",
-      "grupos": ["Difusiones"],
-      "quitar": ["broadcasts"]
+      "grupos": [
+        "Difusiones"
+      ],
+      "quitar": [
+        "broadcasts"
+      ]
     },
     {
       "name": "automations",
+      "title": "Automatizaciones",
       "description": "Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas.",
-      "grupos": ["Automatizaciones", "Carpetas de flujos"],
-      "quitar": ["flows"]
+      "grupos": [
+        "Automatizaciones",
+        "Carpetas de flujos"
+      ],
+      "quitar": [
+        "flows"
+      ]
     },
     {
       "name": "forms",
+      "title": "Formularios",
       "description": "Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas.",
-      "grupos": ["Formularios"],
-      "desde": { "Atender una conversación": "forms" },
-      "quitar": ["forms"]
+      "grupos": [
+        "Formularios"
+      ],
+      "desde": {
+        "Atender una conversación": "forms"
+      },
+      "quitar": [
+        "forms"
+      ]
     },
     {
       "name": "boards",
+      "title": "Tableros",
       "description": "Tableros: etapas y mover contactos entre ellas.",
-      "grupos": ["Tableros"],
-      "quitar": ["kanban-settings"]
+      "grupos": [
+        "Tableros"
+      ],
+      "quitar": [
+        "kanban-settings"
+      ]
     },
     {
       "name": "tickets",
+      "title": "Tickets",
       "description": "Tickets: ver, crear, editar, asignar, cerrar y reabrir.",
-      "grupos": ["Tickets"],
-      "quitar": ["tickets"]
+      "grupos": [
+        "Tickets"
+      ],
+      "quitar": [
+        "tickets"
+      ]
     },
     {
       "name": "webhooks",
+      "title": "Webhooks",
       "description": "Webhooks: crear, ver, editar, probar y borrar, sus entregas y los tipos de evento.",
-      "grupos": ["Webhooks"],
-      "quitar": ["webhooks"]
+      "grupos": [
+        "Webhooks"
+      ],
+      "quitar": [
+        "webhooks"
+      ]
     },
     {
       "name": "account",
+      "title": "Cuenta",
       "description": "Tu cuenta: datos, equipo, contactos activos, costos de Meta, ventas, dominios y alertas.",
       "grupos": [
         "Tu cuenta y tu equipo",
@@ -118,13 +229,11 @@
         "Dominios propios",
         "Alertas"
       ],
-      "quitar": ["me"]
+      "quitar": [
+        "me"
+      ]
     }
   ],
-  "sin_confirmar": {
-    "_comment": "Borrados que se deshacen solos: no piden confirm.",
-    "DELETE /api/v1/contacts/{contact}/messages/{message}/reaction": "una reacción se vuelve a poner con react"
-  },
   "nombres": {
     "_comment": "«MÉTODO ruta» → nombre de la acción, solo donde el algoritmo no acierta.",
     "POST /api/v1/devices/{device}/username": "reserve_username",
@@ -155,6 +264,228 @@
     "POST /api/v1/forms/{id}/numbers": "add_numbers",
     "GET /api/v1/contacts/{contact}/kanban-stages": "list_for_contact",
     "GET /api/v1/payments/products/{platform}": "list_payment_products",
-    "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates"
+    "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates",
+    "POST /api/v1/devices/{device}/clean": "disconnect"
+  },
+  "destructivas": {
+    "_comment": "La spec dice qué no se deshace con x-fc-destructive y qué se pierde con su aviso «No se puede deshacer». Aquí va solo lo que la spec no marca, o marca false y el MCP pide confirmación igual; el texto es lo que el modelo le cuenta a la persona antes de preguntarle. Cuando la spec marque una, el generador avisa que sobra.",
+    "DELETE /api/v1/forms/{id}": "Borra el borrador del formulario: la API no tiene cómo recuperarlo y hay que armarlo de nuevo.",
+    "POST /api/v1/groups/{group}/join-requests/reject": "Rechaza las solicitudes: esas personas tienen que pedir entrar de nuevo."
+  },
+  "no_destructivas": {
+    "_comment": "Lo que parece un borrado, la spec no marca con x-fc-destructive y se deshace con otra acción: no pide confirm. Si la spec lo marca false, el generador avisa que sobra."
+  },
+  "lecturas_por_post": {
+    "_comment": "POST que solo leen: van en el modo --read-only.",
+    "POST /api/v1/broadcasts/contacts": "Solo busca contactos.",
+    "POST /api/v1/broadcasts/contacts-count": "Solo cuenta contactos.",
+    "POST /api/v1/devices/{device}/health/refresh": "Le pide a Meta la salud del número; no cambia nada en la cuenta."
+  },
+  "parches": {
+    "_comment": "Correcciones a la spec publicada mientras no las traiga (el generador avisa cuando una sobra), y lo que se deja de ofrecer por decisión.",
+    "POST /api/v1/connect-links": {
+      "motivo": "El alta de números oficiales por link (type meta, también el número de EE. UU.) está apagada por ahora: la API responde 503 meta_connect_disabled. Conecta el número por QR; un número oficial se conecta desde el panel.",
+      "quitar_valores": {
+        "type": [
+          "meta"
+        ]
+      },
+      "quitar_params": [
+        "allowed_connection_types",
+        "provision_us_number"
+      ],
+      "desc": {
+        "type": "qr: el número se conecta escaneando un código QR"
+      }
+    }
+  },
+  "ejemplos": {
+    "_comment": "Ejemplos de las acciones principales, escritos a mano: los muestra help y test/e2e/ejemplos.test.mjs los corre contra el sandbox. Sin confirm: eso lo decide la persona. Los ids son de ejemplo; el test los cambia por ids del sandbox.",
+    "numbers.list": {
+      "perPage": 20
+    },
+    "numbers.create": {
+      "connection": "qr",
+      "alias": "Sucursal Centro",
+      "country": "mx"
+    },
+    "numbers.get_qr": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.get_status": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.disconnect": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "numbers.delete_message_queue": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "messageUids": [
+        "3EB0C431D5E7F2A9B6C1"
+      ]
+    },
+    "connect_links.create": {
+      "type": "qr",
+      "country": "mx",
+      "external_reference": "cliente-8841",
+      "return_url": "https://tu-sistema.com/vuelta"
+    },
+    "messages.send": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "phone": "5491122334455",
+      "text": "Hola Lucía, tu pedido 8841 ya salió.",
+      "client_reference": "pedido-8841"
+    },
+    "messages.send_to_contact": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "contact_id": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "phone": "5491122334455",
+      "text": "Sí, tenemos talle M. ¿Te lo reservo?",
+      "client_reference": "consulta-5521"
+    },
+    "messages.send_template": {
+      "device": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template": "tpl_AlgBF7nTNqV0atiwNuKFmT8",
+      "phone": "5491122334455",
+      "template_variables": {
+        "body": {
+          "1": "Lucía"
+        }
+      },
+      "client_reference": "bienvenida-8841"
+    },
+    "messages.forward": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "message": "msg_As2pkZIkjmvC3nnoiFlYfDo",
+      "targets": [
+        {
+          "contact_id": "ctc_AXpXvekJxkQAxurPveX5pXf",
+          "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+        }
+      ],
+      "client_reference": "reenvio-8841"
+    },
+    "messages.typing": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "conversations.list": {
+      "unreadMessages": true
+    },
+    "conversations.list_messages": {
+      "contactId": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "perPage": 20
+    },
+    "contacts.list": {
+      "name": "Ana"
+    },
+    "contacts.create": {
+      "phone": "5491122334455",
+      "name": "Ana Pérez",
+      "email": "ana@ejemplo.com"
+    },
+    "contacts.update_or_create": {
+      "phone": "5491122334455",
+      "name": "Ana Pérez"
+    },
+    "contacts.update": {
+      "contact": "ctc_AAOzYSKDiqHT4hM8LdPB8Ut",
+      "name": "Ana Pérez"
+    },
+    "contacts.delete": {
+      "contactIds": [
+        "ctc_AAOzYSKDiqHT4hM8LdPB8Ut"
+      ]
+    },
+    "contacts.update_lead_score_settings": {
+      "hot_threshold": 75,
+      "warm_threshold": 45,
+      "min_signals": 2,
+      "hysteresis": 5,
+      "decay_enabled": true,
+      "decay_steps": [
+        {
+          "days": 7,
+          "points": -5
+        },
+        {
+          "days": 30,
+          "points": -15
+        }
+      ],
+      "rules": [
+        {
+          "id": "pregunta-precio",
+          "signal": "intent_keyword",
+          "mode": "event",
+          "points": 10,
+          "daily_cap": 20,
+          "unique_scope": "none",
+          "enabled": true,
+          "disqualifies": false,
+          "on_release": "keep",
+          "config": {
+            "keywords": [
+              "precio",
+              "cotización",
+              "cuánto cuesta"
+            ]
+          }
+        },
+        {
+          "id": "responde",
+          "signal": "message_reply",
+          "mode": "event",
+          "points": 3,
+          "daily_cap": null,
+          "unique_scope": "none",
+          "enabled": true,
+          "disqualifies": false,
+          "on_release": "keep"
+        }
+      ]
+    },
+    "tags.create": {
+      "name": "Cliente VIP",
+      "description": "Compró más de una vez"
+    },
+    "templates.create": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "name": "pedido_listo",
+      "language_code": "es",
+      "category": "UTILITY",
+      "type": "text",
+      "body": "Hola {{1}}, tu pedido ya está listo para retirar.",
+      "params": {
+        "body": {
+          "1": "{name}"
+        },
+        "samples": {
+          "body": {
+            "1": "Lucía"
+          }
+        }
+      }
+    },
+    "templates.list": {
+      "status": "APPROVED"
+    },
+    "groups.import": {
+      "group": "120363041234567890@g.us",
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "webhooks.create": {
+      "url": "https://tu-sistema.com/webhooks/funnelchat",
+      "events": [
+        "message.received",
+        "message.status_changed"
+      ],
+      "description": "CRM de ventas"
+    },
+    "forms.create": {
+      "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX",
+      "template_key": "lead"
+    }
   }
 }

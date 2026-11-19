@@ -1,20 +1,65 @@
 {
-  "name": "funnelchat-api-mcp",
+  "name": "@funnelchat-hq/mcp",
   "version": "0.1.0",
-  "private": true,
-  "description": "Prototipo: MCP de la API pública de Funnelchat, generado desde la spec del portal",
+  "description": "Servidor MCP de la API pública de Funnelchat: números de WhatsApp, mensajes, contactos, plantillas, grupos y webhooks, con tu clave de API",
+  "license": "MIT",
+  "author": {
+    "name": "Funnelchat",
+    "email": "soporte@funnelchat.com"
+  },
+  "homepage": "https://developers-portal.funnelchat.app/docs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Funnelchat20/funnelchat-api-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Funnelchat20/funnelchat-api-mcp/issues",
+    "email": "soporte@funnelchat.com"
+  },
+  "keywords": [
+    "funnelchat",
+    "whatsapp",
+    "whatsapp-api",
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "cursor"
+  ],
   "type": "module",
-  "engines": { "node": ">=20.11" },
-  "bin": { "funnelchat-api-mcp": "src/cli.mjs" },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "bin": {
+    "funnelchat-mcp": "src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/servidor.mjs",
+    "./http": "./src/http.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "src/",
+    "generated/tabla.json",
+    "docs/indice.json",
+    "spec/procedencia.json"
+  ],
   "scripts": {
-    "generar": "node scripts/generar.mjs",
-    "defs": "node scripts/exportar-defs.mjs",
+    "generate": "node scripts/generar.mjs",
+    "generate:check": "node scripts/generar.mjs --check",
+    "docs": "node scripts/docs.mjs",
+    "docs:check": "node scripts/docs.mjs --check",
     "start": "node src/cli.mjs",
-    "http": "node src/cli.mjs --http",
-    "prueba": "node scripts/prueba.mjs"
+    "test": "node --test test/*.test.mjs",
+    "test:e2e": "node --test --test-concurrency=1 test/e2e/*.test.mjs",
+    "measure": "node scripts/medir.mjs",
+    "test:pack": "node scripts/probar-paquete.mjs",
+    "prepublishOnly": "npm run generate:check && npm run docs:check && npm test"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.32.2",
-    "zod": "3.25.76"
+    "@modelcontextprotocol/sdk": "1.32.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
