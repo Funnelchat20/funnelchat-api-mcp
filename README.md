@@ -2,7 +2,7 @@
 
 El servidor MCP de la API pública de Funnelchat. Con él, tu asistente (Claude Code, Cursor u otro cliente MCP) usa tus números de WhatsApp, tus mensajes, contactos, plantillas, grupos y webhooks con tu clave de API: los mismos permisos, límites y errores que la API.
 
-Cubre todas las llamadas que publica el [portal de desarrolladores](https://developers-portal.funnelchat.app/docs/) con 20 tools, unos 3.100 tokens en total.
+Cubre todas las llamadas que publica el [portal de desarrolladores](https://developers-portal.funnelchat.app/docs/) con 20 tools, unos 3.200 tokens en total.
 
 ## Antes de empezar
 
@@ -88,7 +88,7 @@ Cada tool agrupa las llamadas de un recurso y recibe `action`, `params` y, en lo
 
 <!-- TOOLS:INICIO (lo escribe npm run generate) -->
 
-Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`): 253 llamadas en 18 tools por recurso, más `status` y `search_docs`.
+Generado desde la spec del portal v0.7.0-54-g5c9ed62 (sha256 `b98c53bd7dc1…`): 260 llamadas en 18 tools por recurso, más `status` y `search_docs`.
 
 | Tool | Qué hace | Acciones | Lecturas | No se deshacen |
 | --- | --- | ---: | ---: | ---: |
@@ -102,7 +102,7 @@ Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`):
 | `templates` | Plantillas de WhatsApp: ver, crear, editar, traer de Meta, métricas y borrar. | 7 | 3 | 1 |
 | `groups` | Grupos de WhatsApp: ver, seguir, mandarles un mensaje, participantes y canales. | 11 | 9 | 0 |
 | `group_actions` | Cambiar un grupo: crearlo, participantes, admins, nombre, foto, link y solicitudes. | 16 | 4 | 3 |
-| `campaigns` | Campañas de grupos, envíos programados y estadísticas, solo lectura. | 28 | 28 | 0 |
+| `campaigns` | Campañas de grupos: crear, editar, pausar y borrar; envíos programados a grupos: programar, editar y cancelar; y estadísticas. | 35 | 28 | 2 |
 | `broadcasts` | Difusiones: ver, buscar contactos, costo, estadísticas, cancelar y carpetas. | 16 | 10 | 3 |
 | `automations` | Flujos: verlos, sus contactos, cancelar una ejecución, pausar a un contacto y carpetas. | 16 | 11 | 2 |
 | `forms` | Formularios de WhatsApp: ver, crear, publicar, números, versiones y respuestas. | 18 | 9 | 1 |
@@ -118,7 +118,7 @@ Generado desde la spec del portal v0.7.0-49-g31766eb (sha256 `766230d4a8ce…`):
 ### Antes de llamar a la API
 
 - **Los parámetros se revisan contra la spec**: nombres, obligatorios, tipos y valores permitidos. Si sobra o falta algo, la llamada no sale y el error dice qué corregir, con el `help` de la acción. Un filtro mal escrito nunca devuelve la lista entera.
-- **Lo que no se deshace pide `confirm: true`**: borrar contactos, etiquetas o campos, cancelar una difusión, desconectar o borrar un número, sacar personas de un grupo… Sin `confirm`, el MCP no llama a la API y le pide al asistente que te pregunte primero. `help` marca esas acciones con «no se deshace».
+- **Lo que no se deshace pide `confirm: true`**: borrar contactos, etiquetas o campos, cancelar una difusión o un envío programado, borrar una campaña, desconectar o borrar un número, sacar personas de un grupo… Sin `confirm`, el MCP no llama a la API y le pide al asistente que te pregunte primero. `help` marca esas acciones con «no se deshace».
 - **`--read-only`** deja solo las lecturas: no crea, no cambia ni borra nada, y tampoco da el QR de un número, porque con él se toma el control del número.
 
 ### Errores

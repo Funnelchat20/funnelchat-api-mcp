@@ -2,12 +2,12 @@
  "_comment": "Generado por scripts/generar.mjs desde spec/funnelchat.json y diseno.json: no se edita a mano.",
  "generado": {
   "spec": "spec/funnelchat.json",
-  "spec_sha256": "766230d4a8ce3bac38a973444361ab4a05bbe8b66e491a1323b962284e09c7fd",
-  "spec_version": "v0.7.0-49-g31766eb",
-  "operaciones": 253,
+  "spec_sha256": "b98c53bd7dc167cfc77fbd15bb4334d98f2361d56b3edf3e03949ad723135b47",
+  "spec_version": "v0.7.0-54-g5c9ed62",
+  "operaciones": 260,
   "tools": 18,
-  "nombres_a_mano": 30,
-  "ejemplos_a_mano": 26
+  "nombres_a_mano": 32,
+  "ejemplos_a_mano": 31
  },
  "tools": [
   {
@@ -8149,7 +8149,7 @@
         "7",
         "8"
        ],
-       "desc": "Estado del grupo (ver status de GroupResource)"
+       "desc": "Estado del grupo (ver status de GroupResource); con 3 se excluyen los grupos cuyo dueño es un número…"
       },
       "deviceId": {
        "in": "query",
@@ -8170,6 +8170,36 @@
         ]
        },
        "desc": "true: solo grupos fuera de campañas; false: todos"
+      },
+      "adminConnection": {
+       "in": "query",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         1,
+         2,
+         3
+        ]
+       },
+       "enum": [
+        1,
+        2,
+        3
+       ],
+       "desc": "Admins conectados: 1 todos, 2 ninguno (incluye grupos sin admins), 3 algunos"
+      },
+      "participantMode": {
+       "in": "query",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: solo grupos importados sin ser admin (modo participante); false: todos"
       },
       "page": {
        "in": "query",
@@ -9965,7 +9995,7 @@
   {
    "name": "campaigns",
    "title": "Campañas",
-   "description": "Campañas de grupos, envíos programados y estadísticas, solo lectura.",
+   "description": "Campañas de grupos: crear, editar, pausar y borrar; envíos programados a grupos: programar, editar y cancelar; y estadísticas.",
    "actions": {
     "list": {
      "summary": "Ver tus campañas",
@@ -10089,6 +10119,506 @@
      "example": {},
      "example_from": "armado"
     },
+    "create": {
+     "summary": "Crear una campaña",
+     "method": "POST",
+     "path": "/api/v1/campaigns",
+     "grupo": "Campañas",
+     "permission": "communities:write",
+     "purpose": "Úsalo para crear una campaña de grupos de WhatsApp: sus administradores, cómo reparte a las personas entre sus grupos y sus límites",
+     "read_only": false,
+     "destructive": false,
+     "body": "object",
+     "required": [
+      "name",
+      "description",
+      "administrators"
+     ],
+     "params": {
+      "name": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "description": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "is_active": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "redirect_url": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "traffic_distribution_type": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         1,
+         2
+        ]
+       },
+       "enum": [
+        1,
+        2
+       ]
+      },
+      "fill_groups_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean",
+         "null"
+        ]
+       },
+       "desc": "Rellenar grupos, además de la distribución elegida"
+      },
+      "group_numbering_position": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         1,
+         2
+        ]
+       },
+       "enum": [
+        1,
+        2
+       ]
+      },
+      "slug": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "anti_bot_verification_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "custom_domain": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "captcha_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "virtual_queue_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "virtual_queue_rate_per_minute": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "group_name_variations": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       }
+      },
+      "moderation": {
+       "in": "body",
+       "type": "{type: integer, insults_and_profanity: boolean, negative_comments: boolean, repetitive_spam: boolean, external_links: boolean, promotions_and_sales: boolean, off_topic: boolean}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "type": {
+          "t": [
+           "integer"
+          ],
+          "e": [
+           1,
+           2
+          ]
+         },
+         "insults_and_profanity": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "negative_comments": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "repetitive_spam": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "external_links": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "promotions_and_sales": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "off_topic": {
+          "t": [
+           "boolean"
+          ]
+         }
+        }
+       }
+      },
+      "administrators": {
+       "in": "body",
+       "type": "array<{phone*: string, lid: string, roles: {can_send_message: boolean, can_do_actions: boolean, can_create_groups: boolean, can_create_group: boolean, can_send_messages: boolean, can_change_name_description: boolean}}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "phone": {
+           "t": [
+            "string"
+           ]
+          },
+          "lid": {
+           "t": [
+            "string",
+            "null"
+           ]
+          },
+          "roles": {
+           "t": [
+            "object"
+           ],
+           "p": {
+            "can_send_message": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_do_actions": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_create_groups": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_create_group": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_send_messages": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_change_name_description": {
+             "t": [
+              "boolean"
+             ]
+            }
+           }
+          }
+         },
+         "r": [
+          "phone"
+         ]
+        }
+       },
+       "desc": "Números que administran los grupos de la campaña: de 2 a 20 (de 1 a 20 en un canal)"
+      },
+      "members_can_send_messages": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: todos los participantes pueden escribir en los grupos; false: solo los administradores"
+      },
+      "type": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "1",
+         "2",
+         "3",
+         "4"
+        ]
+       },
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "4"
+       ],
+       "desc": "Tipo de campaña: 1 grupos, 2 grupos de anuncios, 3 canal, 4 grupos oficiales"
+      },
+      "clicks_limit": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "participants_limit": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "backup_groups_count": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "admins_per_group": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer",
+         "null"
+        ]
+       }
+      },
+      "pixel": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "send_always_same_group": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "auto_create_groups": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "start_number": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "official_number": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "official_lid": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "companion_numbers": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       }
+      },
+      "invite_template": {
+       "in": "body",
+       "type": "{name: string, language: string, body_param_count: integer, group_id_position: integer, body_parameters: array<string>, library_template_name: string}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "name": {
+          "t": [
+           "string"
+          ]
+         },
+         "language": {
+          "t": [
+           "string"
+          ]
+         },
+         "body_param_count": {
+          "t": [
+           "integer",
+           "null"
+          ]
+         },
+         "group_id_position": {
+          "t": [
+           "integer",
+           "null"
+          ]
+         },
+         "body_parameters": {
+          "t": [
+           "array"
+          ],
+          "i": {
+           "t": [
+            "string"
+           ]
+          }
+         },
+         "library_template_name": {
+          "t": [
+           "string",
+           "null"
+          ]
+         }
+        }
+       }
+      }
+     },
+     "example": {
+      "name": "Clase en vivo de diciembre",
+      "description": "Grupos para la clase en vivo de diciembre",
+      "administrators": [
+       {
+        "phone": "5491122334455"
+       },
+       {
+        "phone": "5491166778899"
+       }
+      ]
+     },
+     "example_from": "diseno",
+     "unavailable": {
+      "photo": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      },
+      "input_tag": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      },
+      "output_tag": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      }
+     }
+    },
     "get": {
      "summary": "Ver una campaña",
      "method": "GET",
@@ -10119,6 +10649,597 @@
      },
      "example_from": "armado"
     },
+    "update": {
+     "summary": "Editar una campaña",
+     "method": "PUT",
+     "path": "/api/v1/campaigns/{campaign}",
+     "grupo": "Campañas",
+     "permission": "communities:write",
+     "purpose": "Sirve para cambiar la configuración de una campaña",
+     "read_only": false,
+     "destructive": false,
+     "body": "object",
+     "required": [
+      "campaign",
+      "administrators"
+     ],
+     "params": {
+      "campaign": {
+       "in": "path",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "name": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "description": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "is_active": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "redirect_url": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "traffic_distribution_type": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         1,
+         2
+        ]
+       },
+       "enum": [
+        1,
+        2
+       ]
+      },
+      "fill_groups_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean",
+         "null"
+        ]
+       },
+       "desc": "Rellenar grupos, además de la distribución elegida"
+      },
+      "group_numbering_position": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         1,
+         2
+        ]
+       },
+       "enum": [
+        1,
+        2
+       ]
+      },
+      "slug": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "anti_bot_verification_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "custom_domain": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "captcha_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "virtual_queue_enabled": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "virtual_queue_rate_per_minute": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "group_name_variations": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       }
+      },
+      "moderation": {
+       "in": "body",
+       "type": "{type: integer, insults_and_profanity: boolean, negative_comments: boolean, repetitive_spam: boolean, external_links: boolean, promotions_and_sales: boolean, off_topic: boolean}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "type": {
+          "t": [
+           "integer"
+          ],
+          "e": [
+           1,
+           2
+          ]
+         },
+         "insults_and_profanity": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "negative_comments": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "repetitive_spam": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "external_links": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "promotions_and_sales": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "off_topic": {
+          "t": [
+           "boolean"
+          ]
+         }
+        }
+       }
+      },
+      "administrators": {
+       "in": "body",
+       "type": "array<{phone*: string, lid: string, roles: {can_send_message: boolean, can_do_actions: boolean, can_create_groups: boolean, can_create_group: boolean, can_send_messages: boolean, can_change_name_description: boolean}}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "phone": {
+           "t": [
+            "string"
+           ]
+          },
+          "lid": {
+           "t": [
+            "string",
+            "null"
+           ]
+          },
+          "roles": {
+           "t": [
+            "object"
+           ],
+           "p": {
+            "can_send_message": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_do_actions": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_create_groups": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_create_group": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_send_messages": {
+             "t": [
+              "boolean"
+             ]
+            },
+            "can_change_name_description": {
+             "t": [
+              "boolean"
+             ]
+            }
+           }
+          }
+         },
+         "r": [
+          "phone"
+         ]
+        }
+       },
+       "desc": "Reemplaza la lista de administradores: de 2 a 20 (de 1 a 20 en un canal)"
+      },
+      "members_can_send_messages": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: todos los participantes pueden escribir en los grupos; false: solo los administradores"
+      },
+      "type": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "1",
+         "2",
+         "3",
+         "4"
+        ]
+       },
+       "enum": [
+        "1",
+        "2",
+        "3",
+        "4"
+       ],
+       "desc": "El tipo no cambia: si mandas uno distinto del de la campaña, 422"
+      },
+      "process_at": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Cuándo llega el cambio a los grupos con update_groups: fecha y hora (ej"
+      },
+      "update_groups": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: el cambio llega también a los grupos en WhatsApp"
+      },
+      "selection_type": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "all",
+         "none"
+        ]
+       },
+       "enum": [
+        "all",
+        "none"
+       ],
+       "desc": "Con update_groups, a qué grupos de la campaña llega el cambio: none, solo a los de groups_uids; all, a todos…"
+      },
+      "groups_uids": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       },
+       "desc": "Los uid de los grupos de la campaña que elige o excluye selection_type"
+      },
+      "clicks_limit": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "participants_limit": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "backup_groups_count": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "admins_per_group": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer",
+         "null"
+        ]
+       }
+      },
+      "pixel": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "send_always_same_group": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "start_number": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
+      "auto_create_groups": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "official_number": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "official_lid": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "companion_numbers": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       }
+      },
+      "invite_template": {
+       "in": "body",
+       "type": "{name: string, language: string, body_param_count: integer, group_id_position: integer, body_parameters: array<string>, library_template_name: string}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "name": {
+          "t": [
+           "string"
+          ]
+         },
+         "language": {
+          "t": [
+           "string"
+          ]
+         },
+         "body_param_count": {
+          "t": [
+           "integer",
+           "null"
+          ]
+         },
+         "group_id_position": {
+          "t": [
+           "integer",
+           "null"
+          ]
+         },
+         "body_parameters": {
+          "t": [
+           "array"
+          ],
+          "i": {
+           "t": [
+            "string"
+           ]
+          }
+         },
+         "library_template_name": {
+          "t": [
+           "string",
+           "null"
+          ]
+         }
+        }
+       }
+      }
+     },
+     "example": {
+      "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu",
+      "name": "Clase en vivo de enero",
+      "administrators": [
+       {
+        "phone": "5491122334455"
+       },
+       {
+        "phone": "5491166778899"
+       }
+      ]
+     },
+     "example_from": "diseno",
+     "unavailable": {
+      "photo": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      },
+      "input_tag": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      },
+      "output_tag": {
+       "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel."
+      }
+     }
+    },
+    "delete": {
+     "summary": "Borrar una campaña",
+     "method": "DELETE",
+     "path": "/api/v1/campaigns/{campaign}",
+     "grupo": "Campañas",
+     "permission": "communities:write",
+     "purpose": "Sirve para borrar una campaña que ya no usas",
+     "read_only": false,
+     "destructive": true,
+     "body": null,
+     "required": [
+      "campaign"
+     ],
+     "params": {
+      "campaign": {
+       "in": "path",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      }
+     },
+     "example": {
+      "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu"
+     },
+     "example_from": "armado",
+     "destructive_reason": "La campaña se borra con sus grupos en Funnelchat y sus estadísticas, y los envíos programados que solo apuntaban a ella quedan borrados. Los grupos siguen en WhatsApp."
+    },
     "list_conditionals": {
      "summary": "Ver las condiciones de una campaña",
      "method": "GET",
@@ -10148,6 +11269,56 @@
       "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu"
      },
      "example_from": "armado"
+    },
+    "set_status": {
+     "summary": "Activar o pausar una campaña",
+     "method": "POST",
+     "path": "/api/v1/campaigns/{campaign}/status",
+     "grupo": "Campañas",
+     "permission": "communities:write",
+     "purpose": "Úsalo para pausar una campaña o volver a activarla",
+     "read_only": false,
+     "destructive": false,
+     "body": "object",
+     "required": [
+      "campaign",
+      "active"
+     ],
+     "params": {
+      "campaign": {
+       "in": "path",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       }
+      },
+      "active": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       }
+      },
+      "redirect_url": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       }
+      }
+     },
+     "example": {
+      "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu",
+      "active": false
+     },
+     "example_from": "diseno"
     },
     "list_available_groups": {
      "summary": "Ver los grupos que puedes sumar a una campaña",
@@ -10341,7 +11512,7 @@
          "integer"
         ]
        },
-       "desc": "Estado del grupo (ver status de GroupResource); 0 no filtra"
+       "desc": "Estado del grupo (ver status de GroupResource): 0 solo los activos; sin status no filtra"
       },
       "origin": {
        "in": "query",
@@ -10390,6 +11561,30 @@
         ]
        },
        "desc": "Filtra por teléfono de administrador, sin +"
+      },
+      "fillState": {
+       "in": "query",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ],
+        "e": [
+         "receiving",
+         "waiting",
+         "full",
+         "suspended",
+         null
+        ]
+       },
+       "enum": [
+        "receiving",
+        "waiting",
+        "full",
+        "suspended"
+       ],
+       "desc": "Estado de llenado: receiving, waiting, full o suspended"
       },
       "page": {
        "in": "query",
@@ -11118,6 +12313,15 @@
         "desc"
        ]
       },
+      "page": {
+       "in": "query",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
       "perPage": {
        "in": "query",
        "type": "integer",
@@ -11213,19 +12417,362 @@
         "0"
        ],
        "desc": "true: solo envíos sin carpeta"
-      },
-      "page": {
-       "in": "query",
-       "type": "integer",
-       "schema": {
-        "t": [
-         "integer"
-        ]
-       }
       }
      },
      "example": {},
      "example_from": "armado"
+    },
+    "create_scheduled_message": {
+     "summary": "Programar un envío a grupos",
+     "method": "POST",
+     "path": "/api/v1/scheduled-messages",
+     "grupo": "Envíos programados",
+     "permission": "communities:send",
+     "purpose": "Úsalo para programar un mensaje a tus grupos: para una fecha, al momento o con recurrencia, en hasta 3 bloques",
+     "read_only": false,
+     "destructive": false,
+     "body": "object",
+     "required": [
+      "name",
+      "send_at",
+      "messages"
+     ],
+     "params": {
+      "name": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Nombre del envío; no lo ven los grupos"
+      },
+      "folder_id": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       },
+       "desc": "Carpeta (de «Ver las carpetas de envíos»)"
+      },
+      "is_draft": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: lo guarda como borrador; no sale ni cuenta en el tope de 24 horas"
+      },
+      "accept_risk": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: acepta el riesgo de texto o de frecuencia que devolvió un 422 risk_not_accepted"
+      },
+      "send_at": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Cuándo sale, en UTC (AAAA-MM-DD HH:MM:SS); con send_option=now, ahora"
+      },
+      "messages": {
+       "in": "body",
+       "type": "array<{type*: integer, value*: object, shipping_order*: integer, variations: array<object>, mentioned: boolean, pinned: boolean, pinDuration: integer}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "type": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+           ]
+          },
+          "value": {
+           "t": [
+            "object"
+           ],
+           "libre": true
+          },
+          "shipping_order": {
+           "t": [
+            "integer"
+           ]
+          },
+          "variations": {
+           "t": [
+            "array"
+           ],
+           "i": {
+            "t": [
+             "object"
+            ],
+            "libre": true
+           }
+          },
+          "mentioned": {
+           "t": [
+            "boolean"
+           ],
+           "e": [
+            true
+           ]
+          },
+          "pinned": {
+           "t": [
+            "boolean"
+           ]
+          },
+          "pinDuration": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            1,
+            7,
+            30
+           ]
+          }
+         },
+         "r": [
+          "type",
+          "value",
+          "shipping_order"
+         ]
+        }
+       },
+       "desc": "Bloques del envío, de 1 a 3, en el orden de shipping_order"
+      },
+      "targets": {
+       "in": "body",
+       "type": "array<{campaign_id*: string, selection_type*: string, group_uids: array<string>}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "campaign_id": {
+           "t": [
+            "string"
+           ]
+          },
+          "selection_type": {
+           "t": [
+            "string"
+           ],
+           "e": [
+            "all",
+            "none"
+           ]
+          },
+          "group_uids": {
+           "t": [
+            "array"
+           ],
+           "i": {
+            "t": [
+             "string"
+            ]
+           }
+          }
+         },
+         "r": [
+          "campaign_id",
+          "selection_type"
+         ]
+        }
+       },
+       "desc": "Destino por campaña: selection_type=none con los group_uids que van, o all con los que no van (no vacío)"
+      },
+      "group_ids": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       },
+       "desc": "Destino: ids de grupos de tu workspace, hasta 500"
+      },
+      "send_option": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "now",
+         "scheduled"
+        ]
+       },
+       "enum": [
+        "now",
+        "scheduled"
+       ],
+       "desc": "now: sale al guardar; scheduled (por defecto): en send_at"
+      },
+      "shipping_speed": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         0,
+         1,
+         2
+        ]
+       },
+       "enum": [
+        0,
+        1,
+        2
+       ],
+       "desc": "Ritmo de envío entre grupos: 0 lento, 1 medio, 2 rápido"
+      },
+      "recurrence": {
+       "in": "body",
+       "type": "{enabled*: boolean, frequency: string, interval: integer, week_days: array<integer>, end_type: string, occurrences: integer, end_date: string}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "enabled": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "frequency": {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "daily",
+           "weekly",
+           "monthly"
+          ]
+         },
+         "interval": {
+          "t": [
+           "integer"
+          ]
+         },
+         "week_days": {
+          "t": [
+           "array"
+          ],
+          "i": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+           ]
+          }
+         },
+         "end_type": {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "occurrences",
+           "date"
+          ]
+         },
+         "occurrences": {
+          "t": [
+           "integer"
+          ]
+         },
+         "end_date": {
+          "t": [
+           "string"
+          ]
+         }
+        },
+        "r": [
+         "enabled"
+        ]
+       },
+       "desc": "Repetición del envío"
+      },
+      "whalink_custom_domain": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       },
+       "desc": "Dominio propio para los links acortados del texto"
+      }
+     },
+     "example": {
+      "name": "Recordatorio de clase en vivo",
+      "send_at": "2026-12-07 13:00:00",
+      "group_ids": [
+       "grp_AK2GMGeWAAdd8fZbtOVvE3Z"
+      ],
+      "messages": [
+       {
+        "type": 1,
+        "value": {
+         "message": "La clase en vivo empieza en una hora."
+        },
+        "shipping_order": 1
+       }
+      ]
+     },
+     "example_from": "diseno"
     },
     "get_scheduled_message": {
      "summary": "Ver un envío programado",
@@ -11256,6 +12803,427 @@
       "scheduledMessage": "smg_Ap5avHiKWWEBpqsQuJLOBCt"
      },
      "example_from": "armado"
+    },
+    "update_scheduled_message": {
+     "summary": "Editar un envío programado",
+     "method": "PUT",
+     "path": "/api/v1/scheduled-messages/{scheduledMessage}",
+     "grupo": "Envíos programados",
+     "permission": "communities:send",
+     "purpose": "Sirve para cambiar un envío que todavía no salió o sigue en borrador",
+     "read_only": false,
+     "destructive": false,
+     "body": "object",
+     "required": [
+      "scheduledMessage",
+      "name",
+      "send_at",
+      "messages"
+     ],
+     "params": {
+      "scheduledMessage": {
+       "in": "path",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Id del envío (no el uuid)"
+      },
+      "name": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Nombre del envío; no lo ven los grupos"
+      },
+      "folder_id": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       },
+       "desc": "Carpeta (de «Ver las carpetas de envíos»)"
+      },
+      "is_draft": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: lo guarda como borrador; no sale ni cuenta en el tope de 24 horas"
+      },
+      "accept_risk": {
+       "in": "body",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: acepta el riesgo de texto o de frecuencia que devolvió un 422 risk_not_accepted"
+      },
+      "send_at": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Cuándo sale, en UTC (AAAA-MM-DD HH:MM:SS); con send_option=now, ahora"
+      },
+      "messages": {
+       "in": "body",
+       "type": "array<{type*: integer, value*: object, shipping_order*: integer, variations: array<object>, mentioned: boolean, pinned: boolean, pinDuration: integer}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "type": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+           ]
+          },
+          "value": {
+           "t": [
+            "object"
+           ],
+           "libre": true
+          },
+          "shipping_order": {
+           "t": [
+            "integer"
+           ]
+          },
+          "variations": {
+           "t": [
+            "array"
+           ],
+           "i": {
+            "t": [
+             "object"
+            ],
+            "libre": true
+           }
+          },
+          "mentioned": {
+           "t": [
+            "boolean"
+           ],
+           "e": [
+            true
+           ]
+          },
+          "pinned": {
+           "t": [
+            "boolean"
+           ]
+          },
+          "pinDuration": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            1,
+            7,
+            30
+           ]
+          }
+         },
+         "r": [
+          "type",
+          "value",
+          "shipping_order"
+         ]
+        }
+       },
+       "desc": "Bloques del envío, de 1 a 3, en el orden de shipping_order"
+      },
+      "targets": {
+       "in": "body",
+       "type": "array<{campaign_id*: string, selection_type*: string, group_uids: array<string>}>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "object"
+         ],
+         "p": {
+          "campaign_id": {
+           "t": [
+            "string"
+           ]
+          },
+          "selection_type": {
+           "t": [
+            "string"
+           ],
+           "e": [
+            "all",
+            "none"
+           ]
+          },
+          "group_uids": {
+           "t": [
+            "array"
+           ],
+           "i": {
+            "t": [
+             "string"
+            ]
+           }
+          }
+         },
+         "r": [
+          "campaign_id",
+          "selection_type"
+         ]
+        }
+       },
+       "desc": "Destino por campaña: selection_type=none con los group_uids que van, o all con los que no van (no vacío)"
+      },
+      "group_ids": {
+       "in": "body",
+       "type": "array<string>",
+       "schema": {
+        "t": [
+         "array"
+        ],
+        "i": {
+         "t": [
+          "string"
+         ]
+        }
+       },
+       "desc": "Destino: ids de grupos de tu workspace, hasta 500"
+      },
+      "send_option": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "now",
+         "scheduled"
+        ]
+       },
+       "enum": [
+        "now",
+        "scheduled"
+       ],
+       "desc": "now: sale al guardar; scheduled (por defecto): en send_at"
+      },
+      "shipping_speed": {
+       "in": "body",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ],
+        "e": [
+         0,
+         1,
+         2
+        ]
+       },
+       "enum": [
+        0,
+        1,
+        2
+       ],
+       "desc": "Ritmo de envío entre grupos: 0 lento, 1 medio, 2 rápido"
+      },
+      "recurrence": {
+       "in": "body",
+       "type": "{enabled*: boolean, frequency: string, interval: integer, week_days: array<integer>, end_type: string, occurrences: integer, end_date: string}",
+       "schema": {
+        "t": [
+         "object"
+        ],
+        "p": {
+         "enabled": {
+          "t": [
+           "boolean"
+          ]
+         },
+         "frequency": {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "daily",
+           "weekly",
+           "monthly"
+          ]
+         },
+         "interval": {
+          "t": [
+           "integer"
+          ]
+         },
+         "week_days": {
+          "t": [
+           "array"
+          ],
+          "i": {
+           "t": [
+            "integer"
+           ],
+           "e": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+           ]
+          }
+         },
+         "end_type": {
+          "t": [
+           "string"
+          ],
+          "e": [
+           "occurrences",
+           "date"
+          ]
+         },
+         "occurrences": {
+          "t": [
+           "integer"
+          ]
+         },
+         "end_date": {
+          "t": [
+           "string"
+          ]
+         }
+        },
+        "r": [
+         "enabled"
+        ]
+       },
+       "desc": "Repetición del envío"
+      },
+      "whalink_custom_domain": {
+       "in": "body",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string",
+         "null"
+        ]
+       },
+       "desc": "Dominio propio para los links acortados del texto"
+      }
+     },
+     "example": {
+      "scheduledMessage": "smg_Ap5avHiKWWEBpqsQuJLOBCt",
+      "name": "Recordatorio de clase en vivo",
+      "send_at": "2026-12-07 14:00:00",
+      "group_ids": [
+       "grp_AK2GMGeWAAdd8fZbtOVvE3Z"
+      ],
+      "messages": [
+       {
+        "type": 1,
+        "value": {
+         "message": "La clase en vivo empieza en una hora."
+        },
+        "shipping_order": 1
+       }
+      ]
+     },
+     "example_from": "diseno"
+    },
+    "cancel_scheduled_message": {
+     "summary": "Cancelar un envío programado",
+     "method": "DELETE",
+     "path": "/api/v1/scheduled-messages/{scheduledMessage}",
+     "grupo": "Envíos programados",
+     "permission": "communities:write",
+     "purpose": "Úsalo para cancelar un envío programado o cortar uno recurrente",
+     "read_only": false,
+     "destructive": true,
+     "body": null,
+     "required": [
+      "scheduledMessage"
+     ],
+     "params": {
+      "scheduledMessage": {
+       "in": "path",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ]
+       },
+       "desc": "Id del envío (no el uuid)"
+      },
+      "recurrence_scope": {
+       "in": "query",
+       "type": "string",
+       "schema": {
+        "t": [
+         "string"
+        ],
+        "e": [
+         "stop"
+        ]
+       },
+       "enum": [
+        "stop"
+       ],
+       "desc": "Con una API key solo stop (por defecto): cancela lo que falta enviar y corta la recurrencia; lo ya entregado…"
+      },
+      "only_if_draft": {
+       "in": "query",
+       "type": "boolean",
+       "schema": {
+        "t": [
+         "boolean"
+        ]
+       },
+       "desc": "true: solo lo cancela si sigue en borrador; si no, 409"
+      }
+     },
+     "example": {
+      "scheduledMessage": "smg_Ap5avHiKWWEBpqsQuJLOBCt"
+     },
+     "example_from": "armado",
+     "destructive_reason": "Lo que faltaba enviar ya no sale y la recurrencia se corta. Lo ya entregado queda en los grupos."
     },
     "list_scheduled_message_groups": {
      "summary": "Ver los grupos de un envío",
@@ -11327,6 +13295,15 @@
         "desc"
        ]
       },
+      "page": {
+       "in": "query",
+       "type": "integer",
+       "schema": {
+        "t": [
+         "integer"
+        ]
+       }
+      },
       "perPage": {
        "in": "query",
        "type": "integer",
@@ -11346,15 +13323,6 @@
         ]
        },
        "desc": "Hoy no filtra"
-      },
-      "page": {
-       "in": "query",
-       "type": "integer",
-       "schema": {
-        "t": [
-         "integer"
-        ]
-       }
       }
      },
      "example": {

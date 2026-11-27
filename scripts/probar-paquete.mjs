@@ -31,7 +31,9 @@ const fallar = (m) => {
 
 // 1. npm pack: qué lleva y cuánto pesa.
 const destino = nueva('pack');
-const [info] = JSON.parse(correr(npm, ['pack', '--json', '--pack-destination', destino], RAIZ));
+// npm 10 y 11 responden una lista; npm 12, un objeto por nombre del paquete.
+const salidaPack = JSON.parse(correr(npm, ['pack', '--json', '--pack-destination', destino], RAIZ));
+const [info] = Array.isArray(salidaPack) ? salidaPack : Object.values(salidaPack);
 const tarball = join(destino, info.filename);
 const archivos = info.files.map((f) => f.path);
 console.log(`npm pack: ${info.filename}, ${archivos.length} archivos, ${(info.size / 1024).toFixed(0)} KB (${(info.unpackedSize / 1024).toFixed(0)} KB sin comprimir)`);
