@@ -1,5 +1,15 @@
 # Cambios
 
+## 0.2.0 (27-11-2026)
+
+Generado desde la spec del portal v0.7.0-54-g5c9ed62 (27-11): 260 llamadas (253 antes). Las campañas y los envíos programados a grupos ya se escriben con una API key.
+
+- **`campaigns` deja de ser solo lectura:** `create`, `update`, `set_status` (activar o pausar) y `delete` de una campaña; `create_scheduled_message`, `update_scheduled_message` y `cancel_scheduled_message` de un envío a grupos. Con `--read-only` no aparecen.
+- **Borrar una campaña y cancelar un envío programado piden `confirm: true`** (27 acciones en total), con lo que se pierde según la spec.
+- **`photo`, `input_tag` y `output_tag` no se ofrecen** al crear o editar una campaña: con una API key la API responde 422; se configuran desde el panel.
+- **Ejemplos escritos a mano** para crear y editar una campaña, pausarla, y programar y editar un envío (`send_at` como lo toma la API: `2026-12-07 13:00:00`, en UTC).
+- `search_docs` busca en los textos del portal del mismo commit (875 secciones).
+
 ## 0.1.0 (18-11-2026)
 
 Primera versión publicada.

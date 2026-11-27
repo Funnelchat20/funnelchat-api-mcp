@@ -96,7 +96,9 @@ test('los dos transportes listan los mismos 20 tools, con annotations', opciones
   const b = await http.listTools();
   assert.equal(a.tools.length, 20);
   assert.deepEqual(a.tools.map((t) => t.name), b.tools.map((t) => t.name));
-  assert.equal(a.tools.find((t) => t.name === 'campaigns').annotations.readOnlyHint, true);
+  // campaigns dejó de ser solo lectura (27-11): crea, edita y borra campañas y envíos programados.
+  assert.equal(a.tools.find((t) => t.name === 'campaigns').annotations.destructiveHint, true);
+  assert.equal(a.tools.find((t) => t.name === 'status').annotations.readOnlyHint, true);
   assert.equal(a.tools.find((t) => t.name === 'contacts').annotations.destructiveHint, true);
   assert.match(stdio.getInstructions(), /status/);
 });

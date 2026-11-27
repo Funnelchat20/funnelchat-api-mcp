@@ -138,7 +138,7 @@
     {
       "name": "campaigns",
       "title": "Campañas",
-      "description": "Campañas de grupos, envíos programados y estadísticas, solo lectura.",
+      "description": "Campañas de grupos: crear, editar, pausar y borrar; envíos programados a grupos: programar, editar y cancelar; y estadísticas.",
       "grupos": [
         "Campañas",
         "Envíos programados",
@@ -265,7 +265,9 @@
     "GET /api/v1/contacts/{contact}/kanban-stages": "list_for_contact",
     "GET /api/v1/payments/products/{platform}": "list_payment_products",
     "GET /api/v1/scheduled-messages/{scheduledMessage}/readed-played-rates": "get_scheduled_message_rates",
-    "POST /api/v1/devices/{device}/clean": "disconnect"
+    "POST /api/v1/devices/{device}/clean": "disconnect",
+    "POST /api/v1/campaigns/{campaign}/status": "set_status",
+    "DELETE /api/v1/scheduled-messages/{scheduledMessage}": "cancel_scheduled_message"
   },
   "destructivas": {
     "_comment": "La spec dice qué no se deshace con x-fc-destructive y qué se pierde con su aviso «No se puede deshacer». Aquí va solo lo que la spec no marca, o marca false y el MCP pide confirmación igual; el texto es lo que el modelo le cuenta a la persona antes de preguntarle. Cuando la spec marque una, el generador avisa que sobra.",
@@ -297,6 +299,22 @@
       "desc": {
         "type": "qr: el número se conecta escaneando un código QR"
       }
+    },
+    "POST /api/v1/campaigns": {
+      "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel.",
+      "quitar_params": [
+        "photo",
+        "input_tag",
+        "output_tag"
+      ]
+    },
+    "PUT /api/v1/campaigns/{campaign}": {
+      "motivo": "Con una API key la API no acepta photo, input_tag ni output_tag (422): se configuran desde el panel.",
+      "quitar_params": [
+        "photo",
+        "input_tag",
+        "output_tag"
+      ]
     }
   },
   "ejemplos": {
@@ -474,6 +492,67 @@
     "groups.import": {
       "group": "120363041234567890@g.us",
       "device_id": "dev_Ac7Ku7iIZDXJTjdCu0UB1mX"
+    },
+    "campaigns.create": {
+      "name": "Clase en vivo de diciembre",
+      "description": "Grupos para la clase en vivo de diciembre",
+      "administrators": [
+        {
+          "phone": "5491122334455"
+        },
+        {
+          "phone": "5491166778899"
+        }
+      ]
+    },
+    "campaigns.update": {
+      "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu",
+      "name": "Clase en vivo de enero",
+      "administrators": [
+        {
+          "phone": "5491122334455"
+        },
+        {
+          "phone": "5491166778899"
+        }
+      ]
+    },
+    "campaigns.set_status": {
+      "campaign": "cmp_A6RMvAOjr0mHuLr08RpcwWu",
+      "active": false
+    },
+    "campaigns.create_scheduled_message": {
+      "name": "Recordatorio de clase en vivo",
+      "send_at": "2026-12-07 13:00:00",
+      "group_ids": [
+        "grp_AK2GMGeWAAdd8fZbtOVvE3Z"
+      ],
+      "messages": [
+        {
+          "type": 1,
+          "value": {
+            "message": "La clase en vivo empieza en una hora."
+          },
+          "shipping_order": 1
+        }
+      ]
+    },
+    "campaigns.update_scheduled_message": {
+      "scheduledMessage": "smg_Ap5avHiKWWEBpqsQuJLOBCt",
+      "name": "Recordatorio de clase en vivo",
+      "send_at": "2026-12-07 14:00:00",
+      "group_ids": [
+        "grp_AK2GMGeWAAdd8fZbtOVvE3Z"
+      ],
+      "messages": [
+        {
+          "type": 1,
+          "value": {
+            "message": "La clase en vivo empieza en una hora."
+          },
+          "shipping_order": 1
+        }
+      ]
     },
     "webhooks.create": {
       "url": "https://tu-sistema.com/webhooks/funnelchat",

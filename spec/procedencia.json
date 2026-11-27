@@ -1,27 +1,31 @@
 {
   "description": "De dónde salió spec/funnelchat.json. Lo escribe `npm run generate -- --spec <archivo>`; no se edita a mano.",
   "file": "spec/funnelchat.json",
-  "sha256": "766230d4a8ce3bac38a973444361ab4a05bbe8b66e491a1323b962284e09c7fd",
-  "bytes": 1447245,
+  "sha256": "b98c53bd7dc167cfc77fbd15bb4334d98f2361d56b3edf3e03949ad723135b47",
+  "bytes": 1489584,
   "source": {
-    "url": null,
-    "portal_version": "v0.7.0-49-g31766eb",
+    "url": "https://developers-portal.funnelchat.app/specs/funnelchat.json",
+    "portal_version": "v0.7.0-54-g5c9ed62",
     "repository": "https://github.com/Funnelchat20/developers-portal.git",
     "path": "public/specs/funnelchat.json",
-    "branch": "docs/integracion-17nov",
-    "commit": "31766eb51e8c58dc41ae2705e884c45f336469f3",
-    "commit_date": "2026-11-18T11:21:12-05:00",
+    "branch": "main",
+    "commit": "5c9ed623381df7c7474c6c975b6ba2c73fc18eb4",
+    "commit_date": "2026-11-27T15:34:29-05:00",
     "file_tracked_in_git": false,
     "tracked_files_clean": true,
-    "file_modified_at": "2026-11-18T16:21:19.366Z",
+    "file_modified_at": "2026-11-27T20:32:16.393Z",
+    "declared": [
+      "url"
+    ],
+    "declared_note": "Los campos de `declared` se dieron con `--source`, no se leyeron de git.",
     "note": "El archivo es una salida del build del portal (no está en git): `commit` y `portal_version` dicen de qué código salió."
   },
-  "imported_at": "2026-11-18T16:27:12.070Z",
+  "imported_at": "2026-11-27T21:01:32.746Z",
   "spec": {
     "openapi": "3.1.0",
     "title": "Funnelchat API",
     "version": "v0",
-    "paths": 209,
-    "operations": 253
+    "paths": 210,
+    "operations": 260
   }
 }

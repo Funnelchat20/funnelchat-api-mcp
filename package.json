@@ -1,6 +1,6 @@
 {
   "name": "@funnelchat-hq/mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Servidor MCP de la API pública de Funnelchat: números de WhatsApp, mensajes, contactos, plantillas, grupos y webhooks, con tu clave de API",
   "license": "MIT",
   "author": {
