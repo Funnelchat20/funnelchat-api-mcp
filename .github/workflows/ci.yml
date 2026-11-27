@@ -18,7 +18,7 @@ concurrency:
 
 env:
   # The sandbox the end-to-end tests run against: the version that goes out with this spec.
-  SANDBOX_VERSION: 0.7.0
+  SANDBOX_VERSION: 0.8.0
 
 jobs:
   check:
